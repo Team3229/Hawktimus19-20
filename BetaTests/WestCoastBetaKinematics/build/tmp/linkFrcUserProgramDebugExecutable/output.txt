@@ -1,0 +1,4 @@
+See file:///C:/Users/lixin/Documents/FRC1920/GitHub/Hawktimus19-20/BetaTests/WestCoastBetaKinematics/build/tmp/linkFrcUserProgramDebugExecutable/output.txt for all output for linkFrcUserProgramDebugExecutable.
+linking frcUserProgram successful.
+
+Finished linkFrcUserProgramDebugExecutable, see full log file:///C:/Users/lixin/Documents/FRC1920/GitHub/Hawktimus19-20/BetaTests/WestCoastBetaKinematics/build/tmp/linkFrcUserProgramDebugExecutable/output.txt.

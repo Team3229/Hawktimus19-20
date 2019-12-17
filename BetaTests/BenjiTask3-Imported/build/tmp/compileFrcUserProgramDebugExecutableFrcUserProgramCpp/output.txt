@@ -1,0 +1,16 @@
+See file:///C:/Users/lixin/Documents/FRC1920/GitHub/Hawktimus19-20/BetaTests/BenjiTask3-Imported/build/tmp/compileFrcUserProgramDebugExecutableFrcUserProgramCpp/output.txt for all output for compileFrcUserProgramDebugExecutableFrcUserProgramCpp.
+compiling Camera.cpp successful.
+
+compiling Pneumatics.cpp successful.
+
+compiling Lift.cpp successful.
+
+compiling DriveSystem.cpp successful.
+
+compiling Limelight.cpp successful.
+
+compiling Intake.cpp successful.
+
+compiling Robot.cpp successful.
+
+Finished compileFrcUserProgramDebugExecutableFrcUserProgramCpp, see full log file:///C:/Users/lixin/Documents/FRC1920/GitHub/Hawktimus19-20/BetaTests/BenjiTask3-Imported/build/tmp/compileFrcUserProgramDebugExecutableFrcUserProgramCpp/output.txt.

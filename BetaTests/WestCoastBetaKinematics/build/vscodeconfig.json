@@ -1,0 +1,388 @@
+[
+  {
+    "name": "linuxathena",
+    "architecture": "arm-v7",
+    "operatingSystem": "linux",
+    "flavor": "default",
+    "buildType": "debug",
+    "cppPath": "C:\\Users\\Public\\wpilib\\2020\\roborio\\bin\\arm-frc2020-linux-gnueabi-g++.exe",
+    "cPath": "C:\\Users\\Public\\wpilib\\2020\\roborio\\bin\\arm-frc2020-linux-gnueabi-gcc.exe",
+    "msvc": false,
+    "gcc": true,
+    "systemCppMacros": [],
+    "systemCppArgs": [],
+    "systemCMacros": [],
+    "systemCArgs": [],
+    "allLibFiles": [
+      "C:\\Users\\lixin\\.gradle\\caches\\transforms-2\\files-2.1\\7fa4cc49d24fcdccb8e710118d12a102\\wpilibc-cpp-2020.1.1-beta-4-headers\\",
+      "C:\\Users\\lixin\\.gradle\\caches\\transforms-2\\files-2.1\\982a2dd0ebcaa1677c268bebbf1b8881\\ntcore-cpp-2020.1.1-beta-4-headers\\",
+      "C:\\Users\\lixin\\.gradle\\caches\\transforms-2\\files-2.1\\1be026386f468e7a308da66f4a2c60ca\\hal-cpp-2020.1.1-beta-4-headers\\",
+      "C:\\Users\\lixin\\.gradle\\caches\\transforms-2\\files-2.1\\e597d9d9f3ff1741d02f630f0b48fecb\\wpiutil-cpp-2020.1.1-beta-4-headers\\",
+      "C:\\Users\\lixin\\.gradle\\caches\\transforms-2\\files-2.1\\b8640464bccc88bc03ed977aacd12b6d\\chipobject-2020.9.1-headers\\",
+      "C:\\Users\\lixin\\.gradle\\caches\\transforms-2\\files-2.1\\32adaf81d519dfe699a23062c9650a49\\netcomm-2020.9.1-headers\\",
+      "C:\\Users\\lixin\\.gradle\\caches\\transforms-2\\files-2.1\\9ae5500ce798c11adc8d1fa93dc6c199\\visa-2020.9.1-headers\\",
+      "C:\\Users\\lixin\\.gradle\\caches\\transforms-2\\files-2.1\\6f4aafd0d3b7a6a208727e0194bc15cd\\cameraserver-cpp-2020.1.1-beta-4-headers\\",
+      "C:\\Users\\lixin\\.gradle\\caches\\transforms-2\\files-2.1\\80de7919deb6ea48e299be0e57f0930a\\cscore-cpp-2020.1.1-beta-4-headers\\",
+      "C:\\Users\\lixin\\.gradle\\caches\\transforms-2\\files-2.1\\eed3931469ba7efc2e953f8f3443a673\\opencv-cpp-3.4.7-2-headers\\",
+      "C:\\Users\\lixin\\.gradle\\caches\\transforms-2\\files-2.1\\f8126cf8c65b56019a40f60dcc14b376\\SparkMax-cpp-1.4.34-headers\\",
+      "C:\\Users\\lixin\\.gradle\\caches\\transforms-2\\files-2.1\\ce7066f86895f7d66b45845c91308d92\\SparkMax-driver-1.4.34-headers\\",
+      "C:\\Users\\lixin\\Documents\\FRC1920\\GitHub\\Hawktimus19-20\\BetaTests\\WestCoastBetaKinematics\\src\\main\\include\\",
+      "C:\\Users\\lixin\\.gradle\\caches\\transforms-2\\files-2.1\\f51309ae8912ba256e2ca0f68346d366\\wpilibc-cpp-2020.1.1-beta-4-sources\\",
+      "C:\\Users\\lixin\\.gradle\\caches\\transforms-2\\files-2.1\\6f824c8176893b0be3616bab82e4da06\\ntcore-cpp-2020.1.1-beta-4-sources\\",
+      "C:\\Users\\lixin\\.gradle\\caches\\transforms-2\\files-2.1\\d0a8f420eb21f5ba5f157fbb0bc7053b\\hal-cpp-2020.1.1-beta-4-sources\\",
+      "C:\\Users\\lixin\\.gradle\\caches\\transforms-2\\files-2.1\\c82cca480b1eb4d3ebbd6344952c871c\\wpiutil-cpp-2020.1.1-beta-4-sources\\",
+      "C:\\Users\\lixin\\.gradle\\caches\\transforms-2\\files-2.1\\433b86b1ba5fe83452cc6264924f0362\\cameraserver-cpp-2020.1.1-beta-4-sources\\",
+      "C:\\Users\\lixin\\.gradle\\caches\\transforms-2\\files-2.1\\a991d07c07fccb8916bdb25fbf42de66\\cscore-cpp-2020.1.1-beta-4-sources\\",
+      "C:\\Users\\lixin\\.gradle\\caches\\transforms-2\\files-2.1\\6440cf0dee8de0741badf5383075deb7\\opencv-cpp-3.4.7-2-sources\\"
+    ],
+    "allLibSources": [
+      "C:\\Users\\lixin\\.gradle\\caches\\transforms-2\\files-2.1\\f51309ae8912ba256e2ca0f68346d366\\wpilibc-cpp-2020.1.1-beta-4-sources\\",
+      "C:\\Users\\lixin\\.gradle\\caches\\transforms-2\\files-2.1\\6f824c8176893b0be3616bab82e4da06\\ntcore-cpp-2020.1.1-beta-4-sources\\",
+      "C:\\Users\\lixin\\.gradle\\caches\\transforms-2\\files-2.1\\d0a8f420eb21f5ba5f157fbb0bc7053b\\hal-cpp-2020.1.1-beta-4-sources\\",
+      "C:\\Users\\lixin\\.gradle\\caches\\transforms-2\\files-2.1\\c82cca480b1eb4d3ebbd6344952c871c\\wpiutil-cpp-2020.1.1-beta-4-sources\\",
+      "C:\\Users\\lixin\\.gradle\\caches\\transforms-2\\files-2.1\\433b86b1ba5fe83452cc6264924f0362\\cameraserver-cpp-2020.1.1-beta-4-sources\\",
+      "C:\\Users\\lixin\\.gradle\\caches\\transforms-2\\files-2.1\\a991d07c07fccb8916bdb25fbf42de66\\cscore-cpp-2020.1.1-beta-4-sources\\",
+      "C:\\Users\\lixin\\.gradle\\caches\\transforms-2\\files-2.1\\6440cf0dee8de0741badf5383075deb7\\opencv-cpp-3.4.7-2-sources\\"
+    ],
+    "allLibHeaders": [
+      "C:\\Users\\lixin\\.gradle\\caches\\transforms-2\\files-2.1\\7fa4cc49d24fcdccb8e710118d12a102\\wpilibc-cpp-2020.1.1-beta-4-headers\\",
+      "C:\\Users\\lixin\\.gradle\\caches\\transforms-2\\files-2.1\\982a2dd0ebcaa1677c268bebbf1b8881\\ntcore-cpp-2020.1.1-beta-4-headers\\",
+      "C:\\Users\\lixin\\.gradle\\caches\\transforms-2\\files-2.1\\1be026386f468e7a308da66f4a2c60ca\\hal-cpp-2020.1.1-beta-4-headers\\",
+      "C:\\Users\\lixin\\.gradle\\caches\\transforms-2\\files-2.1\\e597d9d9f3ff1741d02f630f0b48fecb\\wpiutil-cpp-2020.1.1-beta-4-headers\\",
+      "C:\\Users\\lixin\\.gradle\\caches\\transforms-2\\files-2.1\\b8640464bccc88bc03ed977aacd12b6d\\chipobject-2020.9.1-headers\\",
+      "C:\\Users\\lixin\\.gradle\\caches\\transforms-2\\files-2.1\\32adaf81d519dfe699a23062c9650a49\\netcomm-2020.9.1-headers\\",
+      "C:\\Users\\lixin\\.gradle\\caches\\transforms-2\\files-2.1\\9ae5500ce798c11adc8d1fa93dc6c199\\visa-2020.9.1-headers\\",
+      "C:\\Users\\lixin\\.gradle\\caches\\transforms-2\\files-2.1\\6f4aafd0d3b7a6a208727e0194bc15cd\\cameraserver-cpp-2020.1.1-beta-4-headers\\",
+      "C:\\Users\\lixin\\.gradle\\caches\\transforms-2\\files-2.1\\80de7919deb6ea48e299be0e57f0930a\\cscore-cpp-2020.1.1-beta-4-headers\\",
+      "C:\\Users\\lixin\\.gradle\\caches\\transforms-2\\files-2.1\\eed3931469ba7efc2e953f8f3443a673\\opencv-cpp-3.4.7-2-headers\\",
+      "C:\\Users\\lixin\\.gradle\\caches\\transforms-2\\files-2.1\\f8126cf8c65b56019a40f60dcc14b376\\SparkMax-cpp-1.4.34-headers\\",
+      "C:\\Users\\lixin\\.gradle\\caches\\transforms-2\\files-2.1\\ce7066f86895f7d66b45845c91308d92\\SparkMax-driver-1.4.34-headers\\",
+      "C:\\Users\\lixin\\Documents\\FRC1920\\GitHub\\Hawktimus19-20\\BetaTests\\WestCoastBetaKinematics\\src\\main\\include\\"
+    ],
+    "binaries": [
+      {
+        "componentName": "frcUserProgram",
+        "sourceSets": [
+          {
+            "source": {
+              "srcDirs": [
+                "C:\\Users\\lixin\\Documents\\FRC1920\\GitHub\\Hawktimus19-20\\BetaTests\\WestCoastBetaKinematics\\src\\main\\cpp\\"
+              ],
+              "includes": [
+                "**/*.cpp",
+                "**/*.cc"
+              ],
+              "excludes": []
+            },
+            "exportedHeaders": {
+              "srcDirs": [
+                "C:\\Users\\lixin\\Documents\\FRC1920\\GitHub\\Hawktimus19-20\\BetaTests\\WestCoastBetaKinematics\\src\\main\\include\\"
+              ],
+              "includes": [
+                "**/*.cpp",
+                "**/*.cc"
+              ],
+              "excludes": []
+            },
+            "cpp": true,
+            "args": [
+              "-Wall",
+              "-Wextra",
+              "-std=c++17",
+              "-Wformat=2",
+              "-pedantic",
+              "-Wno-psabi",
+              "-g",
+              "-Wno-unused-parameter",
+              "-Wno-error=deprecated-declarations",
+              "-fPIC",
+              "-rdynamic",
+              "-pthread",
+              "-Og"
+            ],
+            "macros": []
+          }
+        ],
+        "libHeaders": [
+          "C:\\Users\\lixin\\.gradle\\caches\\transforms-2\\files-2.1\\7fa4cc49d24fcdccb8e710118d12a102\\wpilibc-cpp-2020.1.1-beta-4-headers\\",
+          "C:\\Users\\lixin\\.gradle\\caches\\transforms-2\\files-2.1\\982a2dd0ebcaa1677c268bebbf1b8881\\ntcore-cpp-2020.1.1-beta-4-headers\\",
+          "C:\\Users\\lixin\\.gradle\\caches\\transforms-2\\files-2.1\\1be026386f468e7a308da66f4a2c60ca\\hal-cpp-2020.1.1-beta-4-headers\\",
+          "C:\\Users\\lixin\\.gradle\\caches\\transforms-2\\files-2.1\\e597d9d9f3ff1741d02f630f0b48fecb\\wpiutil-cpp-2020.1.1-beta-4-headers\\",
+          "C:\\Users\\lixin\\.gradle\\caches\\transforms-2\\files-2.1\\b8640464bccc88bc03ed977aacd12b6d\\chipobject-2020.9.1-headers\\",
+          "C:\\Users\\lixin\\.gradle\\caches\\transforms-2\\files-2.1\\32adaf81d519dfe699a23062c9650a49\\netcomm-2020.9.1-headers\\",
+          "C:\\Users\\lixin\\.gradle\\caches\\transforms-2\\files-2.1\\9ae5500ce798c11adc8d1fa93dc6c199\\visa-2020.9.1-headers\\",
+          "C:\\Users\\lixin\\.gradle\\caches\\transforms-2\\files-2.1\\6f4aafd0d3b7a6a208727e0194bc15cd\\cameraserver-cpp-2020.1.1-beta-4-headers\\",
+          "C:\\Users\\lixin\\.gradle\\caches\\transforms-2\\files-2.1\\80de7919deb6ea48e299be0e57f0930a\\cscore-cpp-2020.1.1-beta-4-headers\\",
+          "C:\\Users\\lixin\\.gradle\\caches\\transforms-2\\files-2.1\\eed3931469ba7efc2e953f8f3443a673\\opencv-cpp-3.4.7-2-headers\\",
+          "C:\\Users\\lixin\\.gradle\\caches\\transforms-2\\files-2.1\\f8126cf8c65b56019a40f60dcc14b376\\SparkMax-cpp-1.4.34-headers\\",
+          "C:\\Users\\lixin\\.gradle\\caches\\transforms-2\\files-2.1\\ce7066f86895f7d66b45845c91308d92\\SparkMax-driver-1.4.34-headers\\",
+          "C:\\Users\\lixin\\Documents\\FRC1920\\GitHub\\Hawktimus19-20\\BetaTests\\WestCoastBetaKinematics\\src\\main\\include\\"
+        ],
+        "sharedLibrary": false,
+        "executable": true
+      }
+    ],
+    "sourceBinaries": [
+      {
+        "source": {
+          "srcDirs": [
+            "C:\\Users\\lixin\\Documents\\FRC1920\\GitHub\\Hawktimus19-20\\BetaTests\\WestCoastBetaKinematics\\src\\main\\cpp\\"
+          ],
+          "includes": [
+            "**/*.cpp",
+            "**/*.cc"
+          ],
+          "excludes": []
+        },
+        "componentName": "frcUserProgram",
+        "cpp": true,
+        "args": [
+          "-Wall",
+          "-Wextra",
+          "-std=c++17",
+          "-Wformat=2",
+          "-pedantic",
+          "-Wno-psabi",
+          "-g",
+          "-Wno-unused-parameter",
+          "-Wno-error=deprecated-declarations",
+          "-fPIC",
+          "-rdynamic",
+          "-pthread",
+          "-Og"
+        ],
+        "macros": [],
+        "sharedLibrary": false,
+        "executable": true
+      },
+      {
+        "source": {
+          "srcDirs": [
+            "C:\\Users\\lixin\\Documents\\FRC1920\\GitHub\\Hawktimus19-20\\BetaTests\\WestCoastBetaKinematics\\src\\main\\include\\"
+          ],
+          "includes": [
+            "**/*.cpp",
+            "**/*.cc"
+          ],
+          "excludes": []
+        },
+        "componentName": "frcUserProgram",
+        "cpp": true,
+        "args": [
+          "-Wall",
+          "-Wextra",
+          "-std=c++17",
+          "-Wformat=2",
+          "-pedantic",
+          "-Wno-psabi",
+          "-g",
+          "-Wno-unused-parameter",
+          "-Wno-error=deprecated-declarations",
+          "-fPIC",
+          "-rdynamic",
+          "-pthread",
+          "-Og"
+        ],
+        "macros": [],
+        "sharedLibrary": false,
+        "executable": true
+      }
+    ],
+    "nameBinaryMap": {
+      "frcUserProgram": 0
+    }
+  },
+  {
+    "name": "linuxathena",
+    "architecture": "arm-v7",
+    "operatingSystem": "linux",
+    "flavor": "default",
+    "buildType": "release",
+    "cppPath": "C:\\Users\\Public\\wpilib\\2020\\roborio\\bin\\arm-frc2020-linux-gnueabi-g++.exe",
+    "cPath": "C:\\Users\\Public\\wpilib\\2020\\roborio\\bin\\arm-frc2020-linux-gnueabi-gcc.exe",
+    "msvc": false,
+    "gcc": true,
+    "systemCppMacros": [],
+    "systemCppArgs": [],
+    "systemCMacros": [],
+    "systemCArgs": [],
+    "allLibFiles": [
+      "C:\\Users\\lixin\\.gradle\\caches\\transforms-2\\files-2.1\\7fa4cc49d24fcdccb8e710118d12a102\\wpilibc-cpp-2020.1.1-beta-4-headers\\",
+      "C:\\Users\\lixin\\.gradle\\caches\\transforms-2\\files-2.1\\982a2dd0ebcaa1677c268bebbf1b8881\\ntcore-cpp-2020.1.1-beta-4-headers\\",
+      "C:\\Users\\lixin\\.gradle\\caches\\transforms-2\\files-2.1\\1be026386f468e7a308da66f4a2c60ca\\hal-cpp-2020.1.1-beta-4-headers\\",
+      "C:\\Users\\lixin\\.gradle\\caches\\transforms-2\\files-2.1\\e597d9d9f3ff1741d02f630f0b48fecb\\wpiutil-cpp-2020.1.1-beta-4-headers\\",
+      "C:\\Users\\lixin\\.gradle\\caches\\transforms-2\\files-2.1\\b8640464bccc88bc03ed977aacd12b6d\\chipobject-2020.9.1-headers\\",
+      "C:\\Users\\lixin\\.gradle\\caches\\transforms-2\\files-2.1\\32adaf81d519dfe699a23062c9650a49\\netcomm-2020.9.1-headers\\",
+      "C:\\Users\\lixin\\.gradle\\caches\\transforms-2\\files-2.1\\9ae5500ce798c11adc8d1fa93dc6c199\\visa-2020.9.1-headers\\",
+      "C:\\Users\\lixin\\.gradle\\caches\\transforms-2\\files-2.1\\6f4aafd0d3b7a6a208727e0194bc15cd\\cameraserver-cpp-2020.1.1-beta-4-headers\\",
+      "C:\\Users\\lixin\\.gradle\\caches\\transforms-2\\files-2.1\\80de7919deb6ea48e299be0e57f0930a\\cscore-cpp-2020.1.1-beta-4-headers\\",
+      "C:\\Users\\lixin\\.gradle\\caches\\transforms-2\\files-2.1\\eed3931469ba7efc2e953f8f3443a673\\opencv-cpp-3.4.7-2-headers\\",
+      "C:\\Users\\lixin\\.gradle\\caches\\transforms-2\\files-2.1\\f8126cf8c65b56019a40f60dcc14b376\\SparkMax-cpp-1.4.34-headers\\",
+      "C:\\Users\\lixin\\.gradle\\caches\\transforms-2\\files-2.1\\ce7066f86895f7d66b45845c91308d92\\SparkMax-driver-1.4.34-headers\\",
+      "C:\\Users\\lixin\\Documents\\FRC1920\\GitHub\\Hawktimus19-20\\BetaTests\\WestCoastBetaKinematics\\src\\main\\include\\",
+      "C:\\Users\\lixin\\.gradle\\caches\\transforms-2\\files-2.1\\f51309ae8912ba256e2ca0f68346d366\\wpilibc-cpp-2020.1.1-beta-4-sources\\",
+      "C:\\Users\\lixin\\.gradle\\caches\\transforms-2\\files-2.1\\6f824c8176893b0be3616bab82e4da06\\ntcore-cpp-2020.1.1-beta-4-sources\\",
+      "C:\\Users\\lixin\\.gradle\\caches\\transforms-2\\files-2.1\\d0a8f420eb21f5ba5f157fbb0bc7053b\\hal-cpp-2020.1.1-beta-4-sources\\",
+      "C:\\Users\\lixin\\.gradle\\caches\\transforms-2\\files-2.1\\c82cca480b1eb4d3ebbd6344952c871c\\wpiutil-cpp-2020.1.1-beta-4-sources\\",
+      "C:\\Users\\lixin\\.gradle\\caches\\transforms-2\\files-2.1\\433b86b1ba5fe83452cc6264924f0362\\cameraserver-cpp-2020.1.1-beta-4-sources\\",
+      "C:\\Users\\lixin\\.gradle\\caches\\transforms-2\\files-2.1\\a991d07c07fccb8916bdb25fbf42de66\\cscore-cpp-2020.1.1-beta-4-sources\\",
+      "C:\\Users\\lixin\\.gradle\\caches\\transforms-2\\files-2.1\\6440cf0dee8de0741badf5383075deb7\\opencv-cpp-3.4.7-2-sources\\"
+    ],
+    "allLibSources": [
+      "C:\\Users\\lixin\\.gradle\\caches\\transforms-2\\files-2.1\\f51309ae8912ba256e2ca0f68346d366\\wpilibc-cpp-2020.1.1-beta-4-sources\\",
+      "C:\\Users\\lixin\\.gradle\\caches\\transforms-2\\files-2.1\\6f824c8176893b0be3616bab82e4da06\\ntcore-cpp-2020.1.1-beta-4-sources\\",
+      "C:\\Users\\lixin\\.gradle\\caches\\transforms-2\\files-2.1\\d0a8f420eb21f5ba5f157fbb0bc7053b\\hal-cpp-2020.1.1-beta-4-sources\\",
+      "C:\\Users\\lixin\\.gradle\\caches\\transforms-2\\files-2.1\\c82cca480b1eb4d3ebbd6344952c871c\\wpiutil-cpp-2020.1.1-beta-4-sources\\",
+      "C:\\Users\\lixin\\.gradle\\caches\\transforms-2\\files-2.1\\433b86b1ba5fe83452cc6264924f0362\\cameraserver-cpp-2020.1.1-beta-4-sources\\",
+      "C:\\Users\\lixin\\.gradle\\caches\\transforms-2\\files-2.1\\a991d07c07fccb8916bdb25fbf42de66\\cscore-cpp-2020.1.1-beta-4-sources\\",
+      "C:\\Users\\lixin\\.gradle\\caches\\transforms-2\\files-2.1\\6440cf0dee8de0741badf5383075deb7\\opencv-cpp-3.4.7-2-sources\\"
+    ],
+    "allLibHeaders": [
+      "C:\\Users\\lixin\\.gradle\\caches\\transforms-2\\files-2.1\\7fa4cc49d24fcdccb8e710118d12a102\\wpilibc-cpp-2020.1.1-beta-4-headers\\",
+      "C:\\Users\\lixin\\.gradle\\caches\\transforms-2\\files-2.1\\982a2dd0ebcaa1677c268bebbf1b8881\\ntcore-cpp-2020.1.1-beta-4-headers\\",
+      "C:\\Users\\lixin\\.gradle\\caches\\transforms-2\\files-2.1\\1be026386f468e7a308da66f4a2c60ca\\hal-cpp-2020.1.1-beta-4-headers\\",
+      "C:\\Users\\lixin\\.gradle\\caches\\transforms-2\\files-2.1\\e597d9d9f3ff1741d02f630f0b48fecb\\wpiutil-cpp-2020.1.1-beta-4-headers\\",
+      "C:\\Users\\lixin\\.gradle\\caches\\transforms-2\\files-2.1\\b8640464bccc88bc03ed977aacd12b6d\\chipobject-2020.9.1-headers\\",
+      "C:\\Users\\lixin\\.gradle\\caches\\transforms-2\\files-2.1\\32adaf81d519dfe699a23062c9650a49\\netcomm-2020.9.1-headers\\",
+      "C:\\Users\\lixin\\.gradle\\caches\\transforms-2\\files-2.1\\9ae5500ce798c11adc8d1fa93dc6c199\\visa-2020.9.1-headers\\",
+      "C:\\Users\\lixin\\.gradle\\caches\\transforms-2\\files-2.1\\6f4aafd0d3b7a6a208727e0194bc15cd\\cameraserver-cpp-2020.1.1-beta-4-headers\\",
+      "C:\\Users\\lixin\\.gradle\\caches\\transforms-2\\files-2.1\\80de7919deb6ea48e299be0e57f0930a\\cscore-cpp-2020.1.1-beta-4-headers\\",
+      "C:\\Users\\lixin\\.gradle\\caches\\transforms-2\\files-2.1\\eed3931469ba7efc2e953f8f3443a673\\opencv-cpp-3.4.7-2-headers\\",
+      "C:\\Users\\lixin\\.gradle\\caches\\transforms-2\\files-2.1\\f8126cf8c65b56019a40f60dcc14b376\\SparkMax-cpp-1.4.34-headers\\",
+      "C:\\Users\\lixin\\.gradle\\caches\\transforms-2\\files-2.1\\ce7066f86895f7d66b45845c91308d92\\SparkMax-driver-1.4.34-headers\\",
+      "C:\\Users\\lixin\\Documents\\FRC1920\\GitHub\\Hawktimus19-20\\BetaTests\\WestCoastBetaKinematics\\src\\main\\include\\"
+    ],
+    "binaries": [
+      {
+        "componentName": "frcUserProgram",
+        "sourceSets": [
+          {
+            "source": {
+              "srcDirs": [
+                "C:\\Users\\lixin\\Documents\\FRC1920\\GitHub\\Hawktimus19-20\\BetaTests\\WestCoastBetaKinematics\\src\\main\\cpp\\"
+              ],
+              "includes": [
+                "**/*.cpp",
+                "**/*.cc"
+              ],
+              "excludes": []
+            },
+            "exportedHeaders": {
+              "srcDirs": [
+                "C:\\Users\\lixin\\Documents\\FRC1920\\GitHub\\Hawktimus19-20\\BetaTests\\WestCoastBetaKinematics\\src\\main\\include\\"
+              ],
+              "includes": [
+                "**/*.cpp",
+                "**/*.cc"
+              ],
+              "excludes": []
+            },
+            "cpp": true,
+            "args": [
+              "-Wall",
+              "-Wextra",
+              "-std=c++17",
+              "-Wformat=2",
+              "-pedantic",
+              "-Wno-psabi",
+              "-g",
+              "-Wno-unused-parameter",
+              "-Wno-error=deprecated-declarations",
+              "-fPIC",
+              "-rdynamic",
+              "-pthread",
+              "-O2"
+            ],
+            "macros": []
+          }
+        ],
+        "libHeaders": [
+          "C:\\Users\\lixin\\.gradle\\caches\\transforms-2\\files-2.1\\7fa4cc49d24fcdccb8e710118d12a102\\wpilibc-cpp-2020.1.1-beta-4-headers\\",
+          "C:\\Users\\lixin\\.gradle\\caches\\transforms-2\\files-2.1\\982a2dd0ebcaa1677c268bebbf1b8881\\ntcore-cpp-2020.1.1-beta-4-headers\\",
+          "C:\\Users\\lixin\\.gradle\\caches\\transforms-2\\files-2.1\\1be026386f468e7a308da66f4a2c60ca\\hal-cpp-2020.1.1-beta-4-headers\\",
+          "C:\\Users\\lixin\\.gradle\\caches\\transforms-2\\files-2.1\\e597d9d9f3ff1741d02f630f0b48fecb\\wpiutil-cpp-2020.1.1-beta-4-headers\\",
+          "C:\\Users\\lixin\\.gradle\\caches\\transforms-2\\files-2.1\\b8640464bccc88bc03ed977aacd12b6d\\chipobject-2020.9.1-headers\\",
+          "C:\\Users\\lixin\\.gradle\\caches\\transforms-2\\files-2.1\\32adaf81d519dfe699a23062c9650a49\\netcomm-2020.9.1-headers\\",
+          "C:\\Users\\lixin\\.gradle\\caches\\transforms-2\\files-2.1\\9ae5500ce798c11adc8d1fa93dc6c199\\visa-2020.9.1-headers\\",
+          "C:\\Users\\lixin\\.gradle\\caches\\transforms-2\\files-2.1\\6f4aafd0d3b7a6a208727e0194bc15cd\\cameraserver-cpp-2020.1.1-beta-4-headers\\",
+          "C:\\Users\\lixin\\.gradle\\caches\\transforms-2\\files-2.1\\80de7919deb6ea48e299be0e57f0930a\\cscore-cpp-2020.1.1-beta-4-headers\\",
+          "C:\\Users\\lixin\\.gradle\\caches\\transforms-2\\files-2.1\\eed3931469ba7efc2e953f8f3443a673\\opencv-cpp-3.4.7-2-headers\\",
+          "C:\\Users\\lixin\\.gradle\\caches\\transforms-2\\files-2.1\\f8126cf8c65b56019a40f60dcc14b376\\SparkMax-cpp-1.4.34-headers\\",
+          "C:\\Users\\lixin\\.gradle\\caches\\transforms-2\\files-2.1\\ce7066f86895f7d66b45845c91308d92\\SparkMax-driver-1.4.34-headers\\",
+          "C:\\Users\\lixin\\Documents\\FRC1920\\GitHub\\Hawktimus19-20\\BetaTests\\WestCoastBetaKinematics\\src\\main\\include\\"
+        ],
+        "sharedLibrary": false,
+        "executable": true
+      }
+    ],
+    "sourceBinaries": [
+      {
+        "source": {
+          "srcDirs": [
+            "C:\\Users\\lixin\\Documents\\FRC1920\\GitHub\\Hawktimus19-20\\BetaTests\\WestCoastBetaKinematics\\src\\main\\cpp\\"
+          ],
+          "includes": [
+            "**/*.cpp",
+            "**/*.cc"
+          ],
+          "excludes": []
+        },
+        "componentName": "frcUserProgram",
+        "cpp": true,
+        "args": [
+          "-Wall",
+          "-Wextra",
+          "-std=c++17",
+          "-Wformat=2",
+          "-pedantic",
+          "-Wno-psabi",
+          "-g",
+          "-Wno-unused-parameter",
+          "-Wno-error=deprecated-declarations",
+          "-fPIC",
+          "-rdynamic",
+          "-pthread",
+          "-O2"
+        ],
+        "macros": [],
+        "sharedLibrary": false,
+        "executable": true
+      },
+      {
+        "source": {
+          "srcDirs": [
+            "C:\\Users\\lixin\\Documents\\FRC1920\\GitHub\\Hawktimus19-20\\BetaTests\\WestCoastBetaKinematics\\src\\main\\include\\"
+          ],
+          "includes": [
+            "**/*.cpp",
+            "**/*.cc"
+          ],
+          "excludes": []
+        },
+        "componentName": "frcUserProgram",
+        "cpp": true,
+        "args": [
+          "-Wall",
+          "-Wextra",
+          "-std=c++17",
+          "-Wformat=2",
+          "-pedantic",
+          "-Wno-psabi",
+          "-g",
+          "-Wno-unused-parameter",
+          "-Wno-error=deprecated-declarations",
+          "-fPIC",
+          "-rdynamic",
+          "-pthread",
+          "-O2"
+        ],
+        "macros": [],
+        "sharedLibrary": false,
+        "executable": true
+      }
+    ],
+    "nameBinaryMap": {
+      "frcUserProgram": 0
+    }
+  }
+]

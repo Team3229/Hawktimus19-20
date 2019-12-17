@@ -1,0 +1,4 @@
+See file:///C:/Users/lixin/Documents/FRC1920/GitHub/Hawktimus19-20/BetaTests/BenjiTask3-Imported/build/tmp/linkFrcUserProgramReleaseExecutable/output.txt for all output for linkFrcUserProgramReleaseExecutable.
+linking frcUserProgram successful.
+
+Finished linkFrcUserProgramReleaseExecutable, see full log file:///C:/Users/lixin/Documents/FRC1920/GitHub/Hawktimus19-20/BetaTests/BenjiTask3-Imported/build/tmp/linkFrcUserProgramReleaseExecutable/output.txt.
