@@ -32,7 +32,7 @@ class Drivetrain {
   //   return frc::Rotation2d(units::degree_t(-m_gyro.GetAngle()));
   // }
 
-  static constexpr units::meters_per_second_t kMaxSpeed = 12.0_mps;  // 3 meters per second
+  static constexpr units::meters_per_second_t kMaxSpeed = 6.0_mps;  // 3 meters per second
   static constexpr units::radians_per_second_t kMaxAngularSpeed{wpi::math::pi};  // 1/2 rotation per second
   bool firstRunPos = true;
 
@@ -41,8 +41,6 @@ class Drivetrain {
   void SetSpeeds(const frc::DifferentialDriveWheelSpeeds& speeds);
   
   void Drive(units::meters_per_second_t xSpeed, units::radians_per_second_t rot);
-  //void RatioDrive(units::meters_per_second_t xSpeed, units::radians_per_second_t rot);
-  void DriveDist(double dist,bool firstRun);
   //needs Gyro to work
   //void UpdateOdometry();
 

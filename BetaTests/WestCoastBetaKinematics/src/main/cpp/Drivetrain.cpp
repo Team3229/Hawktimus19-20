@@ -18,21 +18,6 @@ Drivetrain::Drivetrain()
   rightFront  =   new rev::CANSparkMax(RIGHT_FR_ID,rev::CANSparkMax::MotorType::kBrushless);
   rightBack   =   new rev::CANSparkMax(RIGHT_BA_ID,rev::CANSparkMax::MotorType::kBrushless);
 
-  leftUpper->RestoreFactoryDefaults(); 
-  leftFront->RestoreFactoryDefaults();
-  leftBack->RestoreFactoryDefaults();
-  rightUpper->RestoreFactoryDefaults();
-  rightFront->RestoreFactoryDefaults();
-  rightBack ->RestoreFactoryDefaults();
-
-  //time to go from 0 to full throttle
-  leftUpper->SetClosedLoopRampRate(1);
-  leftFront->SetClosedLoopRampRate(1);
-  leftBack->SetClosedLoopRampRate(1);
-  rightUpper->SetClosedLoopRampRate(1);
-  rightFront->SetClosedLoopRampRate(1);
-  rightBack->SetClosedLoopRampRate(1);
-
   //left follower
   leftBack->Follow(*leftUpper);
   leftFront->Follow(*leftUpper);
@@ -40,10 +25,6 @@ Drivetrain::Drivetrain()
   rightBack->Follow(*rightUpper);
   rightFront->Follow(*rightUpper);
   
-  //calculate velocity, v = rw, w = motor velocity / enctowheel, motorvelocity gives RPM
-  
-  //m_leftVelocity = (leftUpper->GetEncoder().GetVelocity() / kEncToWheel) * kWheelRadius / 60;
-  //m_rightVelocity = (rightUpper->GetEncoder().GetVelocity() / kEncToWheel) * kWheelRadius / 60;
   
   //REV-Robotics PID Controllers 
   m_leftPosPIDController = new rev::CANPIDController(leftUpper->GetPIDController());
@@ -80,8 +61,9 @@ frc::DifferentialDriveWheelSpeeds Drivetrain::GetSpeeds() const
 
 void Drivetrain::SetSpeeds(const frc::DifferentialDriveWheelSpeeds& speeds)                               //velocity PID controller, frc library
 {
-  m_leftVelocity = (leftUpper->GetEncoder().GetVelocity() / kEncToWheel) * kWheelRadius / 60;
-  m_rightVelocity = (rightUpper->GetEncoder().GetVelocity() / kEncToWheel) * kWheelRadius / 60;
+  //velocity formula, v = RPM/60 * WheelCircum / MotorToWheelRatio
+  m_leftVelocity = (leftUpper->GetEncoder().GetVelocity() / kEncToWheel) * 2 * wpi::math::pi* kWheelRadius / 60;  //max vel should be 5.218 m/s or 17.12 ft/s
+  m_rightVelocity = (rightUpper->GetEncoder().GetVelocity() / kEncToWheel) * 2 * wpi::math::pi * kWheelRadius / 60;
   
   const auto leftOutput = m_leftPIDController.Calculate(m_leftVelocity, speeds.left.to<double>());        //I assume it takes in velocity since the setpoint is in velocity
   const auto rightOutput = m_rightPIDController.Calculate(m_rightVelocity, speeds.right.to<double>());    
