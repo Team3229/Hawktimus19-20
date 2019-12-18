@@ -1,6 +1,0 @@
-See file:///C:/Users/lixin/Documents/FRC1920/GitHub/Hawktimus19-20/BetaTests/WestCoastBetaKinematics/build/tmp/compileFrcUserProgramReleaseExecutableFrcUserProgramCpp/output.txt for all output for compileFrcUserProgramReleaseExecutableFrcUserProgramCpp.
-compiling Drivetrain.cpp successful.
-
-compiling Robot.cpp successful.
-
-Finished compileFrcUserProgramReleaseExecutableFrcUserProgramCpp, see full log file:///C:/Users/lixin/Documents/FRC1920/GitHub/Hawktimus19-20/BetaTests/WestCoastBetaKinematics/build/tmp/compileFrcUserProgramReleaseExecutableFrcUserProgramCpp/output.txt.
