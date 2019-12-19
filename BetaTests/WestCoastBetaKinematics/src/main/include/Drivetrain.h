@@ -34,13 +34,13 @@ class Drivetrain {
 
   static constexpr units::meters_per_second_t kMaxSpeed = 6.0_mps;  // 3 meters per second
   static constexpr units::radians_per_second_t kMaxAngularSpeed{wpi::math::pi};  // 1/2 rotation per second
-  bool firstRunPos = true;
 
   frc::DifferentialDriveWheelSpeeds GetSpeeds() const;
-  
   void SetSpeeds(const frc::DifferentialDriveWheelSpeeds& speeds);
-  
   void Drive(units::meters_per_second_t xSpeed, units::radians_per_second_t rot);
+
+  void SetEncoder(double rot);
+
   //needs Gyro to work
   //void UpdateOdometry();
 
@@ -56,14 +56,10 @@ class Drivetrain {
 
   static constexpr units::meter_t kTrackWidth = 0.7092_m;  //dist between left and right wheels
   static constexpr double kWheelRadius = 0.0762;  // meters, .0508 m = 2 in
-  //static constexpr int kEncoderResolution = 42;
   static constexpr double kEncToWheel = 8.68;        // # rotation on enc = 1 rotation on wheel
   static constexpr double kP = .3, kI = 0, kD = 0;
-  //static constexpr double kRatioDrive = .05;
   
-  double m_leftVelocity, m_rightVelocity,
-         m_leftRot, m_rightRot;
-  double m_setLeftRot, m_setRightRot;
+  double m_leftVelocity, m_rightVelocity;
 
   rev::CANSparkMax * leftUpper;  
   rev::CANSparkMax * leftFront;  

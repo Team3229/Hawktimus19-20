@@ -62,12 +62,14 @@ frc::DifferentialDriveWheelSpeeds Drivetrain::GetSpeeds() const
 void Drivetrain::SetSpeeds(const frc::DifferentialDriveWheelSpeeds& speeds)                               //velocity PID controller, frc library
 {
   //velocity formula, v = RPM/60 * WheelCircum / MotorToWheelRatio
-  m_leftVelocity = (leftUpper->GetEncoder().GetVelocity() / kEncToWheel) * 2 * wpi::math::pi* kWheelRadius / 60;  //max vel should be 5.218 m/s or 17.12 ft/s
-  m_rightVelocity = (rightUpper->GetEncoder().GetVelocity() / kEncToWheel) * 2 * wpi::math::pi * kWheelRadius / 60;
+  m_leftVelocity = (leftUpper->GetEncoder().GetVelocity() / kEncToWheel) * 2 * wpi::math::pi* kWheelRadius / 60;    //max vel should be 5.218 m/s or 17.12 ft/s
+  m_rightVelocity = (rightUpper->GetEncoder().GetVelocity() / kEncToWheel) * 2 * wpi::math::pi * kWheelRadius / 60; //NEO Motor free speed at 5676 RPM
   
+  std::cout << "left v: " << m_leftVelocity << std::endl;
   const auto leftOutput = m_leftPIDController.Calculate(m_leftVelocity, speeds.left.to<double>());        //I assume it takes in velocity since the setpoint is in velocity
   const auto rightOutput = m_rightPIDController.Calculate(m_rightVelocity, speeds.right.to<double>());    
-
+  std::cout << "left set speed: " << speeds.left << std::endl;
+  std::cout << "left output: " << leftOutput << std::endl;
   rightUpper->Set(rightOutput);
   leftUpper->Set(leftOutput);
 
@@ -75,6 +77,12 @@ void Drivetrain::SetSpeeds(const frc::DifferentialDriveWheelSpeeds& speeds)     
 
 void Drivetrain::Drive(units::meters_per_second_t xSpeed, units::radians_per_second_t rot) 
 {
-  //std::cout << "xSpeed" << xSpeed << std::endl;
+  std::cout << "xSpeed" << xSpeed << std::endl;
   SetSpeeds(m_kinematics.ToWheelSpeeds({xSpeed, 0_mps, rot}));  //+x is actually forward
+}
+
+void Drivetrain::SetEncoder(double rot)
+{
+  leftUpper->GetEncoder().SetPosition(rot);
+  rightUpper->GetEncoder().SetPosition(rot);
 }

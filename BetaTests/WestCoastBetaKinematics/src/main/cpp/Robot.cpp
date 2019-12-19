@@ -11,49 +11,37 @@
 
 #include <frc/smartdashboard/SmartDashboard.h>
 
-void Robot::RobotInit() {
-  m_chooser.SetDefaultOption(kAutoNameDefault, kAutoNameDefault);
-  m_chooser.AddOption(kAutoNameCustom, kAutoNameCustom);
-  frc::SmartDashboard::PutData("Auto Modes", &m_chooser);
+void Robot::RobotInit() 
+{
+  m_auto.AddOptions();
+  m_auto.SetupAutoCommands();
 }
 
-/**
- * This function is called every robot packet, no matter the mode. Use
- * this for items like diagnostics that you want ran during disabled,
- * autonomous, teleoperated and test.
- *
- * <p> This runs after the mode specific periodic functions, but before
- * LiveWindow and SmartDashboard integrated updating.
- */
 void Robot::RobotPeriodic() {}
 
-/**
- * This autonomous (along with the chooser code above) shows how to select
- * between different autonomous modes using the dashboard. The sendable chooser
- * code works with the Java SmartDashboard. If you prefer the LabVIEW Dashboard,
- * remove all of the chooser code and uncomment the GetString line to get the
- * auto name from the text box below the Gyro.
- *
- * You can add additional auto modes by adding additional comparisons to the
- * if-else structure below with additional strings. If using the SendableChooser
- * make sure to add them to the chooser code above as well.
- */
-void Robot::AutonomousInit() {
+void Robot::AutonomousInit() 
+{
+  m_auto.AutoInit();
 }
 
-void Robot::AutonomousPeriodic() {
-  TeleopPeriodic();
+void Robot::AutonomousPeriodic() 
+{
+  if(!m_auto.autodone)
+    m_auto.AutoPeriodic();
 }
 
 void Robot::TeleopInit() {}
 
 void Robot::TeleopPeriodic()
 {
-
   const auto y1 = -m_controller.GetY(frc::GenericHID::kLeftHand) * Drivetrain::kMaxSpeed;        //left stick vertical
   const auto x2 = -m_controller.GetX(frc::GenericHID::kRightHand) * Drivetrain::kMaxAngularSpeed;//right stick horizontal
 
   m_drive.Drive(y1,x2);
+  if(m_controller.GetAButton())
+  {
+    m_drive.SetEncoder(0);
+  }
 }
 
 void Robot::TestPeriodic() {}

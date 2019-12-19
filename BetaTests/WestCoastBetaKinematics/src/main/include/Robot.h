@@ -14,7 +14,7 @@
 
 #include <frc/XboxController.h>
 
-#include <Drivetrain.h>
+#include "Autonomous.h"
 
 class Robot : public frc::TimedRobot {
  public:
@@ -31,10 +31,10 @@ class Robot : public frc::TimedRobot {
   const std::string kAutoNameDefault = "Default";
   const std::string kAutoNameCustom = "My Auto";
   std::string m_autoSelected;
-  bool m_useRatioDrive = false;
   frc::XboxController m_controller{0};
   units::meters_per_second_t x1, y1;
   units::radians_per_second_t x2;
 
   Drivetrain m_drive;
+  Autonomous m_auto{&m_drive};
 };
