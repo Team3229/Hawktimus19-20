@@ -27,12 +27,8 @@ class Robot : public frc::TimedRobot {
   void TestPeriodic() override;
 
  private:
-  frc::SendableChooser<std::string> m_chooser;
-  const std::string kAutoNameDefault = "Default";
-  const std::string kAutoNameCustom = "My Auto";
-  std::string m_autoSelected;
   frc::XboxController m_controller{0};
-  units::meters_per_second_t x1, y1;
+  units::meters_per_second_t y1;
   units::radians_per_second_t x2;
 
   Drivetrain m_drive;

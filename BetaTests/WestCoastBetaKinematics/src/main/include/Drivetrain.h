@@ -74,8 +74,8 @@ class Drivetrain {
   frc2::PIDController m_leftPIDController{1.0, 0.0, 0.0};
   frc2::PIDController m_rightPIDController{1.0, 0.0, 0.0};
 
-  rev::CANPIDController * m_leftPosPIDController;
-  rev::CANPIDController * m_rightPosPIDController;
+  rev::CANPIDController * m_leftRevPIDController;
+  rev::CANPIDController * m_rightRevPIDController;
 
 
   frc::DifferentialDriveKinematics m_kinematics{kTrackWidth};

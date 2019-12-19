@@ -13,7 +13,11 @@ Autonomous::~Autonomous()
     delete m_targetChooser;
     delete m_drive;
 }
-
+/*
+Auto presets
+read selection
+reset timer, movement, set auto to incomplete
+*/
 void Autonomous::AutoInit()
 {
     ReadStation();
@@ -21,7 +25,9 @@ void Autonomous::AutoInit()
     movement = 0;
     autodone = false;
 }
-
+/*
+read selection for autocommands
+*/
 void Autonomous::ReadStation()
 {
     int targetChoice = m_targetChooser->GetSelected();
@@ -49,7 +55,23 @@ void Autonomous::ReadStation()
     else if(positionChoice == 4)
         positionEnum = RightLower;
 }
-
+/*
+Auto periodic with switch statement reading commands to perform tasks
+schedule for timer based tasks
+    1.  start timer
+        set timelimit
+    2.  timer <= timelimit
+        perform task
+    3.  else (timer > timelimit)
+        stop timer
+        reset timer
+        increase movement for next task
+    break
+schedule for single time tasks
+    1.  perform task
+        increase movement
+    break
+*/
 void Autonomous::AutoPeriodic()
 {
     while(!autodone)
@@ -78,6 +100,9 @@ void Autonomous::AutoPeriodic()
     }
 }
 
+/*
+smartdashboard selections
+*/
 void Autonomous::AddOptions()
 {
     int leftUpperOpt = 0;
@@ -105,6 +130,12 @@ void Autonomous::AddOptions()
     frc::SmartDashboard::PutData("Targeted Area",m_targetChooser);
 }
 
+/*
+all of the commands for different scenarios
+1.  sets command
+    sets data necessary to perform task
+*remember to end with Done command
+*/
 void Autonomous::SetupAutoCommands()
 {
     autocommand[LeftLower][LeftRocket][M0].command = SetEncoder;

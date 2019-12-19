@@ -27,10 +27,11 @@ Drivetrain::Drivetrain()
   
   
   //REV-Robotics PID Controllers 
-  m_leftPosPIDController = new rev::CANPIDController(leftUpper->GetPIDController());
-  m_rightPosPIDController = new rev::CANPIDController(rightUpper->GetPIDController());
-  m_leftPosPIDController->SetP(kP);
-  m_rightPosPIDController->SetP(kP);
+  m_leftRevPIDController = new rev::CANPIDController(leftUpper->GetPIDController());
+  m_rightRevPIDController = new rev::CANPIDController(rightUpper->GetPIDController());
+  m_leftRevPIDController->SetP(kP);
+  m_rightRevPIDController->SetP(kP);
+  m_rightRevPIDController->SetSmartMotionAllowedClosedLoopError(10);
 }
 
 
@@ -46,8 +47,8 @@ Drivetrain::~Drivetrain()
   delete rightFront;
   delete rightBack;
 
-  delete m_leftPosPIDController;
-  delete m_rightPosPIDController;
+  delete m_leftRevPIDController;
+  delete m_rightRevPIDController;
 }
 
 
@@ -83,6 +84,6 @@ void Drivetrain::Drive(units::meters_per_second_t xSpeed, units::radians_per_sec
 
 void Drivetrain::SetEncoder(double rot)
 {
+  m_rightRevPIDController->SetReference(rot,rev::kPosition);
   leftUpper->GetEncoder().SetPosition(rot);
-  rightUpper->GetEncoder().SetPosition(rot);
 }
