@@ -56,12 +56,9 @@ private:
         float xbox2_LeftTriggerAxis;
     };
 
-    cmd autocommand[5000];
-    int number_cmds = 0;
-
     // Use .aut file extension
     std::string fileName;
-    std::string inputFileName = "test.aut"; // temp hard value
+    std::string inputFileName = "autoInstructionsTest.aut"; // temp hard value
     const std::string FILE_DIR = "/home/lvuser/";
 
     //TeleOp stuff for driving
@@ -85,6 +82,7 @@ public:
     void AutoPeriodic();
 
     bool autoDone = false;
+    cmd autocommand;
 
     void SwitchDriveMode() {
         debug("Drive mode switched...\n");

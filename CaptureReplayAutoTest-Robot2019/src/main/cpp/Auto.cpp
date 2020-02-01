@@ -20,89 +20,48 @@ Auto::~Auto() {
 }
 
 void Auto::SetupReading() {
-    fileName = FILE_DIR + inputFileName + ".aut";
+    fileName = FILE_DIR + inputFileName;
     debug("Reading auto instructions from " + fileName);
-    std::ifstream cmdFile;
+    std::ifstream cmdFile (std::ifstream::binary);
     cmdFile.open(fileName);
 }
 
 void Auto::SetupWriting() {
-    fileName = FILE_DIR + inputFileName + ".aut";
+    fileName = FILE_DIR + inputFileName;
     debug("Writing instructions to " + fileName);
-    std::ofstream cmdFile;
+    std::ofstream cmdFile (std::ofstream::binary);
     cmdFile.open(fileName);
 }
 
 void Auto::WriteFile() {
-    cmdFile << number_cmds;
+    debug("Writing auto file...\n");
 
     // Write controller inputs
-    for (int i = 0; i < number_cmds; i++) {
-        cmdFile <<
-            autocommand[i].xbox1_leftY,
-            autocommand[i].xbox1_leftX,
-            autocommand[i].xbox1_rightX,
-            autocommand[i].xbox1_AButton,
-            autocommand[i].xbox1_BButton,
-            autocommand[i].xbox1_XButton,
-            autocommand[i].xbox1_YButton,
-            autocommand[i].xbox1_RightBumper,
-            autocommand[i].xbox1_LeftBumper,
-            autocommand[i].xbox1_RightTriggerAxis,
-            autocommand[i].xbox2_leftY,
-            autocommand[i].xbox2_rightY,
-            autocommand[i].xbox2_XButton,
-            autocommand[i].xbox2_YButton,
-            autocommand[i].xbox2_RightBumper,
-            autocommand[i].xbox2_LeftBumper,
-            autocommand[i].xbox2_RightTriggerAxis,
-            autocommand[i].xbox2_LeftTriggerAxis;
-        number_cmds++;
-    }
+    cmdFile.write(&autocommand, sizeof(autocommand));
+    cmdFile.flush();
 }
 
 void Auto::ReadFile() {
-    
-    cmdFile >> number_cmds;
+    debug("Reading auto file...\n");
 
     // Read controller inputs
-    for (int i = 0; i < number_cmds; i++) {
-        cmdFile >>
-            autocommand[i].xbox1_leftY,
-            autocommand[i].xbox1_leftX,
-            autocommand[i].xbox1_rightX,
-            autocommand[i].xbox1_AButton,
-            autocommand[i].xbox1_BButton,
-            autocommand[i].xbox1_XButton,
-            autocommand[i].xbox1_YButton,
-            autocommand[i].xbox1_RightBumper,
-            autocommand[i].xbox1_LeftBumper,
-            autocommand[i].xbox1_RightTriggerAxis,
-            autocommand[i].xbox2_leftY,
-            autocommand[i].xbox2_rightY,
-            autocommand[i].xbox2_XButton,
-            autocommand[i].xbox2_YButton,
-            autocommand[i].xbox2_RightBumper,
-            autocommand[i].xbox2_LeftBumper,
-            autocommand[i].xbox2_RightTriggerAxis,
-            autocommand[i].xbox2_LeftTriggerAxis;
-    }
+    cmdFile.read(&autocommand, sizeof(autocommand));
 }
 
 void Auto::CloseFile() {
     cmdFile.close();
-    debug("File closed.");
+    debug("File closed.\n");
 }
 
 void Auto::AutoPeriodic() {   
     while (!autoDone) {
         //Update controller axis values
-        d1_leftY = autocommand[number_cmds].xbox1_leftY;
-        d1_leftX = autocommand[number_cmds].xbox1_leftX;
-        d1_rightX = autocommand[number_cmds].xbox1_rightX;
+        d1_leftY = autocommand.xbox1_leftY;
+        d1_leftX = autocommand.xbox1_leftX;
+        d1_rightX = autocommand.xbox1_rightX;
 
-        d2_leftY = autocommand[number_cmds].xbox2_leftY;
-        d2_rightY = autocommand[number_cmds].xbox2_rightY;
+        d2_leftY = autocommand.xbox2_leftY;
+        d2_rightY = autocommand.xbox2_rightY;
 
         // DRIVE
         debug("Gyro angle: " << autoChassis->TestGyro() << "\n");
@@ -118,22 +77,22 @@ void Auto::AutoPeriodic() {
         }
 
         // swap robot and field orient with button
-        if (autocommand[number_cmds].xbox1_RightTriggerAxis > DEAD_BAND)
+        if (autocommand.xbox1_RightTriggerAxis > DEAD_BAND)
             SwitchDriveMode();
 
         // speed changer 
         // BOTH CONTROLLERS NOW HAVE ACCESS TO THESE
-        if (autocommand[number_cmds].xbox1_AButton) {
+        if (autocommand.xbox1_AButton) {
             autoChassis->ChangeSpeed(2); // normal speed
             m_lastUsedSpeed = 2;
         }
 
-        if (autocommand[number_cmds].xbox1_BButton) {
+        if (autocommand.xbox1_BButton) {
             autoChassis->ChangeSpeed(1); // slow speed
             m_lastUsedSpeed = 1;
         }
 
-        if (autocommand[number_cmds].xbox1_XButton) {
+        if (autocommand.xbox1_XButton) {
             autoChassis->ChangeSpeed(3); // fast
             m_lastUsedSpeed = 3;
         }
@@ -141,17 +100,17 @@ void Auto::AutoPeriodic() {
         // PNEUMATICS
         // climber
         autoAir->ControlComp();
-        if (autocommand[number_cmds].xbox1_RightBumper)
+        if (autocommand.xbox1_RightBumper)
             autoAir->MoveFrontClimb(); // toggle front climbing poles
 
-        if (autocommand[number_cmds].xbox1_LeftBumper)
+        if (autocommand.xbox1_LeftBumper)
             autoAir->MoveBackClimb(); // toggle back climbing poles
 
         // INTAKE OPERATION
         // wheels
-        if (autocommand[number_cmds].xbox2_LeftTriggerAxis > DEAD_BAND)
+        if (autocommand.xbox2_LeftTriggerAxis > DEAD_BAND)
             autoIntake->RunWheels(true); // wheels in
-        else if (autocommand[number_cmds].xbox2_RightTriggerAxis > DEAD_BAND)
+        else if (autocommand.xbox2_RightTriggerAxis > DEAD_BAND)
             autoIntake->RunWheels(false); // wheels out
         else 
             autoIntake->StopWheels();
@@ -170,7 +129,7 @@ void Auto::AutoPeriodic() {
         // LIMELIGHT VISION TRACKING AND GYRO ALIGNMENT
         // robot will stop moving when target is in desired range/orientation
         autoVisionSystem->GetValues();
-        if (autocommand[number_cmds].xbox1_YButton) {
+        if (autocommand.xbox1_YButton) {
             m_usingVision = true;
             autoChassis->ChangeSpeed(2); //normal
             autoChassis->DetermineTarget(m_template);
@@ -195,7 +154,7 @@ void Auto::AutoPeriodic() {
             autoLift->StopLift(); // holds lift in place
 
         //toggle angle mode (Rocket Hatch vs. other)
-        if (autocommand[number_cmds].xbox2_XButton) {
+        if (autocommand.xbox2_XButton) {
             if (m_template == "Other")
                 m_template = "Rocket Hatch";
             else 
@@ -203,8 +162,5 @@ void Auto::AutoPeriodic() {
             frc::SmartDashboard::PutString("Current Template", m_template);
             frc::Wait(0.25);
         }
-
-        // Increment point in time of replay
-        number_cmds++;
     }
 }

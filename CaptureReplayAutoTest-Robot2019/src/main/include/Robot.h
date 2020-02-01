@@ -78,7 +78,8 @@ class Robot : public frc::TimedRobot {
   Camera driveCam{};
 
   Auto autoMode{&chassis, &air, &lift, &visionSystem, &intake};
-  bool recordMode = false;
+  bool recordMode = true;
+  bool fileInit = false;
   
   //Toggle robot/field orient
   void SwitchDriveMode()
