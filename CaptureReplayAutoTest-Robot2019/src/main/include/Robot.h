@@ -37,7 +37,9 @@ class Robot : public frc::TimedRobot {
   void AutonomousPeriodic() override;
   void TeleopInit() override;
   void TeleopPeriodic() override;
+  void TestInit() override;
   void TestPeriodic() override;
+  void DisabledInit() override;
 
  private:
   // SmartDashboard setup
@@ -79,7 +81,6 @@ class Robot : public frc::TimedRobot {
 
   Auto autoMode{&chassis, &air, &lift, &visionSystem, &intake};
   bool recordMode = true;
-  bool fileInit = false;
   
   //Toggle robot/field orient
   void SwitchDriveMode()

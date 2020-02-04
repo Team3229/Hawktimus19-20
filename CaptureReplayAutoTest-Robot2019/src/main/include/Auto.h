@@ -82,7 +82,7 @@ public:
     void AutoPeriodic();
 
     bool autoDone = false;
-    cmd autocommand;
+    cmd * autocommand = new cmd;
 
     void SwitchDriveMode() {
         debug("Drive mode switched...\n");

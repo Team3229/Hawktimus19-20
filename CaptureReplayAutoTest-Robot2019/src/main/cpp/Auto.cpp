@@ -17,35 +17,34 @@ Auto::~Auto() {
     delete autoLift;
     delete autoVisionSystem;
     delete autoIntake;
+    delete autocommand;
 }
 
 void Auto::SetupReading() {
     fileName = FILE_DIR + inputFileName;
     debug("Reading auto instructions from " + fileName);
-    std::ifstream cmdFile (std::ifstream::binary);
-    cmdFile.open(fileName);
+    std::ifstream cmdFile (fileName, std::ios::in | std::ios::binary);
 }
 
 void Auto::SetupWriting() {
     fileName = FILE_DIR + inputFileName;
     debug("Writing instructions to " + fileName);
-    std::ofstream cmdFile (std::ofstream::binary);
-    cmdFile.open(fileName);
+    std::ofstream cmdFile (fileName, std::ios::out | std::ios::binary);
 }
 
 void Auto::WriteFile() {
     debug("Writing auto file...\n");
 
     // Write controller inputs
-    cmdFile.write(&autocommand, sizeof(autocommand));
-    cmdFile.flush();
+    cmdFile.write((char*) autocommand, sizeof(cmd));
+    cmdFile.seekg(0, std::ios::beg);
 }
 
 void Auto::ReadFile() {
     debug("Reading auto file...\n");
 
     // Read controller inputs
-    cmdFile.read(&autocommand, sizeof(autocommand));
+    cmdFile.read((char*) &autocommand, sizeof(cmd));
 }
 
 void Auto::CloseFile() {
@@ -56,12 +55,12 @@ void Auto::CloseFile() {
 void Auto::AutoPeriodic() {   
     while (!autoDone) {
         //Update controller axis values
-        d1_leftY = autocommand.xbox1_leftY;
-        d1_leftX = autocommand.xbox1_leftX;
-        d1_rightX = autocommand.xbox1_rightX;
+        d1_leftY = autocommand->xbox1_leftY;
+        d1_leftX = autocommand->xbox1_leftX;
+        d1_rightX = autocommand->xbox1_rightX;
 
-        d2_leftY = autocommand.xbox2_leftY;
-        d2_rightY = autocommand.xbox2_rightY;
+        d2_leftY = autocommand->xbox2_leftY;
+        d2_rightY = autocommand->xbox2_rightY;
 
         // DRIVE
         debug("Gyro angle: " << autoChassis->TestGyro() << "\n");
@@ -77,22 +76,22 @@ void Auto::AutoPeriodic() {
         }
 
         // swap robot and field orient with button
-        if (autocommand.xbox1_RightTriggerAxis > DEAD_BAND)
+        if (autocommand->xbox1_RightTriggerAxis > DEAD_BAND)
             SwitchDriveMode();
 
         // speed changer 
         // BOTH CONTROLLERS NOW HAVE ACCESS TO THESE
-        if (autocommand.xbox1_AButton) {
+        if (autocommand->xbox1_AButton) {
             autoChassis->ChangeSpeed(2); // normal speed
             m_lastUsedSpeed = 2;
         }
 
-        if (autocommand.xbox1_BButton) {
+        if (autocommand->xbox1_BButton) {
             autoChassis->ChangeSpeed(1); // slow speed
             m_lastUsedSpeed = 1;
         }
 
-        if (autocommand.xbox1_XButton) {
+        if (autocommand->xbox1_XButton) {
             autoChassis->ChangeSpeed(3); // fast
             m_lastUsedSpeed = 3;
         }
@@ -100,17 +99,17 @@ void Auto::AutoPeriodic() {
         // PNEUMATICS
         // climber
         autoAir->ControlComp();
-        if (autocommand.xbox1_RightBumper)
+        if (autocommand->xbox1_RightBumper)
             autoAir->MoveFrontClimb(); // toggle front climbing poles
 
-        if (autocommand.xbox1_LeftBumper)
+        if (autocommand->xbox1_LeftBumper)
             autoAir->MoveBackClimb(); // toggle back climbing poles
 
         // INTAKE OPERATION
         // wheels
-        if (autocommand.xbox2_LeftTriggerAxis > DEAD_BAND)
+        if (autocommand->xbox2_LeftTriggerAxis > DEAD_BAND)
             autoIntake->RunWheels(true); // wheels in
-        else if (autocommand.xbox2_RightTriggerAxis > DEAD_BAND)
+        else if (autocommand->xbox2_RightTriggerAxis > DEAD_BAND)
             autoIntake->RunWheels(false); // wheels out
         else 
             autoIntake->StopWheels();
@@ -129,7 +128,7 @@ void Auto::AutoPeriodic() {
         // LIMELIGHT VISION TRACKING AND GYRO ALIGNMENT
         // robot will stop moving when target is in desired range/orientation
         autoVisionSystem->GetValues();
-        if (autocommand.xbox1_YButton) {
+        if (autocommand->xbox1_YButton) {
             m_usingVision = true;
             autoChassis->ChangeSpeed(2); //normal
             autoChassis->DetermineTarget(m_template);
@@ -154,7 +153,7 @@ void Auto::AutoPeriodic() {
             autoLift->StopLift(); // holds lift in place
 
         //toggle angle mode (Rocket Hatch vs. other)
-        if (autocommand.xbox2_XButton) {
+        if (autocommand->xbox2_XButton) {
             if (m_template == "Other")
                 m_template = "Rocket Hatch";
             else 

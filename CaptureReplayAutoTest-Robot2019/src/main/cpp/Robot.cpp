@@ -166,18 +166,6 @@ void Robot::TeleopPeriodic()
   }
   else 
     lift.StopLift(); // holds lift in place
-
-  // toggles locking the lift
-  /*
-  if (xbox2.GetYButton())
-  {
-    if (m_lockLift == false)
-      m_lockLift = true;
-    else
-      m_lockLift = false;
-    frc::Wait(0.25);
-  }
-  */
   
   //toggle angle mode (Rocket Hatch vs. other)
   if (xbox2.GetXButton())
@@ -191,38 +179,41 @@ void Robot::TeleopPeriodic()
   }
 }
 
-void Robot::TestPeriodic() {
-  if (!fileInit) {
-    autoMode.SetupWriting();
-    fileInit = true;
-  }
+void Robot::TestInit() {
+  autoMode.SetupWriting();
+}
 
+void Robot::TestPeriodic() {
   if (recordMode) { // recording
     TeleopPeriodic();
-    
+
     // Populate struct
-    autoMode.autocommand.xbox1_leftY = d1_leftY;
-    autoMode.autocommand.xbox1_leftX = d1_leftX;
-    autoMode.autocommand.xbox1_rightX = d1_rightX;
-    autoMode.autocommand.xbox1_AButton = xbox1.GetAButton();
-    autoMode.autocommand.xbox1_BButton = xbox1.GetBButton();
-    autoMode.autocommand.xbox1_XButton = xbox1.GetXButton();
-    autoMode.autocommand.xbox1_YButton = xbox1.GetYButton();
-    autoMode.autocommand.xbox1_RightBumper = xbox1.GetBumper(frc::GenericHID::kRightHand);
-    autoMode.autocommand.xbox1_LeftBumper = xbox1.GetBumper(frc::GenericHID::kLeftHand);
-    autoMode.autocommand.xbox1_RightTriggerAxis = xbox1.GetTriggerAxis(frc::GenericHID::kRightHand);
-    autoMode.autocommand.xbox2_leftY = d2_leftY;
-    autoMode.autocommand.xbox2_rightY = d2_rightY;
-    autoMode.autocommand.xbox2_XButton = xbox2.GetXButton();
-    autoMode.autocommand.xbox2_YButton = xbox2.GetYButton();
-    autoMode.autocommand.xbox2_RightBumper = xbox2.GetBumper(frc::GenericHID::kRightHand);
-    autoMode.autocommand.xbox2_LeftBumper = xbox2.GetBumper(frc::GenericHID::kLeftHand);
-    autoMode.autocommand.xbox2_RightTriggerAxis = xbox2.GetTriggerAxis(frc::GenericHID::kRightHand);
-    autoMode.autocommand.xbox2_LeftTriggerAxis = xbox2.GetTriggerAxis(frc::GenericHID::kLeftHand);
+    autoMode.autocommand->xbox1_leftY = d1_leftY;
+    autoMode.autocommand->xbox1_leftX = d1_leftX;
+    autoMode.autocommand->xbox1_rightX = d1_rightX;
+    autoMode.autocommand->xbox1_AButton = xbox1.GetAButton();
+    autoMode.autocommand->xbox1_BButton = xbox1.GetBButton();
+    autoMode.autocommand->xbox1_XButton = xbox1.GetXButton();
+    autoMode.autocommand->xbox1_YButton = xbox1.GetYButton();
+    autoMode.autocommand->xbox1_RightBumper = xbox1.GetBumper(frc::GenericHID::kRightHand);
+    autoMode.autocommand->xbox1_LeftBumper = xbox1.GetBumper(frc::GenericHID::kLeftHand);
+    autoMode.autocommand->xbox1_RightTriggerAxis = xbox1.GetTriggerAxis(frc::GenericHID::kRightHand);
+    autoMode.autocommand->xbox2_leftY = d2_leftY;
+    autoMode.autocommand->xbox2_rightY = d2_rightY;
+    autoMode.autocommand->xbox2_XButton = xbox2.GetXButton();
+    autoMode.autocommand->xbox2_YButton = xbox2.GetYButton();
+    autoMode.autocommand->xbox2_RightBumper = xbox2.GetBumper(frc::GenericHID::kRightHand);
+    autoMode.autocommand->xbox2_LeftBumper = xbox2.GetBumper(frc::GenericHID::kLeftHand);
+    autoMode.autocommand->xbox2_RightTriggerAxis = xbox2.GetTriggerAxis(frc::GenericHID::kRightHand);
+    autoMode.autocommand->xbox2_LeftTriggerAxis = xbox2.GetTriggerAxis(frc::GenericHID::kLeftHand);
 
     // Write current struct to file
     autoMode.WriteFile();
   }
+}
+
+void Robot::DisabledInit() {
+  autoMode.CloseFile();
 }
 
 #ifndef RUNNING_FRC_TESTS
