@@ -56,9 +56,9 @@ private:
     };
 
     // Use .aut file extension
-    const char* fileName;
     std::string inputFileName = "autoInstructionsTest.aut"; // temp hard value
     const std::string FILE_DIR = "/home/lvuser/";
+    const char* fileName = "/home/lvuser/autoInstructions.aut";
 
     //TeleOp stuff for driving
     const float DEAD_BAND = 0.1;   

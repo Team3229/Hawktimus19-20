@@ -19,17 +19,16 @@ Auto::~Auto() {
     delete autoIntake;
     delete autocommand;
     delete cmdFile;
-    delete fileName;
 }
 
 void Auto::SetupReading() {
-    fileName = (FILE_DIR + inputFileName).c_str();
+    // fileName = (FILE_DIR + inputFileName).c_str();
     debug("Reading auto instructions from " + (FILE_DIR + inputFileName) + "\n");
     cmdFile = fopen(fileName, "rb");
 }
 
 void Auto::SetupWriting() {
-    fileName = (FILE_DIR + inputFileName).c_str();
+    // fileName = (FILE_DIR + inputFileName).c_str();
     debug("Writing instructions to " + (FILE_DIR + inputFileName) + "\n");
     cmdFile = fopen(fileName, "wb");
 }
@@ -38,7 +37,7 @@ void Auto::WriteFile() {
     debug("Writing auto file...\n");
 
     // Write controller inputs
-    fwrite((char*) autocommand, sizeof(char), sizeof(cmd), cmdFile);
+    fwrite((void*) autocommand, sizeof(char), sizeof(cmd), cmdFile);
     debug("Driver 1 left stick Y: " << autocommand->xbox1_leftY << "\n");
 }
 
@@ -46,12 +45,16 @@ void Auto::ReadFile() {
     debug("Reading auto file...\n");
 
     // Read controller inputs
-    fread((char*) autocommand, sizeof(char), sizeof(cmd), cmdFile);
+    fread((void*) autocommand, sizeof(char), sizeof(cmd), cmdFile);
 }
 
 void Auto::CloseFile() {
-    fclose(cmdFile);
-    debug("File closed.\n");
+    if (cmdFile != NULL) {
+        fclose(cmdFile);
+        debug("File closed.\n");
+    }
+    else 
+        debug("Auto instruction file doesn't exist yet.\n");
 }
 
 void Auto::AutoPeriodic() {   

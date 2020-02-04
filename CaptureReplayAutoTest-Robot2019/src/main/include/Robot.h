@@ -20,7 +20,7 @@
 
 // Subsystem includes
 #include "DriveSystem.h"
-#include "Camera.h"
+// #include "Camera.h"
 #include "Limelight.h"
 #include "Lift.h"
 #include "Intake.h"
@@ -77,10 +77,10 @@ class Robot : public frc::TimedRobot {
   frc::XboxController xbox1 {XBOX_USB_DRIVER_1}; //Chassis driver
   frc::XboxController xbox2 {XBOX_USB_DRIVER_2}; //Manipulation driver
 
-  Camera driveCam{};
+  // Camera driveCam{};
 
   Auto autoMode{&chassis, &air, &lift, &visionSystem, &intake};
-  bool recordMode = true;
+  bool recordMode = false;
   
   //Toggle robot/field orient
   void SwitchDriveMode()
