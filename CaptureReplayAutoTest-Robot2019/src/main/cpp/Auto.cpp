@@ -18,37 +18,39 @@ Auto::~Auto() {
     delete autoVisionSystem;
     delete autoIntake;
     delete autocommand;
+    delete cmdFile;
+    delete fileName;
 }
 
 void Auto::SetupReading() {
-    fileName = FILE_DIR + inputFileName;
-    debug("Reading auto instructions from " + fileName);
-    std::ifstream cmdFile (fileName, std::ios::in | std::ios::binary);
+    fileName = (FILE_DIR + inputFileName).c_str();
+    debug("Reading auto instructions from " + (FILE_DIR + inputFileName) + "\n");
+    cmdFile = fopen(fileName, "rb");
 }
 
 void Auto::SetupWriting() {
-    fileName = FILE_DIR + inputFileName;
-    debug("Writing instructions to " + fileName);
-    std::ofstream cmdFile (fileName, std::ios::out | std::ios::binary);
+    fileName = (FILE_DIR + inputFileName).c_str();
+    debug("Writing instructions to " + (FILE_DIR + inputFileName) + "\n");
+    cmdFile = fopen(fileName, "wb");
 }
 
 void Auto::WriteFile() {
     debug("Writing auto file...\n");
 
     // Write controller inputs
-    cmdFile.write((char*) autocommand, sizeof(cmd));
-    cmdFile.seekg(0, std::ios::beg);
+    fwrite((char*) autocommand, sizeof(char), sizeof(cmd), cmdFile);
+    debug("Driver 1 left stick Y: " << autocommand->xbox1_leftY << "\n");
 }
 
 void Auto::ReadFile() {
     debug("Reading auto file...\n");
 
     // Read controller inputs
-    cmdFile.read((char*) &autocommand, sizeof(cmd));
+    fread((char*) autocommand, sizeof(char), sizeof(cmd), cmdFile);
 }
 
 void Auto::CloseFile() {
-    cmdFile.close();
+    fclose(cmdFile);
     debug("File closed.\n");
 }
 

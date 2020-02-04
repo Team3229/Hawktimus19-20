@@ -25,6 +25,14 @@ void Robot::RobotInit()
   // Auto
   autoChooser.SetDefaultOption("Auto Mode", "Read Mode");
   autoChooser.AddOption("Auto Mode", "Write Mode");
+
+  // // Use for file handling
+  // FILE * f;
+  // char buffer[] = {'x', 'y', 'z'};
+  // f = fopen("/home/lvuser/test.bin", "w");
+  // fwrite(buffer, sizeof(char), sizeof(buffer), f);
+  // fclose(f);
+
 }
 
 void Robot::RobotPeriodic() {}

@@ -4,7 +4,6 @@
 // includes
 #include <iostream>
 #include <string>
-#include <fstream>
 #include <stdio.h>
 
 #include <frc/TimedRobot.h>
@@ -30,7 +29,7 @@ private:
     Intake * autoIntake;
     Pneumatics * autoAir;
 
-    std::fstream cmdFile;
+    FILE * cmdFile;
 
     // Method of storing and replaying drivers inputs
     struct cmd {
@@ -57,7 +56,7 @@ private:
     };
 
     // Use .aut file extension
-    std::string fileName;
+    const char* fileName;
     std::string inputFileName = "autoInstructionsTest.aut"; // temp hard value
     const std::string FILE_DIR = "/home/lvuser/";
 
