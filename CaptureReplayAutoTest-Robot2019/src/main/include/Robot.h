@@ -30,7 +30,7 @@
 #include "Auto.h"
 
 class Robot : public frc::TimedRobot {
- public:
+public:
   void RobotInit() override;
   void RobotPeriodic() override;
   void AutonomousInit() override;
@@ -41,7 +41,7 @@ class Robot : public frc::TimedRobot {
   void TestPeriodic() override;
   void DisabledInit() override;
 
- private:
+private:
   // SmartDashboard setup
   frc::SendableChooser<std::string> m_chooser;
   const std::string kDriveNameDefault = "With Gyro";
@@ -57,11 +57,14 @@ class Robot : public frc::TimedRobot {
 
   // Controller variables
   double d1_leftY, d1_leftX, d1_rightX, d2_leftY, d2_rightY;
-  bool m_driveWithGyro = false; //Update init driver station message
+  bool m_driveWithGyro = false; // Update init driver station message
   bool m_usingVision = false;
   bool m_lockLift = false; // Locks the 2nd driver from using lift
-  int m_lastUsedSpeed = 2; // keeps track of last used speed setting, initialized to normal speed
-  std::string m_template = "Other"; // 2 templates that the manipulation driver can switch between: "Other" and "Rocket Hatch"
+  int m_lastUsedSpeed =
+      2; // keeps track of last used speed setting, initialized to normal speed
+  std::string m_template = "Other"; // 2 templates that the manipulation driver
+                                    // can switch between: "Other" and "Rocket
+                                    // Hatch"
 
   // Objects of subsystems
   DriveSystem chassis{};
@@ -73,26 +76,22 @@ class Robot : public frc::TimedRobot {
   Intake intake{};
 
   Pneumatics air{};
-  
-  frc::XboxController xbox1 {XBOX_USB_DRIVER_1}; //Chassis driver
-  frc::XboxController xbox2 {XBOX_USB_DRIVER_2}; //Manipulation driver
+
+  frc::XboxController xbox1{XBOX_USB_DRIVER_1}; // Chassis driver
+  frc::XboxController xbox2{XBOX_USB_DRIVER_2}; // Manipulation driver
 
   // Camera driveCam{};
 
   Auto autoMode{&chassis, &air, &lift, &visionSystem, &intake};
-  bool recordMode = false;
-  
-  //Toggle robot/field orient
-  void SwitchDriveMode()
-  {
+  bool recordMode = true;
+
+  // Toggle robot/field orient
+  void SwitchDriveMode() {
     debug("Drive mode switched...\n");
-    if (m_driveWithGyro == true)
-    {
+    if (m_driveWithGyro == true) {
       frc::SmartDashboard::PutString("Drive Mode", "Without Gyro");
       m_driveWithGyro = false;
-    }
-    else 
-    {
+    } else {
       frc::SmartDashboard::PutString("Drive Mode", "With Gyro");
       m_driveWithGyro = true;
     }
