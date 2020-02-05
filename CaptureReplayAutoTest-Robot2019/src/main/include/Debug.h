@@ -7,6 +7,7 @@
 #define USE_DEBUG //Uncomment or comment to use or not use
 
 #ifdef USE_DEBUG
+#include <iostream>
 #define debug(x) std::cout << x
 #else
 #define debug(x)
