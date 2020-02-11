@@ -17,31 +17,24 @@ void Robot::RobotInit() {
   /*
   m_chooser.SetDefaultOption("With Gyro (Field Oriented)", kDriveNameDefault);
   m_chooser.AddOption("Without Gyro (Robot Oriented)", kDriveNameCustom);
-  */
+  
   frc::SmartDashboard::PutString("Drive Mode", "Without Gyro");
   frc::SmartDashboard::PutString("Current Template", m_template);
-
-  // Auto
-  autoChooser.SetDefaultOption("Auto Mode", "Read Mode");
-  autoChooser.AddOption("Auto Mode", "Write Mode");
+  */
 }
 
 void Robot::RobotPeriodic() {}
 
 void Robot::AutonomousInit() {
-  // if (autoChooser.GetSelected() == "Read Mode")
-  //   recordMode = false;
-  // else
-  //   recordMode = true;
-
-  autoMode.SetupReading();
+  // Setup auto for playback
+  autoMode.SetupAuto();
 
   chassis.ResetGyro();
   debug("Sandstorm starting...\n");
 }
 
 void Robot::AutonomousPeriodic() {
-  autoMode.ReadFile();
+  // Read file and execute playback
   autoMode.AutoPeriodic();
 }
 
@@ -65,12 +58,13 @@ void Robot::TeleopPeriodic() {
   debug("Gyro angle: " << chassis.TestGyro() << "\n");
   if (abs(d1_leftX) > DEAD_BAND || abs(d1_leftY) > DEAD_BAND ||
       abs(d1_rightX) > DEAD_BAND) {
-    if (m_driveWithGyro == true)
-      chassis.Drive(d1_leftY, d1_leftX,
-                    d1_rightX); // drives robot with mecanum chassis + gyro
-    else
-      chassis.DriveWithoutGyro(d1_leftY, d1_leftX,
-                               d1_rightX); // drives mecanum without gyro
+    if (m_driveWithGyro == true) {
+      // drives robot with mecanum chassis + gyro
+      chassis.Drive(d1_leftY, d1_leftX, d1_rightX);
+    } else {
+      // drives mecanum without gyro
+      chassis.DriveWithoutGyro(d1_leftY, d1_leftX, d1_rightX);
+    }
   } else {
     if (m_usingVision == false)
       chassis.Stop(); // stops driving
@@ -162,7 +156,7 @@ void Robot::TeleopPeriodic() {
 
 void Robot::TestInit() {
   if (recordMode)
-    autoMode.SetupWriting();
+    autoMode.SetupRecording();
 }
 
 void Robot::TestPeriodic() {
@@ -170,7 +164,7 @@ void Robot::TestPeriodic() {
     TeleopPeriodic();
 
     // Populate struct
-    autoMode.autocommand->xbox1_leftY = d1_leftY;
+    autoMode.autocommand->xbox1_leftY = -d1_leftY;
     autoMode.autocommand->xbox1_leftX = d1_leftX;
     autoMode.autocommand->xbox1_rightX = d1_rightX;
     autoMode.autocommand->xbox1_AButton = xbox1.GetAButton();
@@ -197,13 +191,11 @@ void Robot::TestPeriodic() {
         xbox2.GetTriggerAxis(frc::GenericHID::kLeftHand);
 
     // Write current struct to file
-    autoMode.WriteFile();
+    autoMode.Record();
   }
 }
 
-void Robot::DisabledInit() { 
-  autoMode.CloseFile();
-}
+void Robot::DisabledInit() { autoMode.CloseFile(); }
 
 #ifndef RUNNING_FRC_TESTS
 int main() { return frc::StartRobot<Robot>(); }

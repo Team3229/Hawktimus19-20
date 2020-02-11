@@ -22,6 +22,8 @@
 
 class Auto {
 private:
+  bool autoDone = false;
+
   // Pass in our subsystems
   DriveSystem *autoChassis;
   Limelight *autoVisionSystem;
@@ -31,7 +33,8 @@ private:
 
   // files stuff
   // Use .aut file extension
-  std::string inputFileName = "/home/lvuser/autoInstructions.aut";
+  std::string defaultFileName = "defaultAutoPath.aut";
+  std::string inputFileName;
   const bool WRITE = true;
   const bool READ = false;
   CaptureFile cmdFile {};
@@ -75,13 +78,12 @@ public:
   ~Auto();
   void SetupAuto();
   void SetupReading();
-  void SetupWriting();
   void ReadFile();
-  void WriteFile();
+  void SetupRecording();
+  void Record();
   void CloseFile();
   void AutoPeriodic();
 
-  bool autoDone = false;
   cmd * autocommand = new cmd;
 
   void SwitchDriveMode() {
