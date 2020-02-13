@@ -2,11 +2,11 @@
 
 #include "Auto.h"
 
-Auto::Auto(DriveSystem *c, Pneumatics *a, Lift *l, Limelight *v, Intake *i) {
+Auto::Auto(Drivetrain *c, Turret *t, Shooter *s, Limelight *v, Intake *i) {
   // Passes in subsystems from Robot
   autoChassis = c;
-  autoAir = a;
-  autoLift = l;
+  autoTurret = t;
+  autoShooter = s;
   autoVisionSystem = v;
   autoIntake = i;
 
@@ -16,8 +16,8 @@ Auto::Auto(DriveSystem *c, Pneumatics *a, Lift *l, Limelight *v, Intake *i) {
 
 Auto::~Auto() {
   delete autoChassis;
-  delete autoAir;
-  delete autoLift;
+  delete autoTurret;
+  delete autoShooter;
   delete autoVisionSystem;
   delete autoIntake;
   delete autocommand;
@@ -28,16 +28,16 @@ void Auto::SetupPlayback() {
   // Get driver station info and setup
   inputFileName =
       frc::SmartDashboard::GetString(driverStationText, defaultFileName);
-  debug("Reading auto instructions from /home/lvuser/" + inputFileName + "\n");
+  debugCons("Reading auto instructions from /home/lvuser/" + inputFileName + "\n");
   std::string filePath = "/home/lvuser/" + inputFileName;
   cmdFile.Open(filePath, READ);
 }
 
 void Auto::ReadFile() {
-  debug("Reading auto file...\n");
+  debugCons("Reading auto file...\n");
 
   // Read controller inputs
-  debug("Size of struct: " << sizeof(*autocommand) << "\n");
+  debugCons("Size of struct: " << sizeof(*autocommand) << "\n");
   cmdFile.Read(autocommand, sizeof(*autocommand));
 }
 
@@ -45,23 +45,23 @@ void Auto::SetupRecording() {
   // Put in Robot::TestInit()
   inputFileName =
       frc::SmartDashboard::GetString(driverStationText, defaultFileName);
-  debug("Writing instructions to /home/lvuser/" + inputFileName + "\n");
+  debugCons("Writing instructions to /home/lvuser/" + inputFileName + "\n");
   std::string filePath = "/home/lvuser/" + inputFileName;
   cmdFile.Open(filePath, WRITE);
 }
 
 void Auto::Record() {
   // Put in Robot::TestPeriodic()
-  debug("Writing auto file...\n");
+  debugCons("Writing auto file...\n");
 
   // Write controller inputs
   cmdFile.Write(autocommand, sizeof(*autocommand));
-  debug("Driver 1 left stick Y: " << autocommand->xbox1_leftY << "\n");
+  debugCons("Driver 1 left stick Y: " << autocommand->xbox1_leftY << "\n");
 }
 
 void Auto::CloseFile() {
   // Put in Robot::DisabledInit()
-  debug("File closed.\n");
+  debugCons("File closed.\n");
   cmdFile.Close();
 }
 
@@ -75,7 +75,7 @@ void Auto::AutoPeriodic() {
     // EXAMPLE: 
     // if (autocommand->xbox1_RightBumper) {
     //   autoAir->MoveFrontClimb();
-    // }
+  }
 
 
 }

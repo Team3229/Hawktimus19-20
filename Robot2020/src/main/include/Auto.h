@@ -11,11 +11,9 @@
 #include <Math.h>
 #include "frc/Timer.h"
 
-#include "DriveSystem.h"
-#include "Intake.h"
-#include "Pneumatics.h"
-#include "Limelight.h"
-#include "Lift.h"
+#include "drive/Drivetrain.h"
+#include "powercell/Limelight.h"
+#include "powercell/Intake.h"
 
 #include "CaptureFile.h"
 #include "Debug.h"
@@ -28,11 +26,11 @@ private:
   // MAKE SURE TO UPDATE CONSTRUCTOR ARGS AND SUBSYSTEMS FOR THIS YEAR
 
   // EXAMPLE FROM ROBOT2019
-  DriveSystem *autoChassis;
+  Drivetrain *autoChassis;
   Limelight *autoVisionSystem;
-  Lift *autoLift;
+  Shooter *autoShooter;
   Intake *autoIntake;
-  Pneumatics *autoAir;
+  Turret *autoTurret;
 
   // files stuff
   // Use .aut file extension
@@ -75,7 +73,7 @@ private:
   // TELEOP VARS GO HERE
 
 public:
-  Auto(DriveSystem *c, Pneumatics *a, Lift *l, Limelight *v, Intake *i);
+  Auto(Drivetrain *c, Turret *t, Shooter *s, Limelight *v, Intake *i);
   ~Auto();
   void SetupPlayback();
   void ReadFile();

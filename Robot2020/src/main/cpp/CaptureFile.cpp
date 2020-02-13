@@ -24,7 +24,7 @@ CaptureFile::~CaptureFile() {
 void CaptureFile::Open(std::string name, bool forWrite) {
   // Setup the name and full path to file
   fileName = name.c_str();
-  debug("Concat file path: " << fileName << "\n");
+  debugCons("Concat file path: " << fileName << "\n");
   str_filePath = std::string(fileName);
 
   // Setup r/w perms
@@ -38,12 +38,14 @@ void CaptureFile::Open(std::string name, bool forWrite) {
 
   // Verify file opened, print debug output on status
   if (fileHandle != NULL) {
-    if (isWrite)
-      debug("Opened file " + str_filePath + " for write.\n");
-    else
-      debug("Opened file " + str_filePath + " for read.\n");
+    if(isWrite)
+    {
+      debugCons("Opened file " + str_filePath + " for write.\n")
+    }else{
+      debugCons("Opened file " + str_filePath + " for read.\n")
+    }
   } else {
-    debug("Error opening file " + str_filePath);
+    debugCons("Error opening file " + str_filePath);
   }
 }
 

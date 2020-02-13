@@ -79,7 +79,7 @@ void Robot::TeleopPeriodic()
   //shooter.calcRPM(limelight.calcDist());
   //shooter.adjustFWSpeed(shooter.calcRPM(limelight.calcDist()));
   
-/*
+/*might need gyro to confirm it's possible to find the targer before this
   if(limelight.aimOperation() && controller.GetXButton())
   {
     limelight.scoreOperation();

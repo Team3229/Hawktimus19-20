@@ -14,6 +14,8 @@
 
 #include "drive/Drivetrain.h"
 
+#include "Auto.h"
+
 #include <frc/TimedRobot.h>
 #include <frc/smartdashboard/SendableChooser.h>
 #include <frc/XboxController.h>
@@ -43,6 +45,8 @@ class Robot : public frc::TimedRobot {
   Limelight m_limelight{&m_turret,&m_shooter};
 
   Drivetrain m_drive;
+
+  Auto m_auto{&m_drive,&m_turret,&m_shooter,&m_limelight,&m_intake};
 
   units::meters_per_second_t m_x1, m_y1;
   units::radians_per_second_t m_x2;
