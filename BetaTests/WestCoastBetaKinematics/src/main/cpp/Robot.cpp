@@ -49,8 +49,9 @@ void Robot::TeleopPeriodic()
   */
   const auto y1 = -m_controller.GetY(frc::GenericHID::kLeftHand) * Drivetrain::kMaxSpeed;        //left stick vertical
   const auto x2 = -m_controller.GetX(frc::GenericHID::kRightHand) * Drivetrain::kMaxAngularSpeed;//right stick horizontal
-  
+
   m_drive.Drive(y1,x2);
+
   if(m_controller.GetAButton())
   {
     m_drive.SetEncoder(0);

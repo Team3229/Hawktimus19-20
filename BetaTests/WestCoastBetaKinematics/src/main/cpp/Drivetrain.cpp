@@ -71,9 +71,9 @@ void Drivetrain::SetSpeeds(const frc::DifferentialDriveWheelSpeeds& speeds)     
   const auto rightOutput = m_rightPIDController.Calculate(m_rightVelocity, speeds.right.to<double>());    
   std::cout << "left set speed: " << speeds.left << std::endl;
   std::cout << "left output: " << leftOutput << std::endl;
+  
   rightUpper->Set(rightOutput);
   leftUpper->Set(leftOutput);
-
 }
 
 void Drivetrain::Drive(units::meters_per_second_t xSpeed, units::radians_per_second_t rot) 
