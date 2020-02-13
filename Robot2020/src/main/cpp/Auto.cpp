@@ -75,6 +75,7 @@ void Auto::AutoPeriodic() {
     // EXAMPLE: 
     // if (autocommand->xbox1_RightBumper) {
     //   autoAir->MoveFrontClimb();
+    
   }
 
 

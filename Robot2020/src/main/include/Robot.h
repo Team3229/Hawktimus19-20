@@ -28,8 +28,10 @@ class Robot : public frc::TimedRobot {
   void AutonomousPeriodic() override;
   void TeleopInit() override;
   void TeleopPeriodic() override;
-  void TestPeriodic() override;
 
+  void TestInit() override;
+  void TestPeriodic() override;
+  void DisabledInit() override;
  private:
   frc::SendableChooser<std::string> m_chooser;
   const std::string kAutoNameDefault = "Default";

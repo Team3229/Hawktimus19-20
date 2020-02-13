@@ -40,10 +40,12 @@ void Robot::RobotPeriodic()
  */
 void Robot::AutonomousInit() 
 {
+  m_auto.SetupPlayback();
 }
 
 void Robot::AutonomousPeriodic() 
 {
+  m_auto.AutoPeriodic();
 }
 
 void Robot::TeleopInit() {}
@@ -95,8 +97,18 @@ void Robot::TeleopPeriodic()
   : (m_intake.runIntake());  
 }
 
-void Robot::TestPeriodic() {}
-
+void Robot::TestInit() 
+{
+  m_auto.SetupRecording();
+}
+void Robot::TestPeriodic() 
+{
+  m_auto.Record();
+}
+void Robot::DisabledInit()
+{
+  m_auto.CloseFile();
+}
 #ifndef RUNNING_FRC_TESTS
 int main() { return frc::StartRobot<Robot>(); }
 #endif
