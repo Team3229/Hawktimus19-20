@@ -75,6 +75,22 @@ void Auto::AutoPeriodic() {
     // EXAMPLE: 
     // if (autocommand->xbox1_RightBumper) {
     //   autoAir->MoveFrontClimb();
+    if(std::abs(autocommand->xbox1_leftX) < .1 && std::abs(autocommand->xbox1_rightY) < .1)
+      autoChassis->StopMotor();
+    else
+    {
+      double rotationOffset = 1+std::abs(autocommand->xbox1_leftX);
+      autoChassis->Drive(autocommand->xbox1_rightY * autoChassis->kMaxSpeed
+                        ,autocommand->xbox1_leftX * autoChassis->kMaxAngularSpeed*rotationOffset);
+    }
+
+    if(autocommand->xbox2_XButton)
+      autoIntake->extendIntake();
+    if(autocommand->xbox2_YButton)
+      autoIntake->retractIntake();
+    (autocommand->xbox2_AButton) ? (autoIntake->reverseIntake())
+    : (autoIntake->runIntake());  
+
     
   }
 
