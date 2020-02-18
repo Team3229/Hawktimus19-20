@@ -4,6 +4,7 @@
 #pragma once
 
 #include <rev/CANSparkMax.h>
+#include <ctre/phoenix/motorcontrol/can/WPI_TalonSRX.h>
 
 #include <frc/smartdashboard/SmartDashboard.h>
 #include <frc/controller/PIDController.h>
@@ -19,7 +20,7 @@ private:
 
     rev::CANSparkMax * m_flyWheelFront;
     rev::CANSparkMax * m_flyWheelBack;
-    rev::CANSparkMax * m_feeder;
+    ctre::phoenix::motorcontrol::can::WPI_TalonSRX * m_feeder;
     const int kFrontFWID = 7;   //CAN
     const int kBackFWID = 8;
     const int kFeederID = 9;

@@ -8,14 +8,15 @@ Shooter::Shooter()
     m_flyWheelBack  = new rev::CANSparkMax(kBackFWID,rev::CANSparkMax::MotorType::kBrushless);
     m_flyWheelPID = new frc2::PIDController(kP,kI,kD);
 
-    m_feeder = new rev::CANSparkMax(kFeederID, rev::CANSparkMax::MotorType::kBrushless);
+    m_feeder = new ctre::phoenix::motorcontrol::can::WPI_TalonSRX(kFeederID);
 
     m_hoodServo->SetBounds(2.0,1.8,1.5,1.2,1.0);
 
     m_flyWheelBack->RestoreFactoryDefaults();
     m_flyWheelFront->RestoreFactoryDefaults();
-    m_feeder->RestoreFactoryDefaults();
-    
+
+    m_feeder->ClearStickyFaults();
+
     m_flyWheelBack->Follow(*m_flyWheelFront);
     //motor configurations
 }

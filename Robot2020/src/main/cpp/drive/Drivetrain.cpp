@@ -12,9 +12,6 @@ Drivetrain::Drivetrain()
   
   navXGyro = new AHRS(frc::SPI::Port::kMXP);
   
-  m_PDP = new frc::PowerDistributionPanel(0);
-  m_PDP->ClearStickyFaults();
-  
   m_leftUpper->RestoreFactoryDefaults();
   m_leftFront->RestoreFactoryDefaults();
   m_leftBack->RestoreFactoryDefaults();
@@ -45,7 +42,6 @@ Drivetrain::~Drivetrain()
   delete m_rightFront;
   delete m_rightBack;
 
-  delete m_PDP;
   delete navXGyro;
 }
 

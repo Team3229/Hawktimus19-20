@@ -31,7 +31,7 @@ class DriveTrajectory
         const units::meters_per_second_squared_t kMaxAccel = 1_mps_sq;
         const units::second_t m_nextOperation = .05_s;
         const double kB = 2.0, kZeta = .7;
-        const frc::Pose2d errorPose = frc::Pose2d(.2_m,.2_m,frc::Rotation2d(5_deg));
+        const frc::Pose2d errorPose = frc::Pose2d(.1_m,.1_m,frc::Rotation2d(5_deg));
         //values from trajectory.Sample(time)
         units::meters_per_second_t m_currentVelocity;
         units::radians_per_second_t m_currentRot;
@@ -41,7 +41,7 @@ class DriveTrajectory
         frc::Trajectory::State m_nextPos;
         frc::RamseteController * m_ramseteControl;
 
-        Drivetrain m_drive;
+        Drivetrain * m_drive;
 };
 
 #endif 

@@ -24,9 +24,10 @@ class Turret
         ctre::phoenix::motorcontrol::can::WPI_TalonSRX * m_turretMotor;
         frc2::PIDController * m_turretPID;
         frc::AnalogEncoder * m_turEncoder;
-        frc::AnalogInput turretEncID{0};
-        const int kTurretMotorID = 3;
+
         const int kTurretEncoderID = 0;
+        frc::AnalogInput turretEncID{kTurretEncoderID}; //Analog Input
+        const int kTurretMotorID = 11;
 
         const double kMaxTurretPower = .5;
         const units::degree_t kMaxRange = 90_deg;

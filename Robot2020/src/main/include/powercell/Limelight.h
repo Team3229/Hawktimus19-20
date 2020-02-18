@@ -19,8 +19,8 @@ private:
 
     double distRatio = 1;
 
-    const units::degree_t cameraMount = 3_deg;
-    const units::inch_t mountHeight = 15_in;
+    const units::degree_t cameraMount = 25_deg;
+    const units::inch_t mountHeight = 14_in;
     const units::inch_t heightDiff = 8_ft + 2.25_in - mountHeight;
 
     
