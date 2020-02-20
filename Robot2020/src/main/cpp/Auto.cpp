@@ -83,11 +83,12 @@ void Auto::AutoPeriodic() {
       autoChassis->Drive(autocommand->xbox1_rightY * autoChassis->kMaxSpeed
                         ,autocommand->xbox1_leftX * autoChassis->kMaxAngularSpeed*rotationOffset);
     }
-
+  /*
     if(autocommand->xbox2_XButton)
       autoIntake->extendIntake();
     if(autocommand->xbox2_YButton)
       autoIntake->retractIntake();
+      */
     (autocommand->xbox2_AButton) ? (autoIntake->reverseIntake())
     : (autoIntake->runIntake());  
 

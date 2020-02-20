@@ -2,24 +2,25 @@
 
 Intake::Intake(/* args */)
 {
-    m_compressor = new frc::Compressor{kCompressorPCMID};
-    m_intakeSolenoid = new frc::DoubleSolenoid{kForwardIntakeID,kReverseIntakeID};
+    //m_compressor = new frc::Compressor{kCompressorPCMID};
+    //m_intakeSolenoid = new frc::DoubleSolenoid{kForwardIntakeID,kReverseIntakeID};
     m_intakeMotor = new rev::CANSparkMax{kIntakeMotorID,rev::CANSparkMax::MotorType::kBrushless};
 
-    m_intakeSolenoid->ClearAllPCMStickyFaults();
-    m_compressor->ClearAllPCMStickyFaults();
+    //m_intakeSolenoid->ClearAllPCMStickyFaults();
+    //m_compressor->ClearAllPCMStickyFaults();
     m_intakeMotor->RestoreFactoryDefaults();
 
-    m_compressor->SetClosedLoopControl(true);
+    //m_compressor->SetClosedLoopControl(true);
 }
 
 Intake::~Intake()
 {
-    m_compressor->SetClosedLoopControl(false);
-    delete m_compressor;
+    //m_compressor->SetClosedLoopControl(false);
+    //delete m_compressor;
     delete m_intakeMotor;
-    delete m_intakeSolenoid;
+    //delete m_intakeSolenoid;
 }
+/*
 void Intake::controlComp()
 {
     bool compressorState = m_compressor->GetPressureSwitchValue();
@@ -38,7 +39,7 @@ void Intake::retractIntake()
     intakeExtended = false;
     frc::Wait(.5);
 }
-
+*/
 void Intake::runIntake()
 {
     (intakeExtended) ? (m_intakeMotor->Set(.4))

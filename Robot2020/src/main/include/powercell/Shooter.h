@@ -21,9 +21,9 @@ private:
     rev::CANSparkMax * m_flyWheelFront;
     rev::CANSparkMax * m_flyWheelBack;
     ctre::phoenix::motorcontrol::can::WPI_TalonSRX * m_feeder;
-    const int kFrontFWID = 7;   //CAN
-    const int kBackFWID = 8;
-    const int kFeederID = 9;
+    const int kFrontFWID = 8;   //CAN
+    //const int kBackFWID = 8;
+    const int kFeederID = 10;
 
     frc2::PIDController * m_flyWheelPID;
     const double kP = .2;

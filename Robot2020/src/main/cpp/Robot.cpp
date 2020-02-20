@@ -89,10 +89,12 @@ void Robot::TeleopPeriodic()
 */
 
 //intake
+/*
   if(m_maniController.GetXButton())
     m_intake.extendIntake();
   if(m_maniController.GetYButton())
     m_intake.retractIntake();
+*/
   (m_maniController.GetAButton()) ? (m_intake.reverseIntake())
   : (m_intake.runIntake());  
 }
