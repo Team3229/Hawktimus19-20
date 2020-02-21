@@ -27,7 +27,7 @@ class Turret
 
         const int kTurretEncoderID = 0;
         frc::AnalogInput turretEncID{kTurretEncoderID}; //Analog Input
-        const int kTurretMotorID = 7;
+        const int kTurretMotorID = 11;
 
         const double kMaxTurretPower = .5;
         const units::degree_t kMaxRange = 90_deg;

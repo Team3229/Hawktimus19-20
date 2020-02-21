@@ -11,10 +11,9 @@
 
 #include "powercell/Limelight.h"
 #include "powercell/Intake.h"
-
 #include "drive/Drivetrain.h"
-
 #include "Auto.h"
+#include "Camera.h"
 
 #include <frc/TimedRobot.h>
 #include <frc/smartdashboard/SendableChooser.h>
@@ -49,6 +48,8 @@ class Robot : public frc::TimedRobot {
   Drivetrain m_drive;
 
   Auto m_auto{&m_drive,&m_turret,&m_shooter,&m_limelight,&m_intake};
+
+  Camera m_camera;
 
   units::meters_per_second_t m_x1, m_y1;
   units::radians_per_second_t m_x2;

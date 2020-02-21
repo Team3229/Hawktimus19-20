@@ -50,7 +50,12 @@ void Intake::reverseIntake()
     (intakeExtended) ? (m_intakeMotor->Set(-.4))
     :(stopIntake());
 }
+void Intake::forceRunIntake(double power)
+{
+    m_intakeMotor->Set(std::clamp(power,-.4,.4));
+}
 void Intake::stopIntake()
 {
     m_intakeMotor->StopMotor();
 }
+

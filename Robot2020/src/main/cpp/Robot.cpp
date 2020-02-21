@@ -13,7 +13,7 @@
 
 void Robot::RobotInit() 
 {
-  frc::SmartDashboard::PutNumber("RPM",10000);
+  frc::SmartDashboard::PutNumber("RPM",0);
 }
 
 /**
@@ -95,8 +95,16 @@ void Robot::TeleopPeriodic()
   if(m_maniController.GetYButton())
     m_intake.retractIntake();
 */
+  /*
   (m_maniController.GetAButton()) ? (m_intake.reverseIntake())
   : (m_intake.runIntake());  
+  */
+  if(m_maniController.GetAButton())
+    m_intake.forceRunIntake(.4);
+  else if(m_maniController.GetBButton())
+    m_intake.forceRunIntake(-.4);
+  else
+    m_intake.stopIntake();
 }
 
 void Robot::TestInit() 
