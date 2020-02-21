@@ -105,6 +105,16 @@ void Robot::TeleopPeriodic()
     m_intake.forceRunIntake(-.4);
   else
     m_intake.stopIntake();
+
+  if(m_maniController.GetBumper(frc::GenericHID::kRightHand))
+  {
+    m_shooter.feedShooter();
+  }
+  else
+  {
+    m_shooter.stopFeed();
+  }
+  
 }
 
 void Robot::TestInit() 
