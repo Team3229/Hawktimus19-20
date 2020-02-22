@@ -71,10 +71,13 @@ void Robot::TeleopPeriodic()
 
   //power cell manipulations
   double turretTurn = -m_maniController.GetX(frc::GenericHID::kRightHand);
-  m_turret.Turn(turretTurn);
+  (std::abs(turretTurn) > .1) ? (m_turret.Turn(turretTurn))
+  : (m_turret.Turn(0));
+  debugDashNum("Turret input", turretTurn);
   double hoodAdjust = -m_maniController.GetY(frc::GenericHID::kLeftHand);
   m_shooter.adjustHood(units::inch_t(hoodAdjust));
-  
+  debugDashNum("Hood Actuator Control in", hoodAdjust);
+
   double rpm = frc::SmartDashboard::GetNumber("RPM",6000);
   m_shooter.adjustFWSpeed(rpm);
   //testing calculations
@@ -82,7 +85,7 @@ void Robot::TeleopPeriodic()
   //shooter.adjustFWSpeed(shooter.calcRPM(limelight.calcDist()));
   
 /*might need gyro to confirm it's possible to find the targer before this
-  if(limelight.aimOperation() && controller.GetXButton())
+  if(limelight.aimOperation() && controller.GetXButtonPressed())
   {
     limelight.scoreOperation();
   } 
@@ -99,13 +102,15 @@ void Robot::TeleopPeriodic()
   (m_maniController.GetAButton()) ? (m_intake.reverseIntake())
   : (m_intake.runIntake());  
   */
-  if(m_maniController.GetAButton())
-    m_intake.forceRunIntake(.4);
-  else if(m_maniController.GetBButton())
-    m_intake.forceRunIntake(-.4);
+  if(m_maniController.GetBumper(frc::GenericHID::kLeftHand))
+  {
+    m_intake.forceRunIntake(-1);
+  }
   else
-    m_intake.stopIntake();
-
+  {
+    debugCons("stop intake");
+    m_intake.forceRunIntake(0);
+  }
   if(m_maniController.GetBumper(frc::GenericHID::kRightHand))
   {
     m_shooter.feedShooter();

@@ -89,9 +89,10 @@ void Auto::AutoPeriodic() {
     if(autocommand->xbox2_YButton)
       autoIntake->retractIntake();
       */
+    /* 
     (autocommand->xbox2_AButton) ? (autoIntake->reverseIntake())
     : (autoIntake->runIntake());  
-
+    */
     
   }
 

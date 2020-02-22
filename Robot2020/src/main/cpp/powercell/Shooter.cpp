@@ -45,10 +45,10 @@ double Shooter::calcRPM(units::inch_t dist)
 bool Shooter::adjustFWSpeed(double rpm)
 {
     //adjusting based on rpm
-    double FWSpeed = -m_flyWheelFront->GetEncoder().GetVelocity();
+    double FWSpeed = m_flyWheelFront->GetEncoder().GetVelocity();
     debugDashNum("current rpm",FWSpeed);
     double output = m_flyWheelPID->Calculate(FWSpeed,rpm);
-    m_flyWheelFront->Set(-output);
+    m_flyWheelFront->Set(1);
     if (std::abs(FWSpeed - rpm) > kRPMErrRange)
     {
         debugDashNum("FWSpeed correct",0);
@@ -76,6 +76,7 @@ bool Shooter::adjustHood(units::inch_t dist)
 {
     double correctPos = std::clamp(dist.to<double>()*kHoodAngleRatio,0.0,1.0);
     m_hoodServo->SetPosition(correctPos);
+    debugDashNum("Hood Set Position", correctPos);
     debugDashNum("Hood Actuator",m_hoodServo->GetPosition());
     if (std::abs(m_hoodServo->GetPosition() - correctPos) > kHoodError)
     {
@@ -89,9 +90,9 @@ bool Shooter::adjustHood(units::inch_t dist)
 //feeding shooter
 void Shooter::feedShooter()
 {
-    m_feeder->Set(.3);
+    m_feeder->Set(1);
 }
 void Shooter::stopFeed()
 {
-    m_feeder->Set(-.1);
+    m_feeder->Set(-.5);
 }

@@ -34,8 +34,10 @@ public:
     //void extendIntake();
     //void retractIntake();
 
+    /*
     void runIntake();
     void reverseIntake();
+    */
     void forceRunIntake(double power);
     void stopIntake();
 };

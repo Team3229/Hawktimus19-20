@@ -8,6 +8,5 @@ Camera::Camera()
     camera.SetWhiteBalanceAuto();
     camera.SetExposureAuto();
     camera.SetBrightness(BRIGHTNESS);
-
     frc::CameraServer::GetInstance()->StartAutomaticCapture();
 }

@@ -40,6 +40,7 @@ void Intake::retractIntake()
     frc::Wait(.5);
 }
 */
+/*
 void Intake::runIntake()
 {
     (intakeExtended) ? (m_intakeMotor->Set(.4))
@@ -50,12 +51,13 @@ void Intake::reverseIntake()
     (intakeExtended) ? (m_intakeMotor->Set(-.4))
     :(stopIntake());
 }
+*/
 void Intake::forceRunIntake(double power)
 {
-    m_intakeMotor->Set(std::clamp(power,-.4,.4));
+    m_intakeMotor->Set(power);
 }
 void Intake::stopIntake()
 {
-    m_intakeMotor->StopMotor();
+    m_intakeMotor->Set(0);
 }
 
