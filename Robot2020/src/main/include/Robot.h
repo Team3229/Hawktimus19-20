@@ -51,7 +51,5 @@ class Robot : public frc::TimedRobot {
 
   Camera m_camera;
 
-  units::meters_per_second_t m_x1, m_y1;
-  units::radians_per_second_t m_x2;
   const int kDRIVEDEADBAND = .1; 
 };
