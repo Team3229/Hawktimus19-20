@@ -42,7 +42,7 @@ bool Limelight::aimOperation()
 
 void Limelight::scoreWithPOV(double povValue)
 {
-    if(povValue == 0)
+    if(povValue == 0 || povValue == -1)
     {
         (m_shooter->adjustFWSpeed(5000)) ? (m_shooter->feedShooter())
         : (m_shooter->stopFeed());

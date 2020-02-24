@@ -22,7 +22,7 @@ private:
     rev::CANSparkMax * m_flyWheelBack;
     ctre::phoenix::motorcontrol::can::WPI_TalonSRX * m_feeder;
     const int kFrontFWID = 8;   //CAN
-    //const int kBackFWID = 8;
+    const int kBackFWID = 7;
     const int kFeederID = 11;
 
     frc2::PIDController * m_flyWheelPID;
@@ -35,6 +35,8 @@ private:
 
     const double kHoodAngleRatio = 1;
     const double kDistRPMRatio = 1;
+
+    double m_lastOutput, m_lastHoodPos;
 public:
     Shooter();
     ~Shooter();
@@ -44,6 +46,8 @@ public:
     bool adjustFWSpeed(double rpm);
     bool adjustHood(units::inch_t dist);
     
+    void maintainState();
+
     void feedShooter();
     void stopFeed();
     

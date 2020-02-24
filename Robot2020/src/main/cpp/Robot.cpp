@@ -80,17 +80,21 @@ void Robot::TeleopPeriodic()
 
   double rpm = frc::SmartDashboard::GetNumber("RPM",6000);
   m_shooter.adjustFWSpeed(rpm);
-  //testing calculations
-  //shooter.calcRPM(limelight.calcDist());
-  //shooter.adjustFWSpeed(shooter.calcRPM(limelight.calcDist()));
   //might need gyro to confirm it's possible to find the targer before this
-  if(m_limelight.aimOperation() && m_maniController.GetAButton())
+  if(m_maniController.GetBumper(frc::GenericHID::kLeftHand))
+  {
+    m_shooter.stopFeed();
+    m_shooter.maintainState();
+  }
+  else if(m_limelight.aimOperation() && 
+  (m_maniController.GetAButton() || m_maniController.GetTriggerAxis(frc::GenericHID::kRightHand) > .1))
   {
     int povRead = m_maniController.GetPOV();
-    (povRead != -1) ? (m_limelight.scoreWithPOV(povRead))
-    : (m_limelight.scoreWithPOV(0));
+    (povRead != -1 || m_maniController.GetAButton()) ? (m_limelight.scoreWithPOV(povRead))
+    : (m_limelight.scoreOperation());
   }
-  if(m_limelight.aimOperation() && m_maniController.GetBButton())
+  else if(m_limelight.aimOperation() && 
+  (m_maniController.GetBButton() || m_maniController.GetTriggerAxis(frc::GenericHID::kRightHand) > .1))
   {
     m_limelight.scoreOperation();
   } 
