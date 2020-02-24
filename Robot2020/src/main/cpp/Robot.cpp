@@ -55,7 +55,7 @@ void Robot::TeleopPeriodic()
   /*
   drivetrain
   */
-  const auto m_y1 = -m_driveController.GetY(frc::GenericHID::kRightHand);
+  const auto m_y1 = m_driveController.GetY(frc::GenericHID::kRightHand);
   const auto m_x2 = -m_driveController.GetX(frc::GenericHID::kLeftHand);
   if (kDRIVEDEADBAND > std::abs(m_y1) && kDRIVEDEADBAND > std::abs(m_x2))
   {
@@ -83,13 +83,17 @@ void Robot::TeleopPeriodic()
   //testing calculations
   //shooter.calcRPM(limelight.calcDist());
   //shooter.adjustFWSpeed(shooter.calcRPM(limelight.calcDist()));
-  
-/*might need gyro to confirm it's possible to find the targer before this
-  if(limelight.aimOperation() && controller.GetXButtonPressed())
+  //might need gyro to confirm it's possible to find the targer before this
+  if(m_limelight.aimOperation() && m_maniController.GetAButton())
   {
-    limelight.scoreOperation();
+    int povRead = m_maniController.GetPOV();
+    (povRead != -1) ? (m_limelight.scoreWithPOV(povRead))
+    : (m_limelight.scoreWithPOV(0));
+  }
+  if(m_limelight.aimOperation() && m_maniController.GetBButton())
+  {
+    m_limelight.scoreOperation();
   } 
-*/
 
 //intake
 /*
@@ -99,19 +103,11 @@ void Robot::TeleopPeriodic()
     m_intake.retractIntake();
 */
   /*
-  (m_maniController.GetAButton()) ? (m_intake.reverseIntake())
+  (m_maniController.GetBumper(frc::GenericHID::kRightHand)) ? (m_intake.reverseIntake())
   : (m_intake.runIntake());  
   */
+
   if(m_maniController.GetBumper(frc::GenericHID::kLeftHand))
-  {
-    m_intake.forceRunIntake(-1);
-  }
-  else
-  {
-    debugCons("stop intake");
-    m_intake.forceRunIntake(0);
-  }
-  if(m_maniController.GetBumper(frc::GenericHID::kRightHand))
   {
     m_shooter.feedShooter();
   }

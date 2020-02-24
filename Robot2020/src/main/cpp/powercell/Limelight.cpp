@@ -26,15 +26,30 @@ units::inch_t Limelight::calcDist()
 //press button
 void Limelight::scoreOperation()
 {
-    (aimOperation()) ? (m_shooter->feedShooter())
+    (m_shooter->adjustFWSpeed(m_shooter->calcRPM(calcDist()))) ? (m_shooter->feedShooter())
     : (m_shooter->stopFeed());
 }
 //periodic
 bool Limelight::aimOperation()
 {
     if(m_turret->VisionTurn(table->GetNumber("tx",0.0)) &&
-        m_shooter->adjustFWSpeed(m_shooter->calcRPM(calcDist())) &&
         m_shooter->adjustHood(calcDist()))
+    {
         return true;
+    }
     return false;
+}
+
+void Limelight::scoreWithPOV(double povValue)
+{
+    if(povValue == 0)
+    {
+        (m_shooter->adjustFWSpeed(5000)) ? (m_shooter->feedShooter())
+        : (m_shooter->stopFeed());
+    }
+    else if(povValue == 90)
+    {
+        (m_shooter->adjustFWSpeed(7000)) ? (m_shooter->feedShooter())
+        : (m_shooter->stopFeed());
+    }
 }

@@ -12,32 +12,30 @@
 class Intake
 {
 private:
-    //frc::Compressor * m_compressor;
-    //frc::DoubleSolenoid * m_intakeSolenoid;
+    frc::Compressor * m_compressor;
+    frc::DoubleSolenoid * m_intakeSolenoid;
 
     rev::CANSparkMax * m_intakeMotor;
 
     const int kIntakeMotorID = 9;
-    /*
+    
     const int kCompressorPCMID = 0;
     const int kForwardIntakeID = 1;
     const int kReverseIntakeID = 2;
-    */
+    
     bool intakeExtended = false;
     /* data */
 public:
     Intake(/* args */);
     ~Intake();
 
-    //void controlComp();
+    void controlComp();
+    void extendIntake();
+    void retractIntake();
 
-    //void extendIntake();
-    //void retractIntake();
-
-    /*
     void runIntake();
     void reverseIntake();
-    */
+
     void forceRunIntake(double power);
     void stopIntake();
 };

@@ -48,6 +48,7 @@ bool Shooter::adjustFWSpeed(double rpm)
     double FWSpeed = m_flyWheelFront->GetEncoder().GetVelocity();
     debugDashNum("current rpm",FWSpeed);
     double output = m_flyWheelPID->Calculate(FWSpeed,rpm);
+    debugDashNum("FW output", output);
     m_flyWheelFront->Set(1);
     if (std::abs(FWSpeed - rpm) > kRPMErrRange)
     {

@@ -37,7 +37,7 @@ class Drivetrain {
   void UpdateOdometry();
   void StopMotor();
 
-  static constexpr units::meters_per_second_t kMaxSpeed = 4.0_mps;
+  static constexpr units::meters_per_second_t kMaxSpeed = 8.0_mps;
   static constexpr units::radians_per_second_t kMaxAngularSpeed{wpi::math::pi*2};  // 1/2 rotation per second
   
   
