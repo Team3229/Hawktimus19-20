@@ -100,26 +100,13 @@ void Robot::TeleopPeriodic()
   } 
 
 //intake
-/*
   if(m_maniController.GetXButton())
     m_intake.extendIntake();
   if(m_maniController.GetYButton())
     m_intake.retractIntake();
-*/
-  /*
+
   (m_maniController.GetBumper(frc::GenericHID::kRightHand)) ? (m_intake.reverseIntake())
   : (m_intake.runIntake());  
-  */
-
-  if(m_maniController.GetBumper(frc::GenericHID::kLeftHand))
-  {
-    m_shooter.feedShooter();
-  }
-  else
-  {
-    m_shooter.stopFeed();
-  }
-  
 }
 
 void Robot::TestInit() 
