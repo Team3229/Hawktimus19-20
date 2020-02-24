@@ -55,7 +55,7 @@ void Turret::Turn(double setPower)
     //turn with setpower if the encoder is within allowed range
     debugDashNum("Turret Power", setPower);
     debugCons(std::abs(GetAngle()) << "\n");
-    if (std::abs(GetAngle()) < 90)
+    if (std::abs(GetAngle()) < 90.0)
         m_turretMotor->Set(setPower);
     else
     {

@@ -55,7 +55,7 @@ void Robot::TeleopPeriodic()
   /*
   drivetrain
   */
-  const auto m_y1 = -m_driveController.GetY(frc::GenericHID::kRightHand);
+  const auto m_y1 = m_driveController.GetY(frc::GenericHID::kRightHand);
   const auto m_x2 = -m_driveController.GetX(frc::GenericHID::kLeftHand);
   if (kDRIVEDEADBAND > std::abs(m_y1) && kDRIVEDEADBAND > std::abs(m_x2))
   {
@@ -102,6 +102,8 @@ void Robot::TeleopPeriodic()
   (m_maniController.GetAButton()) ? (m_intake.reverseIntake())
   : (m_intake.runIntake());  
   */
+
+ //test code, remove
   if(m_maniController.GetBumper(frc::GenericHID::kLeftHand))
   {
     m_intake.forceRunIntake(-1);
