@@ -97,7 +97,12 @@ void Robot::TeleopPeriodic()
   (m_maniController.GetBButton() || m_maniController.GetTriggerAxis(frc::GenericHID::kRightHand) > .1))
   {
     m_limelight.scoreOperation();
-  } 
+  }
+  else
+  {
+    m_shooter.stopShooter();
+  }
+   
 
 //intake
   if(m_maniController.GetXButton())

@@ -94,6 +94,10 @@ void Shooter::maintainState()
     m_flyWheelFront->Set(m_lastOutput);
     m_hoodServo->SetPosition(m_lastHoodPos);
 }
+void Shooter::stopShooter()
+{
+    m_flyWheelFront->Set(0);
+}
 //feeding shooter
 void Shooter::feedShooter()
 {

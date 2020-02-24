@@ -47,7 +47,8 @@ public:
     bool adjustHood(units::inch_t dist);
     
     void maintainState();
-
+    void stopShooter();
+    
     void feedShooter();
     void stopFeed();
     
