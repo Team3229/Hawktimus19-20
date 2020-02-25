@@ -25,7 +25,7 @@ class Turret
         frc2::PIDController * m_turretPID;
         frc::AnalogEncoder * m_turEncoder;
 
-        const int kTurretEncoderID = 1;
+        const int kTurretEncoderID = 0;
         frc::AnalogInput turretEncID{kTurretEncoderID}; //Analog Input
         const int kTurretMotorID = 10;
 

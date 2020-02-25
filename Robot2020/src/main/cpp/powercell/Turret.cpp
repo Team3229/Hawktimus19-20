@@ -52,7 +52,6 @@ void Turret::Turn(double setPower)
     //Note: around 180 degrees the encoder jumps from 2.x to -2.x (or opposite) 
     //and then original 0 becomes -1
     //Try not allow that condition to happen and if necessary, rotate the robot
-    debugDashNum("Turret Encoder",m_turEncoder->GetDistance());
     //turn with setpower if the encoder is within allowed range
     debugDashNum("Turret Power", setPower);
     debugCons(std::abs(GetAngle()) << "\n");
@@ -69,5 +68,6 @@ Return the angle of the turret
 */
 double Turret::GetAngle()
 {
+    debugDashNum("Turret Encoder",m_turEncoder->GetDistance() * kEncoderRatio);
     return m_turEncoder->GetDistance() * kEncoderRatio;
 }

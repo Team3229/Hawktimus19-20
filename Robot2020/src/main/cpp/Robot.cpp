@@ -55,8 +55,8 @@ void Robot::TeleopPeriodic()
   /*
   drivetrain
   */
-  m_y1 = m_driveController.GetY(frc::GenericHID::kRightHand);
-  m_x1 = -m_driveController.GetX(frc::GenericHID::kLeftHand);
+  const auto m_y1 = m_driveController.GetY(frc::GenericHID::kRightHand);
+  const auto m_x1 = -m_driveController.GetX(frc::GenericHID::kLeftHand);
   if (kDRIVEDEADBAND > std::abs(m_y1) && kDRIVEDEADBAND > std::abs(m_x1))
   {
     m_drive.StopMotor();
@@ -87,6 +87,8 @@ void Robot::TeleopPeriodic()
   left bumper -> force reverse & maintain state of shooter
   
   */
+ m_turret.GetAngle();
+ /*
   if(m_maniController.GetBumper(frc::GenericHID::kLeftHand))
   {
     m_shooter.stopFeed();
@@ -115,7 +117,7 @@ void Robot::TeleopPeriodic()
   {
     m_shooter.stopShooter();
   }
-   
+   */
 
 //intake
   /*
