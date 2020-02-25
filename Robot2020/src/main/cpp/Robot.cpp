@@ -135,7 +135,7 @@ void Robot::TestInit()
 }
 void Robot::TestPeriodic() 
 {
-  if (recordMode) { // recording
+  if (m_recordMode) { // recording
     TeleopPeriodic();
 
     // Populate struct
