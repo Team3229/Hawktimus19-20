@@ -70,6 +70,7 @@ void Robot::TeleopPeriodic()
   m_drive.UpdateOdometry();
 
   //power cell manipulations
+  /*
   double turretTurn = -m_maniController.GetX(frc::GenericHID::kRightHand);
   (std::abs(turretTurn) > .1) ? (m_turret.Turn(turretTurn))
   : (m_turret.Turn(0));
@@ -77,45 +78,55 @@ void Robot::TeleopPeriodic()
   double hoodAdjust = -m_maniController.GetY(frc::GenericHID::kLeftHand);
   m_shooter.adjustHood(units::inch_t(hoodAdjust));
   debugDashNum("Hood Actuator Control in", hoodAdjust);
-
+  */
   double rpm = frc::SmartDashboard::GetNumber("RPM",6000);
   m_shooter.adjustFWSpeed(rpm);
-  //testing calculations
-  //shooter.calcRPM(limelight.calcDist());
-  //shooter.adjustFWSpeed(shooter.calcRPM(limelight.calcDist()));
   //might need gyro to confirm it's possible to find the targer before this
-  if(m_limelight.aimOperation() && m_maniController.GetAButton())
+  /*
+  shooter
+  left bumper -> force reverse & maintain state of shooter
+  
+  */
+  if(m_maniController.GetBumper(frc::GenericHID::kLeftHand))
   {
-    int povRead = m_maniController.GetPOV();
-    (povRead != -1) ? (m_limelight.scoreWithPOV(povRead))
-    : (m_limelight.scoreWithPOV(0));
+    m_shooter.stopFeed();
+    m_shooter.maintainState();
   }
-  if(m_limelight.aimOperation() && m_maniController.GetBButton())
+  else if(m_limelight.aimOperation())
+  { 
+    if(m_maniController.GetAButton() || 
+      m_maniController.GetTriggerAxis(frc::GenericHID::kRightHand) > .1)
+    {
+      int povRead = m_maniController.GetPOV();
+      (povRead != -1 || m_maniController.GetAButton()) ? (m_limelight.scoreWithPOV(povRead))
+      : (m_limelight.scoreOperation());
+    }
+    else if(m_maniController.GetBButton()|| 
+      m_maniController.GetTriggerAxis(frc::GenericHID::kRightHand) > .1)
+    {
+      m_limelight.scoreOperation();
+    }
+    else
+    {
+      m_shooter.stopShooter();
+    }
+  }
+  else
   {
-    m_limelight.scoreOperation();
-  } 
+    m_shooter.stopShooter();
+  }
+   
 
 //intake
-/*
+  /*
   if(m_maniController.GetXButton())
     m_intake.extendIntake();
   if(m_maniController.GetYButton())
     m_intake.retractIntake();
-*/
-  /*
-  (m_maniController.GetBumper(frc::GenericHID::kRightHand)) ? (m_intake.reverseIntake())
-  : (m_intake.runIntake());  
-  */
 
-  if(m_maniController.GetBumper(frc::GenericHID::kLeftHand))
-  {
-    m_shooter.feedShooter();
-  }
-  else
-  {
-    m_shooter.stopFeed();
-  }
-  
+  (m_maniController.GetBumper(frc::GenericHID::kRightHand)) ? (m_intake.reverseIntake())
+  : (m_intake.runIntake());
+  */  
 }
 
 void Robot::TestInit() 

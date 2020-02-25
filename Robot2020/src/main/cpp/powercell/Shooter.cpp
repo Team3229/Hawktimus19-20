@@ -5,26 +5,26 @@ Shooter::Shooter()
     m_hoodServo = new frc::Servo(kHoodServoID);
 
     m_flyWheelFront = new rev::CANSparkMax(kFrontFWID,rev::CANSparkMax::MotorType::kBrushless);
-    //m_flyWheelBack  = new rev::CANSparkMax(kBackFWID,rev::CANSparkMax::MotorType::kBrushless);
+    m_flyWheelBack  = new rev::CANSparkMax(kBackFWID,rev::CANSparkMax::MotorType::kBrushless);
     m_flyWheelPID = new frc2::PIDController(kP,kI,kD);
 
     m_feeder = new ctre::phoenix::motorcontrol::can::WPI_TalonSRX(kFeederID);
 
     m_hoodServo->SetBounds(2.0,1.8,1.5,1.2,1.0);
 
-    //m_flyWheelBack->RestoreFactoryDefaults();
+    m_flyWheelBack->RestoreFactoryDefaults();
     m_flyWheelFront->RestoreFactoryDefaults();
 
     m_feeder->ClearStickyFaults();
 
-    //m_flyWheelBack->Follow(*m_flyWheelFront);
+    m_flyWheelBack->Follow(*m_flyWheelFront);
     //motor configurations
 }
 
 Shooter::~Shooter()
 {
     delete m_flyWheelFront;
-    //delete m_flyWheelBack;
+    delete m_flyWheelBack;
     delete m_flyWheelPID;
     delete m_feeder;
 }
@@ -49,7 +49,8 @@ bool Shooter::adjustFWSpeed(double rpm)
     debugDashNum("current rpm",FWSpeed);
     double output = m_flyWheelPID->Calculate(FWSpeed,rpm);
     debugDashNum("FW output", output);
-    m_flyWheelFront->Set(1);
+    m_lastOutput = output;
+    m_flyWheelFront->Set(.8);
     if (std::abs(FWSpeed - rpm) > kRPMErrRange)
     {
         debugDashNum("FWSpeed correct",0);
@@ -76,6 +77,7 @@ bool Shooter::readyFeed(units::inch_t dist)
 bool Shooter::adjustHood(units::inch_t dist)
 {
     double correctPos = std::clamp(dist.to<double>()*kHoodAngleRatio,0.0,1.0);
+    m_lastHoodPos = correctPos;
     m_hoodServo->SetPosition(correctPos);
     debugDashNum("Hood Set Position", correctPos);
     debugDashNum("Hood Actuator",m_hoodServo->GetPosition());
@@ -87,7 +89,15 @@ bool Shooter::adjustHood(units::inch_t dist)
     debugDashNum("Hood correct",1);
     return true;
 }
-
+void Shooter::maintainState()
+{
+    m_flyWheelFront->Set(m_lastOutput);
+    m_hoodServo->SetPosition(m_lastHoodPos);
+}
+void Shooter::stopShooter()
+{
+    m_flyWheelFront->Set(0);
+}
 //feeding shooter
 void Shooter::feedShooter()
 {
