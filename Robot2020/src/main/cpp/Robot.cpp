@@ -81,13 +81,14 @@ void Robot::TeleopPeriodic()
   */
   double rpm = frc::SmartDashboard::GetNumber("RPM",6000);
   m_shooter.adjustFWSpeed(rpm);
+  (m_maniController.GetBumper(frc::GenericHID::kRightHand)) ? (m_shooter.feedShooter())
+  : (m_shooter.stopFeed());
   //might need gyro to confirm it's possible to find the targer before this
   /*
   shooter
   left bumper -> force reverse & maintain state of shooter
   
   */
- m_turret.GetAngle();
  /*
   if(m_maniController.GetBumper(frc::GenericHID::kLeftHand))
   {
@@ -103,8 +104,7 @@ void Robot::TeleopPeriodic()
       (povRead != -1 || m_maniController.GetAButton()) ? (m_limelight.scoreWithPOV(povRead))
       : (m_limelight.scoreOperation());
     }
-    else if(m_maniController.GetBButton()|| 
-      m_maniController.GetTriggerAxis(frc::GenericHID::kRightHand) > .1)
+    else if(m_maniController.GetBButton())
     {
       m_limelight.scoreOperation();
     }
@@ -117,7 +117,7 @@ void Robot::TeleopPeriodic()
   {
     m_shooter.stopShooter();
   }
-   */
+*/
 
 //intake
   /*
