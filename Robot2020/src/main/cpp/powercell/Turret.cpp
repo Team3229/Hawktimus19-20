@@ -32,12 +32,13 @@ bool Turret::VisionTurn(double tX)
 {
     if (std::abs(tX)>kNominalTX)
     {
-        Turn(m_turretPID->Calculate(tX,0));
+        lastOutput = m_turretPID->Calculate(tX,0);
+        Turn(lastOutput);
         return false;
     }
     else
     {
-        Turn(0);
+        Turn(-lastOutput);
         return true;
     }
 }
@@ -56,7 +57,7 @@ void Turret::Turn(double setPower)
     debugDashNum("Turret Power", setPower);
     debugCons(std::abs(GetAngle()) << "\n");
     if (std::abs(GetAngle()) < 90.0)
-        m_turretMotor->Set(setPower);
+        m_turretMotor->Set(std::clamp(setPower,-.2,.2));
     else
     {
         debugCons("larger than max range")
@@ -68,5 +69,5 @@ Return the angle of the turret
 */
 double Turret::GetAngle()
 {
-    return m_turEncoder->GetDistance();
+    return m_turEncoder->GetDistance() * kEncoderRatio;
 }

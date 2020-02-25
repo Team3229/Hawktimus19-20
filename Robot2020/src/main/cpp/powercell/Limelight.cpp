@@ -32,10 +32,16 @@ void Limelight::scoreOperation()
 //periodic
 bool Limelight::aimOperation()
 {
-    if(m_turret->VisionTurn(table->GetNumber("tx",0.0)) &&
-        m_shooter->adjustHood(calcDist()))
+    debugDashNum("distance",calcDist().to<double>());
+    m_shooter->adjustHood(calcDist());
+    int tx = table->GetNumber("tx",0.0);
+    if(calcDist().to<double>() != 0)
     {
-        return true;
+        if(m_turret->VisionTurn(table->GetNumber("tx",0.0)) &&
+            m_shooter->adjustHood(calcDist()))
+        {
+            return true;
+        }
     }
     return false;
 }

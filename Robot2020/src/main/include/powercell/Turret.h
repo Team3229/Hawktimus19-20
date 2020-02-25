@@ -32,11 +32,12 @@ class Turret
         const double kMaxTurretPower = .5;
         const units::degree_t kMaxRange = 90_deg;
         const double kEncoderRatio = 73.17;
-        const double kP = .15;
+        const double kP = .05;
         const double kI = 0;
         const double kD = 0;
 
         const double kNominalTX = 3;
+        double lastOutput = 0;
         /* music
         ctre::phoenix::motorcontrol::can::TalonFX * m_fx;
         ctre::phoenix::music::Orchestra * m_music;
