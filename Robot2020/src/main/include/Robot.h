@@ -48,6 +48,7 @@ class Robot : public frc::TimedRobot {
   Drivetrain m_drive;
 
   Auto m_auto{&m_drive,&m_turret,&m_shooter,&m_limelight,&m_intake};
+  const bool recordMode = true; // use this to force disable recording, useful at competitions
 
   Camera m_camera;
 

@@ -56,7 +56,7 @@ void Auto::Record() {
 
   // Write controller inputs
   cmdFile.Write(autocommand, sizeof(*autocommand));
-  debugCons("Driver 1 left stick Y: " << autocommand->xbox1_leftY << "\n");
+  debugCons("Driver 1 left stick Y: " << autocommand->drive_leftY << "\n");
 }
 
 void Auto::CloseFile() {
@@ -73,15 +73,15 @@ void Auto::AutoPeriodic() {
     // TELEOP GOES HERE
     // REPLACE CONTROLLER get()s WITH STRUCT DATA
     // EXAMPLE: 
-    // if (autocommand->xbox1_RightBumper) {
+    // if (autocommand->drive_RightBumper) {
     //   autoAir->MoveFrontClimb();
-    if(std::abs(autocommand->xbox1_leftX) < .1 && std::abs(autocommand->xbox1_rightY) < .1)
+    if(std::abs(autocommand->drive_leftX) < .1 && std::abs(autocommand->drive_rightY) < .1)
       autoChassis->StopMotor();
     else
     {
-      double rotationOffset = 1+std::abs(autocommand->xbox1_leftX);
-      autoChassis->Drive(autocommand->xbox1_rightY * autoChassis->kMaxSpeed
-                        ,autocommand->xbox1_leftX * autoChassis->kMaxAngularSpeed*rotationOffset);
+      double rotationOffset = 1+std::abs(autocommand->drive_leftX);
+      autoChassis->Drive(autocommand->drive_rightY * autoChassis->kMaxSpeed
+                        ,autocommand->drive_leftX * autoChassis->kMaxAngularSpeed*rotationOffset);
     }
   /*
     if(autocommand->xbox2_XButton)

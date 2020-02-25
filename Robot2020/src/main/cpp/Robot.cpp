@@ -128,7 +128,44 @@ void Robot::TestInit()
 }
 void Robot::TestPeriodic() 
 {
-  m_auto.Record();
+  if (recordMode) { // recording
+    TeleopPeriodic();
+
+    // Populate struct
+    m_auto.autocommand->drive_rightY = (double) m_y1;
+    m_auto.autocommand->drive_leftX = (double) m_x1;
+    // m_auto.autocommand->drive_leftX = 
+    // m_auto.autocommand->drive_rightX = 
+    m_auto.autocommand->drive_AButton = m_driveController.GetAButton();
+    m_auto.autocommand->drive_BButton = m_driveController.GetBButton();
+    m_auto.autocommand->drive_XButton = m_driveController.GetXButton();
+    m_auto.autocommand->drive_YButton = m_driveController.GetYButton();
+    m_auto.autocommand->drive_RightBumper =
+        m_driveController.GetBumper(frc::GenericHID::kRightHand);
+    m_auto.autocommand->drive_LeftBumper =
+        m_driveController.GetBumper(frc::GenericHID::kLeftHand);
+    m_auto.autocommand->drive_RightTriggerAxis =
+        m_driveController.GetTriggerAxis(frc::GenericHID::kRightHand);
+    m_auto.autocommand->drive_LeftTriggerAxis =
+        m_driveController.GetTriggerAxis(frc::GenericHID::kLeftHand);
+    // m_auto.autocommand->mani_leftY = d2_leftY;
+    // m_auto.autocommand->mani_rightY = d2_rightY;
+    m_auto.autocommand->mani_AButton = m_maniController.GetAButton();
+    m_auto.autocommand->mani_BButton = m_maniController.GetBButton();
+    m_auto.autocommand->mani_XButton = m_maniController.GetXButton();
+    m_auto.autocommand->mani_YButton = m_maniController.GetYButton();
+    m_auto.autocommand->mani_RightBumper =
+        m_maniController.GetBumper(frc::GenericHID::kRightHand);
+    m_auto.autocommand->mani_LeftBumper =
+        m_maniController.GetBumper(frc::GenericHID::kLeftHand);
+    m_auto.autocommand->mani_RightTriggerAxis =
+        m_maniController.GetTriggerAxis(frc::GenericHID::kRightHand);
+    m_auto.autocommand->mani_LeftTriggerAxis =
+        m_maniController.GetTriggerAxis(frc::GenericHID::kLeftHand);
+
+    // Write current struct to file
+    m_auto.Record();
+  }
 }
 void Robot::DisabledInit()
 {

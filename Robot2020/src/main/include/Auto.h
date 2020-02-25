@@ -43,30 +43,30 @@ private:
 
   // Method of storing and replaying drivers inputs
   struct cmd {
-    // Driver 1
-    float xbox1_leftY;
-    float xbox1_leftX;
-    float xbox1_rightX;
-    float xbox1_rightY;
-    bool xbox1_AButton;
-    bool xbox1_BButton;
-    bool xbox1_XButton;
-    bool xbox1_YButton;
-    bool xbox1_RightBumper;
-    bool xbox1_LeftBumper;
-    float xbox1_RightTriggerAxis;
-    float xbox1_LeftTriggerAxis;
-    // Driver 2
-    float xbox2_leftY;
-    float xbox2_rightY;
-    bool xbox2_AButton;
-    bool xbox2_BButton;
-    bool xbox2_XButton;
-    bool xbox2_YButton;
-    bool xbox2_RightBumper;
-    bool xbox2_LeftBumper;
-    float xbox2_RightTriggerAxis;
-    float xbox2_LeftTriggerAxis;
+    // Driver 1 DRIVE TRAIN
+    double drive_leftX;
+    double drive_rightX;
+    double drive_leftY;
+    double drive_rightY;
+    bool drive_AButton;
+    bool drive_BButton;
+    bool drive_XButton;
+    bool drive_YButton;
+    bool drive_RightBumper;
+    bool drive_LeftBumper;
+    float drive_RightTriggerAxis;
+    float drive_LeftTriggerAxis;
+    // Driver 2 MANIPULATION
+    float mani_leftY;
+    float mani_rightY;
+    bool mani_AButton;
+    bool mani_BButton;
+    bool mani_XButton;
+    bool mani_YButton;
+    bool mani_RightBumper;
+    bool mani_LeftBumper;
+    float mani_RightTriggerAxis;
+    float mani_LeftTriggerAxis;
   };
 
   // TeleOp stuff for driving
