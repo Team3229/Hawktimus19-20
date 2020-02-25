@@ -55,9 +55,9 @@ void Robot::TeleopPeriodic()
   /*
   drivetrain
   */
-  const auto m_y1 = m_driveController.GetY(frc::GenericHID::kRightHand);
-  const auto m_x2 = -m_driveController.GetX(frc::GenericHID::kLeftHand);
-  if (kDRIVEDEADBAND > std::abs(m_y1) && kDRIVEDEADBAND > std::abs(m_x2))
+  m_y1 = m_driveController.GetY(frc::GenericHID::kRightHand);
+  m_x1 = -m_driveController.GetX(frc::GenericHID::kLeftHand);
+  if (kDRIVEDEADBAND > std::abs(m_y1) && kDRIVEDEADBAND > std::abs(m_x1))
   {
     m_drive.StopMotor();
   }
@@ -65,7 +65,7 @@ void Robot::TeleopPeriodic()
   {
     //increase rotation speed at high velocity
     double rotateOffset = 1+std::abs(m_y1); 
-    m_drive.Drive(m_y1*m_drive.kMaxSpeed,m_x2*m_drive.kMaxAngularSpeed*rotateOffset);
+    m_drive.Drive(m_y1*m_drive.kMaxSpeed,m_x1*m_drive.kMaxAngularSpeed*rotateOffset);
   }
   m_drive.UpdateOdometry();
 

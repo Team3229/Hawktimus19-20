@@ -51,6 +51,6 @@ class Robot : public frc::TimedRobot {
   const bool recordMode = true; // use this to force disable recording, useful at competitions
 
   Camera m_camera;
-
+  double m_x1,m_y1;
   const int kDRIVEDEADBAND = .1; 
 };
