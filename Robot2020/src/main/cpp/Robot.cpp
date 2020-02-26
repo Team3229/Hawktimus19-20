@@ -55,34 +55,48 @@ void Robot::TeleopPeriodic()
   /*
   drivetrain
   */
-  const auto m_y1 = m_driveController.GetY(frc::GenericHID::kRightHand);
+  const auto m_y1 = -m_driveController.GetY(frc::GenericHID::kRightHand);
   const auto m_x1 = -m_driveController.GetX(frc::GenericHID::kLeftHand);
   if (kDRIVEDEADBAND > std::abs(m_y1) && kDRIVEDEADBAND > std::abs(m_x1))
   {
+    debugDashNum("drive", 0);
     m_drive.StopMotor();
   }
   else
   {
+    debugDashNum("drive",1);
     //increase rotation speed at high velocity
-    double rotateOffset = 1+std::abs(m_y1); 
-    m_drive.Drive(m_y1*m_drive.kMaxSpeed,m_x1*m_drive.kMaxAngularSpeed*rotateOffset);
+    //double rotateOffset = 1+std::abs(m_y1); 
+    m_drive.Drive(m_y1*m_drive.kMaxSpeed,m_x1*m_drive.kMaxAngularSpeed);
   }
   m_drive.UpdateOdometry();
 
   //power cell manipulations
-  /*
-  double turretTurn = -m_maniController.GetX(frc::GenericHID::kRightHand);
+
+  double turretTurn = -m_maniController.GetX(frc::GenericHID::kRightHand)/5;
   (std::abs(turretTurn) > .1) ? (m_turret.Turn(turretTurn))
   : (m_turret.Turn(0));
   debugDashNum("Turret input", turretTurn);
+
   double hoodAdjust = -m_maniController.GetY(frc::GenericHID::kLeftHand);
   m_shooter.adjustHood(units::inch_t(hoodAdjust));
   debugDashNum("Hood Actuator Control in", hoodAdjust);
-  */
+
   double rpm = frc::SmartDashboard::GetNumber("RPM",6000);
-  m_shooter.adjustFWSpeed(rpm);
-  (m_maniController.GetBumper(frc::GenericHID::kRightHand)) ? (m_shooter.feedShooter())
-  : (m_shooter.stopFeed());
+  if(m_maniController.GetTriggerAxis(frc::GenericHID::kRightHand)>.2)
+  {
+    m_shooter.adjustFWSpeed(30);
+    m_shooter.feedShooter();
+  }
+  else
+  {
+    (m_maniController.GetBumper(frc::GenericHID::kLeftHand)) ? 
+    (m_shooter.reverseFeed())
+    : (m_shooter.stopFeed());
+  }
+  
+
+  
   //might need gyro to confirm it's possible to find the targer before this
   /*
   shooter
@@ -92,7 +106,7 @@ void Robot::TeleopPeriodic()
  /*
   if(m_maniController.GetBumper(frc::GenericHID::kLeftHand))
   {
-    m_shooter.stopFeed();
+    m_shooter.reverseFeed();
     m_shooter.maintainState();
   }
   else if(m_limelight.aimOperation())
@@ -111,10 +125,12 @@ void Robot::TeleopPeriodic()
     else
     {
       m_shooter.stopShooter();
+      m_shooter.stopFeed();
     }
   }
   else
   {
+    m_shooter.stopFeed();
     m_shooter.stopShooter();
   }
 */
@@ -125,10 +141,9 @@ void Robot::TeleopPeriodic()
     m_intake.extendIntake();
   if(m_maniController.GetYButton())
     m_intake.retractIntake();
-
-  (m_maniController.GetBumper(frc::GenericHID::kRightHand)) ? (m_intake.reverseIntake())
-  : (m_intake.runIntake());
-  */  
+  */
+  (m_maniController.GetBumper(frc::GenericHID::kRightHand)) ? (m_intake.forceRunIntake(-.7))
+  : (m_intake.forceRunIntake(0));  
 }
 
 void Robot::TestInit() 

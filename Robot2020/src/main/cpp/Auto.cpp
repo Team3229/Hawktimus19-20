@@ -79,9 +79,9 @@ void Auto::AutoPeriodic() {
       autoChassis->StopMotor();
     else
     {
-      double rotationOffset = 1+std::abs(autocommand->drive_leftX);
+      //double rotationOffset = 1+std::abs(autocommand->drive_leftX);
       autoChassis->Drive(autocommand->drive_rightY * autoChassis->kMaxSpeed
-                        ,autocommand->drive_leftX * autoChassis->kMaxAngularSpeed*rotationOffset);
+                        ,autocommand->drive_leftX * autoChassis->kMaxAngularSpeed);
     }
   /*
     if(autocommand->xbox2_XButton)

@@ -59,7 +59,7 @@ void Turret::Turn(double setPower)
         m_turretMotor->Set(std::clamp(setPower,-.2,.2));
     else
     {
-        debugCons("larger than max range")
+        debugDashNum("larger than max range",1);
         m_turretMotor->Set(std::clamp(-setPower,-.1,.1));//prevent locking of the turret
     }
 }

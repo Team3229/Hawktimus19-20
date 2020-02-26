@@ -60,8 +60,8 @@ class Drivetrain {
   rev::CANSparkMax * m_rightFront; 
   rev::CANSparkMax * m_rightBack;  
   
-  frc2::PIDController m_leftPIDController{.2, 0.0, 0.0};
-  frc2::PIDController m_rightPIDController{.2, 0.0, 0.0};
+  frc2::PIDController m_leftPIDController{.15, 0.0, 0.0};
+  frc2::PIDController m_rightPIDController{.15, 0.0, 0.0};
 
   frc::DifferentialDriveKinematics m_kinematics{kTrackWidth};
   frc::DifferentialDriveOdometry m_odometry{frc::Rotation2d{0_deg}};

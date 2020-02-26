@@ -26,7 +26,7 @@ private:
     const int kFeederID = 11;
 
     frc2::PIDController * m_flyWheelPID;
-    const double kP = .2;
+    const double kP = .1;
     const double kI = 0;
     const double kD = 0;
 
@@ -50,6 +50,7 @@ public:
     void stopShooter();
     
     void feedShooter();
+    void reverseFeed();
     void stopFeed();
     
     void hoodTest(double y);
