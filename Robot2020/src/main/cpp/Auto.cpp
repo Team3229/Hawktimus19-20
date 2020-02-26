@@ -83,18 +83,47 @@ void Auto::AutoPeriodic() {
       autoChassis->Drive(autocommand->drive_rightY * autoChassis->kMaxSpeed
                         ,autocommand->drive_leftX * autoChassis->kMaxAngularSpeed);
     }
-  /*
-    if(autocommand->xbox2_XButton)
-      autoIntake->extendIntake();
-    if(autocommand->xbox2_YButton)
-      autoIntake->retractIntake();
-      */
-    /* 
-    (autocommand->xbox2_AButton) ? (autoIntake->reverseIntake())
-    : (autoIntake->runIntake());  
-    */
+
+    //manipulation
+    /*
+    if(m_maniController.GetBumper(frc::GenericHID::kLeftHand))
+    {
+      m_shooter.reverseFeed();
+      m_shooter.maintainState();
+    }
+    else if(m_limelight.aimOperation())
+    { 
+      if(m_maniController.GetAButton() || 
+        m_maniController.GetTriggerAxis(frc::GenericHID::kRightHand) > .1)
+      {
+        int povRead = m_maniController.GetPOV();
+        (povRead != -1 || m_maniController.GetAButton()) ? (m_limelight.scoreWithPOV(povRead))
+        : (m_limelight.scoreOperation());
+      }
+      else if(m_maniController.GetBButton())
+      {
+        m_limelight.scoreOperation();
+      }
+      else
+      {
+        m_shooter.stopShooter();
+        m_shooter.stopFeed();
+      }
+    }
+    else
+    {
+      m_shooter.stopFeed();
+      m_shooter.stopShooter();
+    }
+  //intake
     
+    if(m_maniController.GetXButton())
+      m_intake.extendIntake();
+    if(m_maniController.GetYButton())
+      m_intake.retractIntake();
+    
+    (m_maniController.GetBumper(frc::GenericHID::kRightHand)) ? (m_intake.forceRunIntake(-.7))
+    : (m_intake.forceRunIntake(0)); 
+    */
   }
-
-
 }

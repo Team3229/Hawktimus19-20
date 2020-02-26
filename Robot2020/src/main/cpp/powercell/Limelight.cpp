@@ -35,12 +35,12 @@ bool Limelight::aimOperation()
     if(table->GetNumber("tv",0) == 1)
     {
         debugDashNum("distance",calcDist().to<double>());
-        m_shooter->adjustHood(calcDist());
+        m_shooter->adjustHood(m_shooter->calcHoodPos(calcDist()));
         debugDashNum("offset", table->GetNumber("tx",0.0));
         if(calcDist().to<double>() != 0)
         {
             if(m_turret->VisionTurn(table->GetNumber("tx",0.0)) &&
-                m_shooter->adjustHood(calcDist()))
+                m_shooter->adjustHood(m_shooter->calcHoodPos(calcDist())))
             {
                 return true;
             }
@@ -53,12 +53,12 @@ void Limelight::scoreWithPOV(double povValue)
 {
     if(povValue == 0 || povValue == -1)
     {
-        (m_shooter->adjustFWSpeed(6000) && m_shooter->adjustHood(17_ft)) ? (m_shooter->feedShooter())
+        (m_shooter->adjustFWSpeed(6000) && m_shooter->adjustHood(.4)) ? (m_shooter->feedShooter())
         : (m_shooter->stopFeed());
     }
     else if(povValue == 90)
     {
-        (m_shooter->adjustFWSpeed(7000) && m_shooter->adjustHood(23_ft)) ? (m_shooter->feedShooter())
+        (m_shooter->adjustFWSpeed(7000) && m_shooter->adjustHood(.4)) ? (m_shooter->feedShooter())
         : (m_shooter->stopFeed());
     }
 }

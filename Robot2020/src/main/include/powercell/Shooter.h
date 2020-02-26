@@ -42,9 +42,10 @@ public:
     ~Shooter();
 
     double calcRPM(units::inch_t dist);
+    double calcHoodPos(units::inch_t dist);
     bool readyFeed(units::inch_t dist);
     bool adjustFWSpeed(double rpm);
-    bool adjustHood(units::inch_t dist);
+    bool adjustHood(double position);
     
     void maintainState();
     void stopShooter();

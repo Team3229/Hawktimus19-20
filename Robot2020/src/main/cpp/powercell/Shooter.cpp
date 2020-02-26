@@ -38,6 +38,12 @@ double Shooter::calcRPM(units::inch_t dist)
     debugDashNum("calculated RPM",rpm);
     return rpm;
 }
+double Shooter::calcHoodPos(units::inch_t dist)
+{
+    double pos = dist.to<double>() * kHoodAngleRatio;
+    debugDashNum("calculated angle", pos);
+    return pos;
+}
 /**
  * sets the fly wheel rpm 
  * returns true if it is in appropriate rpm
@@ -66,7 +72,7 @@ bool Shooter::adjustFWSpeed(double rpm)
 bool Shooter::readyFeed(units::inch_t dist)
 {
     //add a timer if this is too fast
-    if (adjustFWSpeed(calcRPM(dist)) && adjustHood(dist))
+    if (adjustFWSpeed(calcRPM(dist)) && adjustHood(calcHoodPos(dist)))
         return true;
     return false;
 }
@@ -74,9 +80,9 @@ bool Shooter::readyFeed(units::inch_t dist)
  * adjust hood angle based on ty from limelight
  * might need a calcPos() if it isn't linear relationship
  */
-bool Shooter::adjustHood(units::inch_t dist)
+bool Shooter::adjustHood(double pos)
 {
-    double correctPos = std::clamp(dist.to<double>()*kHoodAngleRatio,0.0,0.8);
+    double correctPos = std::clamp(pos,0.0,0.8);
     m_lastHoodPos = correctPos;
     m_hoodServo->SetPosition(correctPos);
     debugDashNum("Hood Set Position", correctPos);

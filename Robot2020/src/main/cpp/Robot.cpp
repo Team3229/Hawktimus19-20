@@ -72,7 +72,7 @@ void Robot::TeleopPeriodic()
   m_drive.UpdateOdometry();
 
   //power cell manipulations
-
+  /*
   double turretTurn = -m_maniController.GetX(frc::GenericHID::kRightHand)/5;
   (std::abs(turretTurn) > .1) ? (m_turret.Turn(turretTurn))
   : (m_turret.Turn(0));
@@ -94,7 +94,7 @@ void Robot::TeleopPeriodic()
     (m_shooter.reverseFeed())
     : (m_shooter.stopFeed());
   }
-  
+  */
 
   
   //might need gyro to confirm it's possible to find the targer before this
@@ -103,7 +103,7 @@ void Robot::TeleopPeriodic()
   left bumper -> force reverse & maintain state of shooter
   
   */
- /*
+ 
   if(m_maniController.GetBumper(frc::GenericHID::kLeftHand))
   {
     m_shooter.reverseFeed();
@@ -133,8 +133,6 @@ void Robot::TeleopPeriodic()
     m_shooter.stopFeed();
     m_shooter.stopShooter();
   }
-*/
-
 //intake
   /*
   if(m_maniController.GetXButton())
