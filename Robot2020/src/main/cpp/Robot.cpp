@@ -122,6 +122,8 @@ void Robot::ExecuteControls()
   }
   else if(m_controllerInputs->mani_YButton) //auto aim
   { 
+    m_limelight.limelightLED(3);
+    m_limelight.limelightPipeLine(0);
     if(m_limelight.aimOperation() &&
       m_controllerInputs->mani_RightTriggerAxis > .1)
     {
@@ -144,6 +146,8 @@ void Robot::ExecuteControls()
   }
   else  //**manual control
   {
+    m_limelight.limelightLED(1);
+    m_limelight.limelightPipeLine(1);
     (std::abs(m_controllerInputs->mani_rightX) > .1) ? (m_turret.Turn(m_controllerInputs->mani_rightX/5))
     : (m_turret.Turn(0));
 
