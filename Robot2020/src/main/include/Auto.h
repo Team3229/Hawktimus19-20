@@ -49,11 +49,11 @@ public:
   Auto(Drivetrain *c, Turret *t, Shooter *s, Limelight *v, Intake *i);
   ~Auto();
   void SetupPlayback();
-  void ReadFile();
+  void ReadFile(cmd * inputs);
   void SetupRecording();
   void Record(cmd * inputs);
   void CloseFile();
-  void AutoPeriodic();
+  void AutoPeriodic(cmd * inputs);
 
 };
 

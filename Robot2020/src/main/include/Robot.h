@@ -33,12 +33,13 @@ class Robot : public frc::TimedRobot {
   void DisabledInit() override;
 
   void ExecuteControls();
-  };
  private:
   frc::SendableChooser<std::string> m_chooser;
   const std::string kAutoNameDefault = "Default";
   const std::string kAutoNameCustom = "My Auto";
   std::string m_autoSelected;
+
+  cmd * m_controllerInputs = new cmd;
 
   frc::XboxController m_driveController{0};
   frc::XboxController m_maniController{1};

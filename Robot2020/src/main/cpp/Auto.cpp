@@ -32,11 +32,11 @@ void Auto::SetupPlayback() {
   cmdFile.Open(filePath, READ);
 }
 
-void Auto::ReadFile() {
+void Auto::ReadFile(cmd * inputs) {
   debugCons("Reading auto file...\n");
 
   // Read controller inputs
-  cmdFile.Read(m_controllerInputs, sizeof(*m_controllerInputs));
+  cmdFile.Read(inputs, sizeof(*inputs));
 }
 
 void Auto::SetupRecording() {
@@ -62,10 +62,10 @@ void Auto::CloseFile() {
   cmdFile.Close();
 }
 
-void Auto::AutoPeriodic() {
+void Auto::AutoPeriodic(cmd * inputs) {
   // Put in Robot::AutonomousPeriodic
   if (!autoDone) {
-    ReadFile();
+    ReadFile(inputs);
 
     // TELEOP GOES HERE
   }

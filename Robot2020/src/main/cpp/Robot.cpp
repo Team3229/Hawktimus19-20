@@ -26,7 +26,7 @@ void Robot::AutonomousInit()
 
 void Robot::AutonomousPeriodic() 
 {
-  m_auto.AutoPeriodic();
+  m_auto.AutoPeriodic(m_controllerInputs);
   ExecuteControls();
 }
 
@@ -107,15 +107,15 @@ void Robot::ExecuteControls()
   }
   else
   {
-    m_drive.Drive(-m_controllerInputs->m_drive_rightY*m_drive.kMaxSpeed,
-                  -m_controllerInputs->m_drive_leftX*m_drive.kMaxAngularSpeed);
+    m_drive.Drive(-m_controllerInputs->drive_rightY*m_drive.kMaxSpeed,
+                  -m_controllerInputs->drive_leftX*m_drive.kMaxAngularSpeed);
   }
   m_drive.UpdateOdometry();
   //? might need gyro to confirm it's possible to find the targer before this
   /*
   * * All controls for feeder, shooter, turret, limelight
   */
-  if(m_controllerInputs->mani_rightBumper) //force reverse & maintain current FW speed & hood angle
+  if(m_controllerInputs->mani_RightBumper) //force reverse & maintain current FW speed & hood angle
   {
     m_shooter.reverseFeed();
     m_shooter.maintainState();
@@ -123,10 +123,10 @@ void Robot::ExecuteControls()
   else if(m_controllerInputs->mani_YButton) //auto aim
   { 
     if(m_limelight.aimOperation() &&
-      m_controllerInputs->mani_rightTriggerAxis > .1)
+      m_controllerInputs->mani_RightTriggerAxis > .1)
     {
       //note, this is always score pov, which is fine because scoreOperation doesn't work
-      (m_controllerInputs->mani_POV != -1 || m_controllerInputs->mani_rightTriggerAxis > .1) 
+      (m_controllerInputs->mani_POV != -1 || m_controllerInputs->mani_RightTriggerAxis > .1) 
       ? (m_limelight.scoreWithPOV(m_controllerInputs->mani_POV))
       : (m_limelight.scoreOperation());
     }
@@ -144,3 +144,35 @@ void Robot::ExecuteControls()
   }
   else  //**manual control
   {
+    (std::abs(m_controllerInputs->mani_rightX) > .1) ? (m_turret.Turn(m_controllerInputs->mani_rightX/5))
+    : (m_turret.Turn(0));
+
+    if(std::abs(m_controllerInputs->mani_leftY)*1000 > .1)
+      m_shooter.incrementalHood(m_controllerInputs->mani_leftY/1000);
+
+    if(m_controllerInputs->mani_RightTriggerAxis > .1)
+    {
+      (m_controllerInputs->mani_POV != -1 || m_controllerInputs->mani_RightTriggerAxis > .1)
+      ? (m_limelight.scoreWithPOV(m_controllerInputs->mani_POV))
+      : (m_limelight.scoreOperation());
+    }
+    else
+    {
+      m_shooter.stopFeed();
+      m_shooter.stopShooter();
+    }
+  }
+    //**intake
+  /*
+  if(m_controllerInputs->mani_BButton)
+    m_intake.extendIntake();
+  if(m_controllerInputs->mani_AButton)
+    m_intake.retractIntake();
+  */
+  (m_controllerInputs->mani_LeftBumper) ? (m_intake.forceRunIntake(-.7))
+  : (m_intake.forceRunIntake(0)); 
+}
+
+#ifndef RUNNING_FRC_TESTS
+int main() { return frc::StartRobot<Robot>(); }
+#endif
