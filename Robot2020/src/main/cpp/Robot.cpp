@@ -16,28 +16,9 @@ void Robot::RobotInit()
   frc::SmartDashboard::PutNumber("RPM",0);
 }
 
-/**
- * This function is called every robot packet, no matter the mode. Use
- * this for items like diagnostics that you want ran during disabled,
- * autonomous, teleoperated and test.
- *
- * <p> This runs after the mode specific periodic functions, but before
- * LiveWindow and SmartDashboard integrated updating.
- */
 void Robot::RobotPeriodic() 
 {}
 
-/**
- * This autonomous (along with the chooser code above) shows how to select
- * between different autonomous modes using the dashboard. The sendable chooser
- * code works with the Java SmartDashboard. If you prefer the LabVIEW Dashboard,
- * remove all of the chooser code and uncomment the GetString line to get the
- * auto name from the text box below the Gyro.
- *
- * You can add additional auto modes by adding additional comparisons to the
- * if-else structure below with additional strings. If using the SendableChooser
- * make sure to add them to the chooser code above as well.
- */
 void Robot::AutonomousInit() 
 {
   m_auto.SetupPlayback();
@@ -57,7 +38,7 @@ void Robot::TeleopPeriodic()
   m_drive.drivetrainDash();
   m_turret.turretDash();
   /*
-  drivetrain
+  * * drivetrain
   */
   const auto m_y1 = -m_driveController.GetY(frc::GenericHID::kRightHand);
   const auto m_x1 = -m_driveController.GetX(frc::GenericHID::kLeftHand);
@@ -67,14 +48,14 @@ void Robot::TeleopPeriodic()
   }
   else
   {
-    //increase rotation speed at high velocity
-    //double rotateOffset = 1+std::abs(m_y1); 
+    //?increase rotation speed at high velocity
+    //?double rotateOffset = 1+std::abs(m_y1); 
     m_drive.Drive(m_y1*m_drive.kMaxSpeed,m_x1*m_drive.kMaxAngularSpeed);
   }
   m_drive.UpdateOdometry();
 
-  //power cell manipulations
-  /*
+  
+  /* //! testing power cell manipulations, remove when below logic works
   double turretTurn = -m_maniController.GetX(frc::GenericHID::kRightHand)/5;
   (std::abs(turretTurn) > .1) ? (m_turret.Turn(turretTurn))
   : (m_turret.Turn(0));
@@ -99,13 +80,10 @@ void Robot::TeleopPeriodic()
   */
 
   
-  //might need gyro to confirm it's possible to find the targer before this
+  //? might need gyro to confirm it's possible to find the targer before this
   /*
-  shooter
-  left bumper -> force reverse & maintain state of shooter
-  
+  * * All controls for feeder, shooter, turret, limelight
   */
- 
   if(m_maniController.GetBumper(frc::GenericHID::kRightHand)) //force reverse & maintain current FW speed & hood angle
   {
     m_shooter.reverseFeed();
@@ -120,7 +98,7 @@ void Robot::TeleopPeriodic()
       (povRead != -1 || m_maniController.GetTriggerAxis(frc::GenericHID::kRightHand) > .1) ? (m_limelight.scoreWithPOV(povRead))
       : (m_limelight.scoreOperation());
     }
-    /*
+    /*  //?auto aim
     else if(m_maniController.GetBButton())
     {
       m_limelight.scoreOperation();
@@ -132,7 +110,7 @@ void Robot::TeleopPeriodic()
       m_shooter.stopFeed();
     }
   }
-  else  //manual control
+  else  //**manual control
   {
     double turretTurn = -m_maniController.GetX(frc::GenericHID::kRightHand)/5;
     (std::abs(turretTurn) > .1) ? (m_turret.Turn(turretTurn))
@@ -154,7 +132,7 @@ void Robot::TeleopPeriodic()
       m_shooter.stopShooter();
     }
   }
-//intake
+//**intake
   /*
   if(m_maniController.GetBButton())
     m_intake.extendIntake();

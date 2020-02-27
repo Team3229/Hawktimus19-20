@@ -26,11 +26,6 @@ Drivetrain::Drivetrain()
 
   m_rightBack->Follow(*m_rightUpper);
   m_rightFront->Follow(*m_rightUpper);
-
-  //m_leftUpper->GetEncoder().SetVelocityConversionFactor((1/ kEncToWheel) *2*wpi::math::pi* kWheelRadius / 60);
-  //m_rightUpper->GetEncoder().SetVelocityConversionFactor((1/ kEncToWheel) *2*wpi::math::pi* kWheelRadius / 60);
-  //m_leftUpper->GetEncoder().SetPositionConversionFactor();
-  //m_rightUpper->GetEncoder().SetPositionConversionFactor();
 }
 
 Drivetrain::~Drivetrain()

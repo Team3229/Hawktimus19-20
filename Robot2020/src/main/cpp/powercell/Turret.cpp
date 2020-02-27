@@ -2,13 +2,7 @@
 
 Turret::Turret()
 {
-    /*
-    m_fx = new ctre::phoenix::motorcontrol::can::TalonFX(3);
-    m_music = new ctre::phoenix::music::Orchestra();
-    m_music->AddInstrument(*m_fx);
-    */
     m_turretMotor = new ctre::phoenix::motorcontrol::can::WPI_TalonSRX(kTurretMotorID);
-    //m_turretEncoder = new frc::AnalogPotentiometer(kTurretEncoderID,kTurretRange,kZeroVoltRead);
     m_turretPID = new frc2::PIDController(kP,kI,kD);
     m_turEncoder = new frc::AnalogEncoder(turretEncID);
     m_turretPID->SetTolerance(.05);

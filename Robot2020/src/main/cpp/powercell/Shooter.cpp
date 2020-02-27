@@ -18,7 +18,6 @@ Shooter::Shooter()
     m_feeder->ClearStickyFaults();
 
     m_flyWheelBack->Follow(*m_flyWheelFront);
-    //motor configurations
 }
 
 Shooter::~Shooter()
@@ -33,8 +32,7 @@ calculate rpm with a distance input
 */
 double Shooter::calcRPM(units::inch_t dist)
 {
-    //find ratio to rpm, minimum 6000 rpm
-    double FWSetRPM = std::clamp(dist.to<double>() * kDistRPMRatio,5000.0,12000.0);
+    double FWSetRPM = std::clamp(dist.to<double>() * kDistRPMRatio,0.0,5700.0); //** NEO 550 (max 12000), NEO (max 5700)
     debug(FWSetRPMDebug = FWSetRPM);
     return FWSetRPM;
 }

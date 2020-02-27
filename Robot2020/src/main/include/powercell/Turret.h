@@ -39,9 +39,5 @@ class Turret
 
         const double kNominalTX = 3;
         double lastOutput = 0;
-        /* music
-        ctre::phoenix::motorcontrol::can::TalonFX * m_fx;
-        ctre::phoenix::music::Orchestra * m_music;
-        */
 };
 #endif
