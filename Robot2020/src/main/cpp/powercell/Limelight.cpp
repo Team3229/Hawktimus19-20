@@ -62,3 +62,32 @@ void Limelight::scoreWithPOV(double povValue)
         : (m_shooter->stopFeed());
     }
 }
+
+void Limelight::scoreWithPOVManual(double povValue)
+{
+    if(povValue == 0 || povValue == -1)
+    {
+        (m_shooter->adjustFWSpeed(4000)) ? (m_shooter->feedShooter())
+        : (m_shooter->stopFeed());
+    }
+    else if(povValue == 90)
+    {
+        (m_shooter->adjustFWSpeed(4500)) ? (m_shooter->feedShooter())
+        : (m_shooter->stopFeed());
+    }
+    else if(povValue == 180)
+    {
+        (m_shooter->adjustFWSpeed(5000)) ? (m_shooter->feedShooter())
+        : (m_shooter->stopFeed());
+    }
+    else if(povValue == 270)
+    {
+        (m_shooter->adjustFWSpeed(5500)) ? (m_shooter->feedShooter())
+        : (m_shooter->stopFeed());
+    }
+    else
+    {
+        (m_shooter->adjustFWSpeed(3500)) ? (m_shooter->feedShooter())
+        : (m_shooter->stopFeed());
+    }   
+}

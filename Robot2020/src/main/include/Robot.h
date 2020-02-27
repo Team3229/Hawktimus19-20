@@ -49,7 +49,7 @@ class Robot : public frc::TimedRobot {
 
   Auto m_auto{&m_drive,&m_turret,&m_shooter,&m_limelight,&m_intake};
   const bool m_recordMode = true; // use this to force disable recording, useful at competitions
-
+  
   Camera m_camera;
   double m_x1,m_y1;
   const int kDRIVEDEADBAND = .1; 

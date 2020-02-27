@@ -95,6 +95,11 @@ bool Shooter::adjustHood(double pos)
     debugDashNum("Hood correct",1);
     return true;
 }
+void Shooter::incrementalHood(double incrementalValue)
+{
+    m_lastHoodPos += incrementalValue;
+    adjustHood(m_lastHoodPos);
+}
 void Shooter::maintainState()
 {
     m_flyWheelFront->Set(m_lastOutput);

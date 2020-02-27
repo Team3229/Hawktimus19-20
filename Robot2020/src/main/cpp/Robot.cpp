@@ -104,43 +104,62 @@ void Robot::TeleopPeriodic()
   
   */
  
-  if(m_maniController.GetBumper(frc::GenericHID::kLeftHand))
+  if(m_maniController.GetBumper(frc::GenericHID::kRightHand)) //force reverse & maintain current FW speed & hood angle
   {
     m_shooter.reverseFeed();
     m_shooter.maintainState();
   }
-  else if(m_limelight.aimOperation())
+  else if(m_maniController.GetYButton() && m_limelight.aimOperation()) //auto aim
   { 
-    if(m_maniController.GetAButton() || 
+    if(/*m_maniController.GetAButton() || */
       m_maniController.GetTriggerAxis(frc::GenericHID::kRightHand) > .1)
     {
       int povRead = m_maniController.GetPOV();
-      (povRead != -1 || m_maniController.GetAButton()) ? (m_limelight.scoreWithPOV(povRead))
+      (povRead != -1 || m_maniController.GetTriggerAxis(frc::GenericHID::kRightHand) > .1) ? (m_limelight.scoreWithPOV(povRead))
       : (m_limelight.scoreOperation());
     }
+    /*
     else if(m_maniController.GetBButton())
     {
       m_limelight.scoreOperation();
     }
+    */
     else
     {
       m_shooter.stopShooter();
       m_shooter.stopFeed();
     }
   }
-  else
+  else  //manual control
   {
-    m_shooter.stopFeed();
-    m_shooter.stopShooter();
+    double turretTurn = -m_maniController.GetX(frc::GenericHID::kRightHand)/5;
+    (std::abs(turretTurn) > .1) ? (m_turret.Turn(turretTurn))
+    : (m_turret.Turn(0));
+
+    double hoodAdjust = -m_maniController.GetY(frc::GenericHID::kLeftHand)/1000;
+    if(hoodAdjust*1000 > .1)
+      m_shooter.incrementalHood(hoodAdjust);
+    
+    if(m_maniController.GetTriggerAxis(frc::GenericHID::kRightHand) > .1)
+    {
+      int povRead = m_maniController.GetPOV();
+      (povRead != -1 || m_maniController.GetTriggerAxis(frc::GenericHID::kRightHand) > .1) ? (m_limelight.scoreWithPOV(povRead))
+      : (m_limelight.scoreOperation());
+    }
+    else
+    {
+      m_shooter.stopFeed();
+      m_shooter.stopShooter();
+    }
   }
 //intake
   /*
-  if(m_maniController.GetXButton())
+  if(m_maniController.GetBButton())
     m_intake.extendIntake();
-  if(m_maniController.GetYButton())
+  if(m_maniController.GetAButton())
     m_intake.retractIntake();
   */
-  (m_maniController.GetBumper(frc::GenericHID::kRightHand)) ? (m_intake.forceRunIntake(-.7))
+  (m_maniController.GetBumper(frc::GenericHID::kLeftHand)) ? (m_intake.forceRunIntake(-.7))
   : (m_intake.forceRunIntake(0));  
 }
 

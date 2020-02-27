@@ -36,7 +36,8 @@ private:
     const double kHoodAngleRatio = 1;
     const double kDistRPMRatio = 1;
 
-    double m_lastOutput, m_lastHoodPos;
+    double m_lastOutput;
+    double m_lastHoodPos = .0;
 public:
     Shooter();
     ~Shooter();
@@ -46,7 +47,8 @@ public:
     bool readyFeed(units::inch_t dist);
     bool adjustFWSpeed(double rpm);
     bool adjustHood(double position);
-    
+    void incrementalHood(double incrementValue);
+
     void maintainState();
     void stopShooter();
     
@@ -57,8 +59,5 @@ public:
     void hoodTest(double y);
     void shooterTest(double pow);
 };
-
-
-
 
 #endif
