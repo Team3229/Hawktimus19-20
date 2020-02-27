@@ -14,10 +14,11 @@
 #include <AHRS.h>
 
 #include <frc/PowerDistributionPanel.h>
-
 #include <frc/smartdashboard/SmartDashboard.h>
-#include "Debug.h"
 #include <frc/drive/DifferentialDrive.h>
+
+#include "Debug.h"
+
 /**
  * Represents a differential drive style drivetrain.
  */

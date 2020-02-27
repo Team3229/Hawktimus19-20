@@ -1,10 +1,12 @@
 #ifndef DRIVETRAJECTORY_H
 #define DRIVETRAJECTORY_H
+
 #pragma once
 
-#include "Drivetrain.h"
 #include <frc/trajectory/TrajectoryGenerator.h>
 #include <frc/controller/RamseteController.h>
+
+#include "Drivetrain.h"
 
 class DriveTrajectory
 {

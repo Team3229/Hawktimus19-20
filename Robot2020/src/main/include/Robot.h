@@ -9,15 +9,16 @@
 
 #include <string>
 
+#include <frc/TimedRobot.h>
+#include <frc/smartdashboard/SendableChooser.h>
+#include <frc/XboxController.h>
+
 #include "powercell/Limelight.h"
 #include "powercell/Intake.h"
 #include "drive/Drivetrain.h"
 #include "Auto.h"
 #include "Camera.h"
-
-#include <frc/TimedRobot.h>
-#include <frc/smartdashboard/SendableChooser.h>
-#include <frc/XboxController.h>
+#include "Climb.h"
 
 class Robot : public frc::TimedRobot {
  public:
@@ -48,6 +49,7 @@ class Robot : public frc::TimedRobot {
   Turret m_turret;
   Shooter m_shooter;
   Limelight m_limelight{&m_turret,&m_shooter};
+  Climb m_climber;
 
   Drivetrain m_drive;
 
