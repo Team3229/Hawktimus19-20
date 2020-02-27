@@ -9,7 +9,9 @@ Shooter::Shooter()
 
     m_feeder = new ctre::phoenix::motorcontrol::can::WPI_TalonSRX(kFeederID);
 
-    m_hoodServo->SetBounds(2.0,1.8,1.5,1.2,1.0);
+    //m_hoodServo->SetBounds(2.0,1.8,1.5,1.2,1.0);
+    // Test values with lower maximum:
+    m_hoodServo->SetBounds(1.6,1.4,1.1,0.8,0.6);
 
     m_flyWheelFront->RestoreFactoryDefaults();
 

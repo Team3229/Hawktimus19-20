@@ -16,8 +16,7 @@ void Robot::RobotInit()
   frc::SmartDashboard::PutNumber("RPM",0);
 }
 
-void Robot::RobotPeriodic() 
-{}
+void Robot::RobotPeriodic() {}
 
 void Robot::AutonomousInit() 
 {
@@ -26,11 +25,14 @@ void Robot::AutonomousInit()
 
 void Robot::AutonomousPeriodic() 
 {
-  m_auto.AutoPeriodic(m_controllerInputs);
+  m_auto.ReadFile(m_controllerInputs);
   ExecuteControls();
 }
 
-void Robot::TeleopInit() {}
+void Robot::TeleopInit() 
+{
+  m_auto.CloseFile();
+}
 
 void Robot::TeleopPeriodic() 
 {
@@ -82,6 +84,7 @@ void Robot::TestInit()
 {
   m_auto.SetupRecording();
 }
+
 void Robot::TestPeriodic() 
 {
   if (m_recordMode) { // recording
@@ -91,10 +94,13 @@ void Robot::TestPeriodic()
     m_auto.Record(m_controllerInputs);
   }
 }
+
 void Robot::DisabledInit()
 {
   m_auto.CloseFile();
 }
+
+// TeleOp
 void Robot::ExecuteControls()
 {
   /*

@@ -27,11 +27,11 @@ private:
   // MAKE SURE TO UPDATE CONSTRUCTOR ARGS AND SUBSYSTEMS FOR THIS YEAR
 
   // EXAMPLE FROM ROBOT2019
-  Drivetrain *autoChassis;
-  Limelight *autoVisionSystem;
-  Shooter *autoShooter;
-  Intake *autoIntake;
-  Turret *autoTurret;
+  Drivetrain * autoChassis;
+  Limelight * autoVisionSystem;
+  Shooter * autoShooter;
+  Intake * autoIntake;
+  Turret * autoTurret;
 
   // files stuff
   // Use .aut file extension
@@ -53,7 +53,7 @@ public:
   void SetupRecording();
   void Record(cmd * inputs);
   void CloseFile();
-  void AutoPeriodic(cmd * inputs);
+  // void AutoPeriodic(cmd * inputs);
 
 };
 

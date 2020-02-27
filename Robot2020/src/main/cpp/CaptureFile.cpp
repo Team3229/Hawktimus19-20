@@ -31,7 +31,7 @@ void CaptureFile::Open(std::string name, bool forWrite) {
   isWrite = forWrite;
   char *perms = "rb";
   if (isWrite)
-    char *perms = "wb";
+    perms = "wb";
 
   // Open the file for read or write
   fileHandle = fopen(fileName, perms);

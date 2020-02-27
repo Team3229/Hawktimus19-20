@@ -9,7 +9,9 @@
 #include <frc/smartdashboard/SmartDashboard.h>
 #include <frc/AnalogEncoder.h>
 #include <frc/AnalogInput.h>
+
 #include "Debug.h"
+
 class Turret
 {
     public:

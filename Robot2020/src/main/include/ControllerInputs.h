@@ -33,5 +33,4 @@ struct cmd {
   int mani_POV;
 };
 
-
 #endif // CONTROLLER_INPUTS_H

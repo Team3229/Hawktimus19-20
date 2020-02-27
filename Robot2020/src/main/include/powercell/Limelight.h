@@ -3,12 +3,12 @@
 
 #pragma once
 
-#include "Turret.h"
-#include "Shooter.h"
-
 #include <networktables/NetworkTable.h>
 #include <networktables/NetworkTableEntry.h>
 #include <networktables/NetworkTableInstance.h>
+
+#include "Turret.h"
+#include "Shooter.h"
 
 class Limelight
 {
