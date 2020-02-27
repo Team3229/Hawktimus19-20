@@ -31,6 +31,9 @@ class Robot : public frc::TimedRobot {
   void TestInit() override;
   void TestPeriodic() override;
   void DisabledInit() override;
+
+  void ExecuteControls();
+  };
  private:
   frc::SendableChooser<std::string> m_chooser;
   const std::string kAutoNameDefault = "Default";

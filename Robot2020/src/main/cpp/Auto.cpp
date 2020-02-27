@@ -20,7 +20,6 @@ Auto::~Auto() {
   delete autoShooter;
   delete autoVisionSystem;
   delete autoIntake;
-  delete autocommand;
 }
 
 void Auto::SetupPlayback() {
@@ -37,8 +36,7 @@ void Auto::ReadFile() {
   debugCons("Reading auto file...\n");
 
   // Read controller inputs
-  debugCons("Size of struct: " << sizeof(*autocommand) << "\n");
-  cmdFile.Read(autocommand, sizeof(*autocommand));
+  cmdFile.Read(m_controllerInputs, sizeof(*m_controllerInputs));
 }
 
 void Auto::SetupRecording() {
@@ -50,13 +48,12 @@ void Auto::SetupRecording() {
   cmdFile.Open(filePath, WRITE);
 }
 
-void Auto::Record() {
+void Auto::Record(cmd * inputs) {
   // Put in Robot::TestPeriodic()
   debugCons("Writing auto file...\n");
 
   // Write controller inputs
-  cmdFile.Write(autocommand, sizeof(*autocommand));
-  debugCons("Driver 1 left stick Y: " << autocommand->drive_leftY << "\n");
+  cmdFile.Write(inputs, sizeof(*inputs));
 }
 
 void Auto::CloseFile() {
@@ -71,59 +68,5 @@ void Auto::AutoPeriodic() {
     ReadFile();
 
     // TELEOP GOES HERE
-    // REPLACE CONTROLLER get()s WITH STRUCT DATA
-    // EXAMPLE: 
-    // if (autocommand->drive_RightBumper) {
-    //   autoAir->MoveFrontClimb();
-    if(std::abs(autocommand->drive_leftX) < .1 && std::abs(autocommand->drive_rightY) < .1)
-      autoChassis->StopMotor();
-    else
-    {
-      //double rotationOffset = 1+std::abs(autocommand->drive_leftX);
-      autoChassis->Drive(autocommand->drive_rightY * autoChassis->kMaxSpeed
-                        ,autocommand->drive_leftX * autoChassis->kMaxAngularSpeed);
-    }
-
-    //manipulation
-    /*
-    if(m_maniController.GetBumper(frc::GenericHID::kLeftHand))
-    {
-      m_shooter.reverseFeed();
-      m_shooter.maintainState();
-    }
-    else if(m_limelight.aimOperation())
-    { 
-      if(m_maniController.GetAButton() || 
-        m_maniController.GetTriggerAxis(frc::GenericHID::kRightHand) > .1)
-      {
-        int povRead = m_maniController.GetPOV();
-        (povRead != -1 || m_maniController.GetAButton()) ? (m_limelight.scoreWithPOV(povRead))
-        : (m_limelight.scoreOperation());
-      }
-      else if(m_maniController.GetBButton())
-      {
-        m_limelight.scoreOperation();
-      }
-      else
-      {
-        m_shooter.stopShooter();
-        m_shooter.stopFeed();
-      }
-    }
-    else
-    {
-      m_shooter.stopFeed();
-      m_shooter.stopShooter();
-    }
-  //intake
-    
-    if(m_maniController.GetXButton())
-      m_intake.extendIntake();
-    if(m_maniController.GetYButton())
-      m_intake.retractIntake();
-    
-    (m_maniController.GetBumper(frc::GenericHID::kRightHand)) ? (m_intake.forceRunIntake(-.7))
-    : (m_intake.forceRunIntake(0)); 
-    */
   }
 }

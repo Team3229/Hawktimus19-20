@@ -19,10 +19,8 @@ private:
     const int kHoodServoID = 0; //PWM
 
     rev::CANSparkMax * m_flyWheelFront;
-    rev::CANSparkMax * m_flyWheelBack;
     ctre::phoenix::motorcontrol::can::WPI_TalonSRX * m_feeder;
     const int kFrontFWID = 8;   //CAN
-    const int kBackFWID = 7;
     const int kFeederID = 11;
 
     frc2::PIDController * m_flyWheelPID;

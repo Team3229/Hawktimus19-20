@@ -8,6 +8,7 @@
 #include <frc/GenericHID.h>
 #include <cameraserver/CameraServer.h>
 #include <cscore_oo.h>
+#include <frc/smartdashboard/SmartDashboard.h>
 
 class Camera
 {

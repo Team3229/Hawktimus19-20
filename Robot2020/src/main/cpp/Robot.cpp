@@ -27,79 +27,111 @@ void Robot::AutonomousInit()
 void Robot::AutonomousPeriodic() 
 {
   m_auto.AutoPeriodic();
+  ExecuteControls();
 }
 
 void Robot::TeleopInit() {}
 
 void Robot::TeleopPeriodic() 
 {
+  // Populate controller struct
+  m_controllerInputs->drive_rightY = m_driveController.GetY(frc::GenericHID::kRightHand);
+  m_controllerInputs->drive_rightX = m_driveController.GetX(frc::GenericHID::kRightHand);
+  m_controllerInputs->drive_leftY = m_driveController.GetY(frc::GenericHID::kLeftHand);
+  m_controllerInputs->drive_leftX = m_driveController.GetX(frc::GenericHID::kLeftHand);
+  m_controllerInputs->drive_AButton = m_driveController.GetAButton();
+  m_controllerInputs->drive_BButton = m_driveController.GetBButton();
+  m_controllerInputs->drive_XButton = m_driveController.GetXButton();
+  m_controllerInputs->drive_YButton = m_driveController.GetYButton();
+  m_controllerInputs->drive_RightBumper =
+      m_driveController.GetBumper(frc::GenericHID::kRightHand);
+  m_controllerInputs->drive_LeftBumper =
+      m_driveController.GetBumper(frc::GenericHID::kLeftHand);
+  m_controllerInputs->drive_RightTriggerAxis =
+      m_driveController.GetTriggerAxis(frc::GenericHID::kRightHand);
+  m_controllerInputs->drive_LeftTriggerAxis =
+      m_driveController.GetTriggerAxis(frc::GenericHID::kLeftHand);
+  m_controllerInputs->drive_POV = m_driveController.GetPOV();
+  m_controllerInputs->mani_rightY = m_maniController.GetY(frc::GenericHID::kRightHand);
+  m_controllerInputs->mani_rightX = m_maniController.GetX(frc::GenericHID::kRightHand);
+  m_controllerInputs->mani_leftY = m_maniController.GetY(frc::GenericHID::kLeftHand);
+  m_controllerInputs->mani_leftX = m_maniController.GetX(frc::GenericHID::kLeftHand);
+  m_controllerInputs->mani_AButton = m_maniController.GetAButton();
+  m_controllerInputs->mani_BButton = m_maniController.GetBButton();
+  m_controllerInputs->mani_XButton = m_maniController.GetXButton();
+  m_controllerInputs->mani_YButton = m_maniController.GetYButton();
+  m_controllerInputs->mani_RightBumper =
+      m_maniController.GetBumper(frc::GenericHID::kRightHand);
+  m_controllerInputs->mani_LeftBumper =
+      m_maniController.GetBumper(frc::GenericHID::kLeftHand);
+  m_controllerInputs->mani_RightTriggerAxis =
+      m_maniController.GetTriggerAxis(frc::GenericHID::kRightHand);
+  m_controllerInputs->mani_LeftTriggerAxis =
+      m_maniController.GetTriggerAxis(frc::GenericHID::kLeftHand);
+  m_controllerInputs->mani_POV = m_maniController.GetPOV();
+  
   m_limelight.limelightDash();
   m_shooter.shooterDash();
   m_drive.drivetrainDash();
   m_turret.turretDash();
+
+  ExecuteControls();
+}
+
+void Robot::TestInit() 
+{
+  m_auto.SetupRecording();
+}
+void Robot::TestPeriodic() 
+{
+  if (m_recordMode) { // recording
+    // Run TeleOp as normal
+    TeleopPeriodic();
+    // Write current struct to file
+    m_auto.Record(m_controllerInputs);
+  }
+}
+void Robot::DisabledInit()
+{
+  m_auto.CloseFile();
+}
+void Robot::ExecuteControls()
+{
   /*
   * * drivetrain
   */
-  const auto m_y1 = -m_driveController.GetY(frc::GenericHID::kRightHand);
-  const auto m_x1 = -m_driveController.GetX(frc::GenericHID::kLeftHand);
-  if (kDRIVEDEADBAND > std::abs(m_y1) && kDRIVEDEADBAND > std::abs(m_x1))
+  if (kDRIVEDEADBAND > std::abs(m_controllerInputs->drive_rightY) && 
+      kDRIVEDEADBAND > std::abs(m_controllerInputs->drive_leftX))
   {
     m_drive.StopMotor();
   }
   else
   {
-    //?increase rotation speed at high velocity
-    //?double rotateOffset = 1+std::abs(m_y1); 
-    m_drive.Drive(m_y1*m_drive.kMaxSpeed,m_x1*m_drive.kMaxAngularSpeed);
+    m_drive.Drive(-m_controllerInputs->m_drive_rightY*m_drive.kMaxSpeed,
+                  -m_controllerInputs->m_drive_leftX*m_drive.kMaxAngularSpeed);
   }
   m_drive.UpdateOdometry();
-
-  
-  /* //! testing power cell manipulations, remove when below logic works
-  double turretTurn = -m_maniController.GetX(frc::GenericHID::kRightHand)/5;
-  (std::abs(turretTurn) > .1) ? (m_turret.Turn(turretTurn))
-  : (m_turret.Turn(0));
-  debugDashNum("Turret input", turretTurn);
-
-  double hoodAdjust = -m_maniController.GetY(frc::GenericHID::kLeftHand);
-  m_shooter.adjustHood(units::inch_t(hoodAdjust));
-  debugDashNum("Hood Actuator Control in", hoodAdjust);
-
-  double rpm = frc::SmartDashboard::GetNumber("RPM",6000);
-  if(m_maniController.GetTriggerAxis(frc::GenericHID::kRightHand)>.2)
-  {
-    m_shooter.adjustFWSpeed(30);
-    m_shooter.feedShooter();
-  }
-  else
-  {
-    (m_maniController.GetBumper(frc::GenericHID::kLeftHand)) ? 
-    (m_shooter.reverseFeed())
-    : (m_shooter.stopFeed());
-  }
-  */
-
-  
   //? might need gyro to confirm it's possible to find the targer before this
   /*
   * * All controls for feeder, shooter, turret, limelight
   */
-  if(m_maniController.GetBumper(frc::GenericHID::kRightHand)) //force reverse & maintain current FW speed & hood angle
+  if(m_controllerInputs->mani_rightBumper) //force reverse & maintain current FW speed & hood angle
   {
     m_shooter.reverseFeed();
     m_shooter.maintainState();
   }
-  else if(m_maniController.GetYButton()) //auto aim
+  else if(m_controllerInputs->mani_YButton) //auto aim
   { 
     if(m_limelight.aimOperation() &&
-      m_maniController.GetTriggerAxis(frc::GenericHID::kRightHand) > .1)
+      m_controllerInputs->mani_rightTriggerAxis > .1)
     {
-      int povRead = m_maniController.GetPOV();
-      (povRead != -1 || m_maniController.GetTriggerAxis(frc::GenericHID::kRightHand) > .1) ? (m_limelight.scoreWithPOV(povRead))
+      //note, this is always score pov, which is fine because scoreOperation doesn't work
+      (m_controllerInputs->mani_POV != -1 || m_controllerInputs->mani_rightTriggerAxis > .1) 
+      ? (m_limelight.scoreWithPOV(m_controllerInputs->mani_POV))
       : (m_limelight.scoreOperation());
     }
     /*  //?auto aim
-    else if(m_maniController.GetBButton())
+    else if(m_controllerInputs->mani_XButton)
     {
       m_limelight.scoreOperation();
     }
@@ -112,86 +144,3 @@ void Robot::TeleopPeriodic()
   }
   else  //**manual control
   {
-    double turretTurn = -m_maniController.GetX(frc::GenericHID::kRightHand)/5;
-    (std::abs(turretTurn) > .1) ? (m_turret.Turn(turretTurn))
-    : (m_turret.Turn(0));
-
-    double hoodAdjust = -m_maniController.GetY(frc::GenericHID::kLeftHand)/1000;
-    if(hoodAdjust*1000 > .1)
-      m_shooter.incrementalHood(hoodAdjust);
-    
-    if(m_maniController.GetTriggerAxis(frc::GenericHID::kRightHand) > .1)
-    {
-      int povRead = m_maniController.GetPOV();
-      (povRead != -1 || m_maniController.GetTriggerAxis(frc::GenericHID::kRightHand) > .1) ? (m_limelight.scoreWithPOV(povRead))
-      : (m_limelight.scoreOperation());
-    }
-    else
-    {
-      m_shooter.stopFeed();
-      m_shooter.stopShooter();
-    }
-  }
-//**intake
-  /*
-  if(m_maniController.GetBButton())
-    m_intake.extendIntake();
-  if(m_maniController.GetAButton())
-    m_intake.retractIntake();
-  */
-  (m_maniController.GetBumper(frc::GenericHID::kLeftHand)) ? (m_intake.forceRunIntake(-.7))
-  : (m_intake.forceRunIntake(0));  
-}
-
-void Robot::TestInit() 
-{
-  m_auto.SetupRecording();
-}
-void Robot::TestPeriodic() 
-{
-  if (m_recordMode) { // recording
-    TeleopPeriodic();
-
-    // Populate struct
-    m_auto.autocommand->drive_rightY = (double) m_y1;
-    m_auto.autocommand->drive_leftX = (double) m_x1;
-    // m_auto.autocommand->drive_leftX = 
-    // m_auto.autocommand->drive_rightX = 
-    m_auto.autocommand->drive_AButton = m_driveController.GetAButton();
-    m_auto.autocommand->drive_BButton = m_driveController.GetBButton();
-    m_auto.autocommand->drive_XButton = m_driveController.GetXButton();
-    m_auto.autocommand->drive_YButton = m_driveController.GetYButton();
-    m_auto.autocommand->drive_RightBumper =
-        m_driveController.GetBumper(frc::GenericHID::kRightHand);
-    m_auto.autocommand->drive_LeftBumper =
-        m_driveController.GetBumper(frc::GenericHID::kLeftHand);
-    m_auto.autocommand->drive_RightTriggerAxis =
-        m_driveController.GetTriggerAxis(frc::GenericHID::kRightHand);
-    m_auto.autocommand->drive_LeftTriggerAxis =
-        m_driveController.GetTriggerAxis(frc::GenericHID::kLeftHand);
-    // m_auto.autocommand->mani_leftY = d2_leftY;
-    // m_auto.autocommand->mani_rightY = d2_rightY;
-    m_auto.autocommand->mani_AButton = m_maniController.GetAButton();
-    m_auto.autocommand->mani_BButton = m_maniController.GetBButton();
-    m_auto.autocommand->mani_XButton = m_maniController.GetXButton();
-    m_auto.autocommand->mani_YButton = m_maniController.GetYButton();
-    m_auto.autocommand->mani_RightBumper =
-        m_maniController.GetBumper(frc::GenericHID::kRightHand);
-    m_auto.autocommand->mani_LeftBumper =
-        m_maniController.GetBumper(frc::GenericHID::kLeftHand);
-    m_auto.autocommand->mani_RightTriggerAxis =
-        m_maniController.GetTriggerAxis(frc::GenericHID::kRightHand);
-    m_auto.autocommand->mani_LeftTriggerAxis =
-        m_maniController.GetTriggerAxis(frc::GenericHID::kLeftHand);
-
-    // Write current struct to file
-    m_auto.Record();
-  }
-}
-void Robot::DisabledInit()
-{
-  m_auto.CloseFile();
-}
-#ifndef RUNNING_FRC_TESTS
-int main() { return frc::StartRobot<Robot>(); }
-#endif

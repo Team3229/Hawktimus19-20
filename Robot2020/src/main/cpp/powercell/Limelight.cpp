@@ -5,8 +5,9 @@ Limelight::Limelight(Turret * turyeet, Shooter * yeeter)
     table = nt::NetworkTableInstance::GetDefault().GetTable("limelight");
     
     nt::NetworkTableInstance::GetDefault().GetTable("limelight")->PutNumber("pipeline", 0);
-    nt::NetworkTableInstance::GetDefault().GetTable("limelight")->PutNumber("ledMode", 3);
+    nt::NetworkTableInstance::GetDefault().GetTable("limelight")->PutNumber("ledMode", 1);
     nt::NetworkTableInstance::GetDefault().GetTable("limelight")->PutNumber("camMode", 0);
+    nt::NetworkTableInstance::GetDefault().GetTable("limelight")->PutNumber("stream", 0);
 
     m_turret = turyeet;
     m_shooter = yeeter;

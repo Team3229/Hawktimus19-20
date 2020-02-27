@@ -28,6 +28,10 @@ public:
     Limelight(Turret * turyeet, Shooter * yeeter);
     ~Limelight();
 
+    void limelightLED(int mode){table->PutNumber("ledMode",mode);} //0 pipeline setting, 1 force off, 2 force blink, 3 force on
+    void limelightPipeLine(int mode){table->PutNumber("pipeline",mode);}
+    void limelightCamMode(int mode){table->PutNumber("camMode",mode);}
+
     units::inch_t calcDist();
     void scoreOperation();
     bool aimOperation();
