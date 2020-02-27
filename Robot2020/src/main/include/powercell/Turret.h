@@ -20,6 +20,7 @@ class Turret
         void Turn(double setPower);
         double GetAngle();
 
+        void turretDash();
     private:        
         ctre::phoenix::motorcontrol::can::WPI_TalonSRX * m_turretMotor;
         frc2::PIDController * m_turretPID;

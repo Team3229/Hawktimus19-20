@@ -60,14 +60,6 @@ frc::DifferentialDriveWheelSpeeds Drivetrain::GetSpeeds() const {
 frc::Pose2d Drivetrain::GetPose() const
 {
   frc::Pose2d currentPos = m_odometry.GetPose();
-  //tests
-  units::meter_t currentX = currentPos.Translation().X();
-  units::meter_t currentY = currentPos.Translation().Y();
-  units::degree_t currentDeg = currentPos.Rotation().Degrees();
-  debugDashNum("Pose x (m)", currentX.to<double>());
-  debugDashNum("Pose y (m)", currentY.to<double>());
-  debugDashNum("Pose angle (degree)", currentDeg.to<double>());
-  
   return currentPos;
 }
 
@@ -93,9 +85,6 @@ void Drivetrain::SetSpeeds(const frc::DifferentialDriveWheelSpeeds& speeds) {
   m_leftVelocity = (m_leftUpper->GetEncoder().GetVelocity() / kEncToWheel) *2*wpi::math::pi* kWheelRadius / 60;
   m_rightVelocity = -(m_rightUpper->GetEncoder().GetVelocity() / kEncToWheel) *2*wpi::math::pi* kWheelRadius / 60;
   
-  debugDashNum("leftVelocity",m_leftVelocity);
-  debugDashNum("rightVelocity",m_rightVelocity);
-  
   const auto leftOutput = m_leftPIDController.Calculate(
       m_leftVelocity, speeds.left.to<double>());
   const auto rightOutput = -m_rightPIDController.Calculate(
@@ -119,13 +108,9 @@ void Drivetrain::Drive(units::meters_per_second_t speed, units::radians_per_seco
  */ 
 void Drivetrain::UpdateOdometry() 
 {
-
   //1 enc report = 1 full motor rotation
   m_leftPosition = units::meter_t(m_leftUpper->GetEncoder().GetPosition() * (2*wpi::math::pi*kWheelRadius)/kEncToWheel);
   m_rightPosition = units::meter_t(m_leftUpper->GetEncoder().GetPosition() * (2*wpi::math::pi*kWheelRadius)/kEncToWheel);
-
-  debugDashNum("Left Position out",m_leftPosition.to<double>());
-  debugDashNum("Right Position out",m_rightPosition.to<double>());
 
   m_odometry.Update(GetAngle(), m_leftPosition,m_rightPosition);
 }
@@ -137,4 +122,19 @@ void Drivetrain::StopMotor()
 {
   m_rightUpper->StopMotor();
   m_leftUpper->StopMotor();
+}
+
+void Drivetrain::drivetrainDash()
+{
+  debugDashNum("(Drive) Left Distance",m_leftPosition.to<double>());
+  debugDashNum("(Drive) Right Position",m_rightPosition.to<double>());
+  debugDashNum("(Drive) leftVelocity",m_leftVelocity);
+  debugDashNum("(Drive) rightVelocity",m_rightVelocity);
+
+  units::meter_t currentX = GetPose().Translation().X();
+  units::meter_t currentY = GetPose().Translation().Y();
+  units::degree_t currentDeg = GetPose().Rotation().Degrees();
+  debugDashNum("(Drive) Pose x (m)", currentX.to<double>());
+  debugDashNum("(Drive) Pose y (m)", currentY.to<double>());
+  debugDashNum("(Drive) Pose angle (degree)", currentDeg.to<double>());
 }

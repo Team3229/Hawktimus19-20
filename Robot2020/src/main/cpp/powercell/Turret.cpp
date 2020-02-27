@@ -12,7 +12,7 @@ Turret::Turret()
     m_turretPID = new frc2::PIDController(kP,kI,kD);
     m_turEncoder = new frc::AnalogEncoder(turretEncID);
     m_turretPID->SetTolerance(.05);
-    std::cout << "ENCODER RESET" << std::endl;
+    debugCons("\nEncoder Reset")    
     m_turEncoder->Reset();
 
     m_turretMotor->ClearStickyFaults();
@@ -53,13 +53,16 @@ void Turret::Turn(double setPower)
     //and then original 0 becomes -1
     //Try not allow that condition to happen and if necessary, rotate the robot
     //turn with setpower if the encoder is within allowed range
-    debugDashNum("Turret Power", setPower);
+    debugDashNum("(Tur) Turret Power", setPower);
     debugCons(std::abs(GetAngle()) << "\n");
     if (std::abs(GetAngle()) < 90.0)
+    {
+        debugDashNum("(Tur) larger than max range",0);
         m_turretMotor->Set(std::clamp(setPower,-.2,.2));
+    }
     else
     {
-        debugDashNum("larger than max range",1);
+        debugDashNum("(Tur) larger than max range",1);
         m_turretMotor->Set(std::clamp(-setPower,-.1,.1));//prevent locking of the turret
     }
 }
@@ -68,6 +71,10 @@ Return the angle of the turret
 */
 double Turret::GetAngle()
 {
-    debugDashNum("Turret Encoder",m_turEncoder->GetDistance() * kEncoderRatio);
     return m_turEncoder->GetDistance() * kEncoderRatio;
+}
+
+void Turret::turretDash()
+{
+    debugDashNum("(Tur) Turret Encoder",GetAngle());
 }

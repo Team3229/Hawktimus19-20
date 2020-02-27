@@ -37,9 +37,10 @@ class Drivetrain {
   void UpdateOdometry();
   void StopMotor();
 
+  void drivetrainDash();
+
   static constexpr units::meters_per_second_t kMaxSpeed = 8.0_mps;
   static constexpr units::radians_per_second_t kMaxAngularSpeed{wpi::math::pi*2};  // 1/2 rotation per second
-  
   
  private:
   static constexpr units::meter_t kTrackWidth = 27_in; //distance between left wheels to the right wheels

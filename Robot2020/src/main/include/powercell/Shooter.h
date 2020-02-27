@@ -36,8 +36,8 @@ private:
     const double kHoodAngleRatio = 1;
     const double kDistRPMRatio = 1;
 
-    double m_lastOutput;
-    double m_lastHoodPos = .0;
+    double m_lastHoodPos = .0, hoodSetPosDebug;
+    double FWOutputDebug, FWSpeedDebug, FWSetRPMDebug, m_lastOutput;
 public:
     Shooter();
     ~Shooter();
@@ -58,6 +58,8 @@ public:
     
     void hoodTest(double y);
     void shooterTest(double pow);
+
+    void shooterDash();
 };
 
 #endif

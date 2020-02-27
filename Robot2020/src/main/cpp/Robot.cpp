@@ -52,6 +52,10 @@ void Robot::TeleopInit() {}
 
 void Robot::TeleopPeriodic() 
 {
+  m_limelight.limelightDash();
+  m_shooter.shooterDash();
+  m_drive.drivetrainDash();
+  m_turret.turretDash();
   /*
   drivetrain
   */
@@ -59,12 +63,10 @@ void Robot::TeleopPeriodic()
   const auto m_x1 = -m_driveController.GetX(frc::GenericHID::kLeftHand);
   if (kDRIVEDEADBAND > std::abs(m_y1) && kDRIVEDEADBAND > std::abs(m_x1))
   {
-    debugDashNum("drive", 0);
     m_drive.StopMotor();
   }
   else
   {
-    debugDashNum("drive",1);
     //increase rotation speed at high velocity
     //double rotateOffset = 1+std::abs(m_y1); 
     m_drive.Drive(m_y1*m_drive.kMaxSpeed,m_x1*m_drive.kMaxAngularSpeed);
@@ -109,9 +111,9 @@ void Robot::TeleopPeriodic()
     m_shooter.reverseFeed();
     m_shooter.maintainState();
   }
-  else if(m_maniController.GetYButton() && m_limelight.aimOperation()) //auto aim
+  else if(m_maniController.GetYButton()) //auto aim
   { 
-    if(/*m_maniController.GetAButton() || */
+    if(m_limelight.aimOperation() &&
       m_maniController.GetTriggerAxis(frc::GenericHID::kRightHand) > .1)
     {
       int povRead = m_maniController.GetPOV();
