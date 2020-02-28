@@ -103,69 +103,33 @@ void Robot::DisabledInit()
 // TeleOp
 void Robot::ExecuteControls()
 {
-  /*
-  * * drivetrain
-  */
+  // Drive - ADD POWER CURVE
   if (kDRIVEDEADBAND > std::abs(m_controllerInputs->drive_rightY) && 
-      kDRIVEDEADBAND > std::abs(m_controllerInputs->drive_leftX))
-  {
+      kDRIVEDEADBAND > std::abs(m_controllerInputs->drive_leftX)) {
     m_drive.StopMotor();
-  }
-  else
-  {
+  } else {
     m_drive.Drive(m_controllerInputs->drive_rightY*m_drive.kMaxSpeed,
                   -m_controllerInputs->drive_leftX*m_drive.kMaxAngularSpeed);
   }
   m_drive.UpdateOdometry();
-  //? might need gyro to confirm it's possible to find the targer before this
-  /*
-  * * All controls for feeder, shooter, turret, limelight
-  */
-  if (m_controllerInputs->mani_RightTriggerAxis > .1) //force reverse & maintain current FW speed & hood angle
-  {
+
+  // Running the shooter - WORK ON THIS
+  if (m_controllerInputs->mani_RightTriggerAxis > .1) {
     m_shooter.runShooter();
-  }
-  /*
-  else if(m_controllerInputs->mani_YButton) //auto aim
-  { 
-    m_limelight.limelightLED(3);
-    m_limelight.limelightPipeLine(0);
-    if(m_limelight.aimOperation() &&
-      m_controllerInputs->mani_RightTriggerAxis > .1)
-    {
-      //note, this is always score pov, which is fine because scoreOperation doesn't work
-      if (m_controllerInputs->mani_POV != -1 || m_controllerInputs->mani_RightTriggerAxis > .1) {
-        m_limelight.scoreWithPOV(m_controllerInputs->mani_POV);
-      } else {
-        m_limelight.scoreOperation();
-      }
-    }
-     //?auto aim
-    else if(m_controllerInputs->mani_XButton)
-    {
-      m_limelight.scoreOperation();
-    }
-    
-    else
-    {
-      m_shooter.stopShooter();
-      m_shooter.stopFeed();
-    }
-  } */
-  else { //**manual shooter control
+  } else { //**manual shooter control
     m_shooter.stopShooter();
     m_limelight.limelightLED(1);
     m_limelight.limelightPipeLine(1);
   }
    
-
+  // Aiming the shooter
   if (std::abs(m_controllerInputs->mani_rightX) > .1) {
     m_turret.Turn(m_controllerInputs->mani_rightX/5);
   } else {
     m_turret.Turn(0);
   }
 
-  // LUKES AREA
+  // Control the feeder
   if (m_controllerInputs->mani_LeftTriggerAxis > .1) {
     m_shooter.feedShooter();
   } else if (m_controllerInputs->mani_RightBumper) { 
@@ -174,13 +138,8 @@ void Robot::ExecuteControls()
     m_shooter.stopFeed();
   }
 
-  /*
-  if(std::abs(m_controllerInputs->mani_leftY)*1000 > .1) {
-    m_shooter.incrementalHood(m_controllerInputs->mani_leftY/1000);
-  }
-  */
-
-  if (m_controllerInputs->mani_leftY > kDRIVEDEADBAND) {
+  // Hood control
+  if (abs(m_controllerInputs->mani_leftY) > kDRIVEDEADBAND) {
     if (m_controllerInputs->mani_leftY < 0) {
       m_shooter.incrementalHood(HOOD_INCRIMENT);
     } else if (m_controllerInputs->mani_leftY > 0) {
@@ -190,28 +149,7 @@ void Robot::ExecuteControls()
     m_shooter.maintainHood();
   }
 
-  /*
-  if(m_controllerInputs->mani_RightTriggerAxis > .1)
-  {
-    if (m_controllerInputs->mani_POV != -1 || m_controllerInputs->mani_RightTriggerAxis > .1) {
-      m_limelight.scoreWithPOV(m_controllerInputs->mani_POV);
-    } else {
-      m_limelight.scoreOperation();
-    }
-  } else {
-    m_shooter.stopFeed();
-    m_shooter.stopShooter();
-  }
-  */
-  
-    //**intake
-  /*
-  if(m_controllerInputs->mani_BButton)
-    m_intake.extendIntake();
-  if(m_controllerInputs->mani_AButton)
-    m_intake.retractIntake();
-  */
-
+  // Run the intake - NEED TO EXTEND
   if (m_controllerInputs->mani_LeftBumper) {
     m_intake.forceRunIntake(-.7);
   } else {
