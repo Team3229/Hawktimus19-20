@@ -34,8 +34,8 @@ private:
     const double kHoodAngleRatio = 1;
     const double kDistRPMRatio = 1;
 
-    const float FEEDER_FORWARD_POWER = 1.0;
-    const float FEEDER_REVERSE_POWER = -0.8;
+    const float FEEDER_FORWARD_POWER = 0.8;
+    const float FEEDER_REVERSE_POWER = -0.6;
     const float SHOOTER_POWER = 1.0;
 
     double m_lastHoodPos = .0, hoodSetPosDebug;
