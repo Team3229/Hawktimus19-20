@@ -37,13 +37,10 @@ private:
   // Use .aut file extension
   std::string defaultFileName = "defaultAutoPath.aut";
   std::string driverStationText = "Auto file path: /home/lvuser/";
-  std::string inputFileName;
+  std::string inputFileName = "test1";
   const bool WRITE = true;
   const bool READ = false;
   CaptureFile cmdFile {};
-
-  // TeleOp stuff for driving
-  // TELEOP VARS GO HERE
 
 public:
   Auto(Drivetrain *c, Turret *t, Shooter *s, Limelight *v, Intake *i);

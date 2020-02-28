@@ -113,7 +113,7 @@ void Robot::ExecuteControls()
   }
   else
   {
-    m_drive.Drive(-m_controllerInputs->drive_rightY*m_drive.kMaxSpeed,
+    m_drive.Drive(m_controllerInputs->drive_rightY*m_drive.kMaxSpeed,
                   -m_controllerInputs->drive_leftX*m_drive.kMaxAngularSpeed);
   }
   m_drive.UpdateOdometry();
@@ -121,11 +121,11 @@ void Robot::ExecuteControls()
   /*
   * * All controls for feeder, shooter, turret, limelight
   */
-  if(m_controllerInputs->mani_RightBumper) //force reverse & maintain current FW speed & hood angle
+  if (m_controllerInputs->mani_RightTriggerAxis > .1) //force reverse & maintain current FW speed & hood angle
   {
-    m_shooter.reverseFeed();
-    m_shooter.maintainState();
+    m_shooter.runShooter();
   }
+  /*
   else if(m_controllerInputs->mani_YButton) //auto aim
   { 
     m_limelight.limelightLED(3);
@@ -134,44 +134,76 @@ void Robot::ExecuteControls()
       m_controllerInputs->mani_RightTriggerAxis > .1)
     {
       //note, this is always score pov, which is fine because scoreOperation doesn't work
-      (m_controllerInputs->mani_POV != -1 || m_controllerInputs->mani_RightTriggerAxis > .1) 
-      ? (m_limelight.scoreWithPOV(m_controllerInputs->mani_POV))
-      : (m_limelight.scoreOperation());
+      if (m_controllerInputs->mani_POV != -1 || m_controllerInputs->mani_RightTriggerAxis > .1) {
+        m_limelight.scoreWithPOV(m_controllerInputs->mani_POV);
+      } else {
+        m_limelight.scoreOperation();
+      }
     }
-    /*  //?auto aim
+     //?auto aim
     else if(m_controllerInputs->mani_XButton)
     {
       m_limelight.scoreOperation();
     }
-    */
+    
     else
     {
       m_shooter.stopShooter();
       m_shooter.stopFeed();
     }
-  }
-  else  //**manual control
-  {
+  } */
+  else { //**manual shooter control
+    m_shooter.stopShooter();
     m_limelight.limelightLED(1);
     m_limelight.limelightPipeLine(1);
-    (std::abs(m_controllerInputs->mani_rightX) > .1) ? (m_turret.Turn(m_controllerInputs->mani_rightX/5))
-    : (m_turret.Turn(0));
-
-    if(std::abs(m_controllerInputs->mani_leftY)*1000 > .1)
-      m_shooter.incrementalHood(m_controllerInputs->mani_leftY/1000);
-
-    if(m_controllerInputs->mani_RightTriggerAxis > .1)
-    {
-      (m_controllerInputs->mani_POV != -1 || m_controllerInputs->mani_RightTriggerAxis > .1)
-      ? (m_limelight.scoreWithPOV(m_controllerInputs->mani_POV))
-      : (m_limelight.scoreOperation());
-    }
-    else
-    {
-      m_shooter.stopFeed();
-      m_shooter.stopShooter();
-    }
   }
+   
+
+  if (std::abs(m_controllerInputs->mani_rightX) > .1) {
+    m_turret.Turn(m_controllerInputs->mani_rightX/5);
+  } else {
+    m_turret.Turn(0);
+  }
+
+  // LUKES AREA
+  if (m_controllerInputs->mani_LeftTriggerAxis > .1) {
+    m_shooter.feedShooter();
+  } else if (m_controllerInputs->mani_RightBumper) { 
+    m_shooter.reverseFeed();
+  } else {
+    m_shooter.stopFeed();
+  }
+
+  /*
+  if(std::abs(m_controllerInputs->mani_leftY)*1000 > .1) {
+    m_shooter.incrementalHood(m_controllerInputs->mani_leftY/1000);
+  }
+  */
+
+  if (m_controllerInputs->mani_leftY > kDRIVEDEADBAND) {
+    if (m_controllerInputs->mani_leftY < 0) {
+      m_shooter.incrementalHood(HOOD_INCRIMENT);
+    } else if (m_controllerInputs->mani_leftY > 0) {
+      m_shooter.incrementalHood(-HOOD_INCRIMENT);
+    }
+  } else {
+    m_shooter.maintainHood();
+  }
+
+  /*
+  if(m_controllerInputs->mani_RightTriggerAxis > .1)
+  {
+    if (m_controllerInputs->mani_POV != -1 || m_controllerInputs->mani_RightTriggerAxis > .1) {
+      m_limelight.scoreWithPOV(m_controllerInputs->mani_POV);
+    } else {
+      m_limelight.scoreOperation();
+    }
+  } else {
+    m_shooter.stopFeed();
+    m_shooter.stopShooter();
+  }
+  */
+  
     //**intake
   /*
   if(m_controllerInputs->mani_BButton)
@@ -179,8 +211,12 @@ void Robot::ExecuteControls()
   if(m_controllerInputs->mani_AButton)
     m_intake.retractIntake();
   */
-  (m_controllerInputs->mani_LeftBumper) ? (m_intake.forceRunIntake(-.7))
-  : (m_intake.forceRunIntake(0)); 
+
+  if (m_controllerInputs->mani_LeftBumper) {
+    m_intake.forceRunIntake(-.7);
+  } else {
+    m_intake.forceRunIntake(0); 
+  }
 }
 
 #ifndef RUNNING_FRC_TESTS

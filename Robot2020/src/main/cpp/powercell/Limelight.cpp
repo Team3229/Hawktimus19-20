@@ -27,8 +27,11 @@ units::inch_t Limelight::calcDist()
 //press button
 void Limelight::scoreOperation()
 {
-    (m_shooter->adjustFWSpeed(m_shooter->calcRPM(calcDist()))) ? (m_shooter->feedShooter())
-    : (m_shooter->stopFeed());
+    if (m_shooter->adjustFWSpeed(m_shooter->calcRPM(calcDist()))) {
+        m_shooter->feedShooter();
+    } else {
+        m_shooter->stopFeed();
+    }
 }
 //periodic
 bool Limelight::aimOperation()

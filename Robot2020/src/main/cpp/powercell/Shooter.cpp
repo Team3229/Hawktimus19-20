@@ -83,16 +83,17 @@ bool Shooter::adjustHood(double pos)
     m_lastHoodPos = correctPos;
     m_hoodServo->SetPosition(correctPos);
 
-    if (std::abs(m_hoodServo->GetPosition() - correctPos) > kHoodError)
+    /*if ((std::abs(m_hoodServo->GetPosition() - correctPos) > kHoodError))
     {
         debugDashNum("Hood correct",0);
         return false;
-    }
+    }*/
     debugDashNum("Hood correct",1);
     return true;
 }
 void Shooter::incrementalHood(double incrementalValue)
 {
+    // false is down
     m_lastHoodPos += incrementalValue;
     adjustHood(m_lastHoodPos);
 }
@@ -113,11 +114,11 @@ void Shooter::stopShooter()
 //feeder, feeding shooter
 void Shooter::feedShooter()
 {
-    m_feeder->Set(1);
+    m_feeder->Set(FEEDER_FORWARD_POWER);
 }
 void Shooter::reverseFeed()
 {
-    m_feeder->Set(-.4);
+    m_feeder->Set(FEEDER_REVERSE_POWER);
 }
 void Shooter::stopFeed()
 {
@@ -132,4 +133,12 @@ void Shooter::shooterDash()
     debugDashNum("(S) current FWrpm",FWSpeedDebug);
     debugDashNum("(S) calculated RPM",FWSetRPMDebug);
     debugDashNum("(S) calculated Hood Pos", hoodSetPosDebug);
+}
+
+void Shooter::runShooter() {
+    m_flyWheelFront->Set(SHOOTER_POWER);
+}
+
+void Shooter::maintainHood() {
+    m_hoodServo->SetPosition(m_lastHoodPos);
 }

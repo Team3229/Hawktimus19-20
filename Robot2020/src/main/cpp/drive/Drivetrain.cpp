@@ -95,6 +95,7 @@ void Drivetrain::SetSpeeds(const frc::DifferentialDriveWheelSpeeds& speeds) {
  */
 void Drivetrain::Drive(units::meters_per_second_t speed, units::radians_per_second_t rot) 
 {
+  //speed = (units::meters_per_second_t) (pow((double) kMaxSpeed, (double) speed) * (double) speed);
   SetSpeeds(m_kinematics.ToWheelSpeeds({speed, 0_mps, rot}));
 }
 

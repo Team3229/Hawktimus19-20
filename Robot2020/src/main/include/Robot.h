@@ -10,7 +10,6 @@
 #include <string>
 
 #include <frc/TimedRobot.h>
-#include <frc/smartdashboard/SendableChooser.h>
 #include <frc/XboxController.h>
 
 #include "powercell/Limelight.h"
@@ -58,5 +57,6 @@ class Robot : public frc::TimedRobot {
   
   Camera m_camera;
   double m_x1,m_y1;
-  const int kDRIVEDEADBAND = .1; 
+  const int kDRIVEDEADBAND = .15; 
+  const float HOOD_INCRIMENT = 0.05;
 };
