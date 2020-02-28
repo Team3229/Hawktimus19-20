@@ -113,7 +113,7 @@ void Robot::ExecuteControls()
   }
   m_drive.UpdateOdometry();
 
-  // Running the shooter - WORK ON THIS
+  // Running the shooter
   if (m_controllerInputs->mani_RightTriggerAxis > .1) {
     m_shooter.runShooter();
   } else { //**manual shooter control
