@@ -113,7 +113,7 @@ void Robot::ExecuteControls()
   }
   m_drive.UpdateOdometry();
 
-  // Running the shooter - WORK ON THIS
+  // Running the shooter
   if (m_controllerInputs->mani_RightTriggerAxis > .1) {
     m_shooter.runShooter();
   } else { //**manual shooter control
@@ -149,6 +149,11 @@ void Robot::ExecuteControls()
     m_shooter.maintainHood();
   }
 
+  if(m_controllerInputs->mani_AButton){
+    m_intake.extendIntake();
+  } else if (m_controllerInputs->mani_BButton) {
+    m_intake.retractIntake();
+  }
   // Run the intake - NEED TO EXTEND
   if (m_controllerInputs->mani_LeftBumper) {
     m_intake.forceRunIntake(-.7);
@@ -159,4 +164,4 @@ void Robot::ExecuteControls()
 
 #ifndef RUNNING_FRC_TESTS
 int main() { return frc::StartRobot<Robot>(); }
-#endif
+#endif 
