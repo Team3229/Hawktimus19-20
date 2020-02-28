@@ -26,7 +26,7 @@ void Auto::SetupPlayback() {
   // Put in Robot::AutonomousInit
   // Get driver station info and setup
   //inputFileName =
-      frc::SmartDashboard::GetString(driverStationText, defaultFileName);
+      //frc::SmartDashboard::GetString(driverStationText, defaultFileName);
   debugCons("Reading auto instructions from /home/lvuser/" + inputFileName + ".aut\n");
   std::string filePath = "/home/lvuser/" + inputFileName + ".aut";
   cmdFile.Open(filePath, READ);
@@ -44,7 +44,7 @@ void Auto::ReadFile(cmd * inputs) {
 void Auto::SetupRecording() {
   // Put in Robot::TestInit()
   //inputFileName =
-      frc::SmartDashboard::GetString(driverStationText, defaultFileName);
+      //frc::SmartDashboard::GetString(driverStationText, defaultFileName);
   debugCons("Writing instructions to /home/lvuser/" + inputFileName + ".aut\n");
   std::string filePath = "/home/lvuser/" + inputFileName + ".aut";
   cmdFile.Open(filePath, WRITE);
