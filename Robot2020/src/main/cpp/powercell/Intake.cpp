@@ -24,7 +24,7 @@ Intake::~Intake()
 void Intake::controlComp()
 {
     bool compressorState = m_compressor->GetPressureSwitchValue();
-    (compressorState) ? (m_compressor->SetClosedLoopControl(false))
+    (!compressorState) ? (m_compressor->SetClosedLoopControl(false))
     : (m_compressor->SetClosedLoopControl(true));
 }
 void Intake::extendIntake()

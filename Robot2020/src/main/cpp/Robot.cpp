@@ -139,7 +139,7 @@ void Robot::ExecuteControls()
   }
 
   // Hood control
-  if (abs(m_controllerInputs->mani_leftY) > kDRIVEDEADBAND) {
+  /*if (abs(m_controllerInputs->mani_leftY) > kDRIVEDEADBAND) {
     if (m_controllerInputs->mani_leftY < 0) {
       m_shooter.incrementalHood(HOOD_INCRIMENT);
     } else if (m_controllerInputs->mani_leftY > 0) {
@@ -147,8 +147,8 @@ void Robot::ExecuteControls()
     }
   } else {
     m_shooter.maintainHood();
-  }
-
+  }*/
+  
   if(m_controllerInputs->mani_AButton){
     m_intake.extendIntake();
   } else if (m_controllerInputs->mani_BButton) {
