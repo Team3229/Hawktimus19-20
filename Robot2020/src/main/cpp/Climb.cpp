@@ -11,13 +11,20 @@ Climb::~Climb() {
 
 void Climb::ToggleClimb() {
   // Run the climber pneumatics, acts as a toggle
+  if (m_climber->Get() == frc::DoubleSolenoid::Value::kReverse) {
+    m_climber->Set(frc::DoubleSolenoid::Value::kForward);
+  } else {
+    m_climber->Set(frc::DoubleSolenoid::Value::kReverse);
+  }
+  
+  /*
   if (m_climbToggle) {
     m_climber->Set(frc::DoubleSolenoid::Value::kForward);
     m_climbToggle = false;
   } else {
     m_climber->Set(frc::DoubleSolenoid::Value::kReverse);
     m_climbToggle = true;
-  }
+  } */
   debugCons("Climber pneumatics toggled.\n");
   frc::Wait(1.0);
 }

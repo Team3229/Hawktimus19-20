@@ -20,8 +20,8 @@ class Climb {
 
     bool m_climbToggle = true;
 
-    const int FORWARD_ID = 2;
-    const int REVERSE_ID = 3;
+    const int FORWARD_ID = 0;
+    const int REVERSE_ID = 1;
 
 
 };

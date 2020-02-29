@@ -20,8 +20,8 @@ private:
     const int kIntakeMotorID = 9;
     
     const int kCompressorPCMID = 0;
-    const int kForwardIntakeID = 0;
-    const int kReverseIntakeID = 1;
+    const int kForwardIntakeID = 2; //was 0
+    const int kReverseIntakeID = 3; //was 1
     
     bool intakeExtended = false;
     /* data */
