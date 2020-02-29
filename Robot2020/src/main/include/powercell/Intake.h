@@ -26,7 +26,7 @@ private:
     bool intakeExtended = false;
     /* data */
 public:
-    Intake(/* args */);
+    Intake();
     ~Intake();
 
     void controlComp();
