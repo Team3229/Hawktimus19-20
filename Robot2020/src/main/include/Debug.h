@@ -4,7 +4,7 @@
 #define DEBUG_H
 
 //This line:
-#define USE_DEBUG //Uncomment or comment to use or not use
+//#define USE_DEBUG //Uncomment or comment to use or not use
 
 #ifdef USE_DEBUG
 #include <iostream>
