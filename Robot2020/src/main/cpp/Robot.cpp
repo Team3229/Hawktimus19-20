@@ -149,17 +149,25 @@ void Robot::ExecuteControls()
     m_shooter.maintainHood();
   }*/
   
+  // Extend/retract intake
   if(m_controllerInputs->mani_AButton){
     m_intake.extendIntake();
   } else if (m_controllerInputs->mani_BButton) {
     m_intake.retractIntake();
   }
-  // Run the intake - NEED TO EXTEND
+
+  // Run the intake
   if (m_controllerInputs->mani_LeftBumper) {
     m_intake.forceRunIntake(-.7);
   } else {
     m_intake.forceRunIntake(0); 
   }
+
+  // Toggle the climber
+  if (m_controllerInputs->drive_RightBumper) {
+    m_climber.ToggleClimb();
+  }
+
 }
 
 #ifndef RUNNING_FRC_TESTS

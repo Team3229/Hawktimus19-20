@@ -1,24 +1,23 @@
 #include "Climb.h"
 
 Climb::Climb() {
-  comp = new frc::Compressor(COMP_ID);
-  comp->SetClosedLoopControl(true);
+  m_climber = new frc::DoubleSolenoid(FORWARD_ID, REVERSE_ID);
+  m_climber->Set(frc::DoubleSolenoid::Value::kReverse);
 }
 
 Climb::~Climb() {
-  comp->SetClosedLoopControl(false);
-  delete comp;
+  delete m_climber;
 }
 
-void Climb::ControlComp() {
-  m_pressureSwitch = comp->GetPressureSwitchValue();
-  debugCons("Pressure switch state: " << m_pressureSwitch << "\n");
-  if (m_pressureSwitch == true)
-    comp->SetClosedLoopControl(false);
-  else 
-    comp->SetClosedLoopControl(true);
-}
-
-void Climb::ClimbUp() {
-
+void Climb::ToggleClimb() {
+  // Run the climber pneumatics, acts as a toggle
+  if (m_climbToggle) {
+    m_climber->Set(frc::DoubleSolenoid::Value::kForward);
+    m_climbToggle = false;
+  } else {
+    m_climber->Set(frc::DoubleSolenoid::Value::kReverse);
+    m_climbToggle = true;
+  }
+  debugCons("Climber pneumatics toggled.\n");
+  frc::Wait(1.0);
 }

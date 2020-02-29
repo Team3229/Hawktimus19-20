@@ -4,7 +4,6 @@
 #pragma once
 
 #include <frc/DoubleSolenoid.h>
-#include <frc/Compressor.h>
 #include <frc/Timer.h>
 
 #include "Debug.h"
@@ -13,15 +12,16 @@ class Climb {
   public:
     Climb();
     ~Climb();
-    void ControlComp();
-    void ClimbUp();
+    void ToggleClimb();
 
   private:
-    frc::Compressor * comp;
+    // Compressor handled in intake
+    frc::DoubleSolenoid * m_climber;
 
+    bool m_climbToggle = true;
 
-    const int COMP_ID = 0;
-    bool m_pressureSwitch = false;
+    const int FORWARD_ID = 2;
+    const int REVERSE_ID = 3;
 
 
 };

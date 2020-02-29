@@ -37,7 +37,7 @@ private:
   // Use .aut file extension
   std::string defaultFileName = "defaultAutoPath.aut";
   std::string driverStationText = "Auto file path: /home/lvuser/";
-  std::string inputFileName = "test1";
+  std::string inputFileName = "driveAndShoot";
   const bool WRITE = true;
   const bool READ = false;
   CaptureFile cmdFile {};

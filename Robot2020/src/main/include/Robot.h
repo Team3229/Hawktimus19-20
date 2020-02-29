@@ -48,7 +48,7 @@ class Robot : public frc::TimedRobot {
   Turret m_turret;
   Shooter m_shooter;
   Limelight m_limelight{&m_turret,&m_shooter};
-  //Climb m_climber;  No climber :(
+  Climb m_climber;
 
   Drivetrain m_drive;
 
