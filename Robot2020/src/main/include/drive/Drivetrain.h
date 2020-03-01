@@ -52,6 +52,9 @@ class Drivetrain {
   double m_angleSetpoint;
   double m_leftVelocity;
   double m_rightVelocity;
+  const float MAX_POWER = 1.0;
+  const float DRIVE_RAMP_TIME = 0.7;
+
   units::meter_t m_leftPosition,m_rightPosition;
   AHRS * navXGyro;
 

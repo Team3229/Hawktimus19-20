@@ -26,6 +26,12 @@ Drivetrain::Drivetrain()
 
   m_rightBack->Follow(*m_rightUpper);
   m_rightFront->Follow(*m_rightUpper);
+
+  // Drive power curve
+  m_leftFront->SetClosedLoopRampRate(DRIVE_RAMP_TIME);
+  m_leftBack->SetClosedLoopRampRate(DRIVE_RAMP_TIME);
+  m_rightBack->SetClosedLoopRampRate(DRIVE_RAMP_TIME);
+  m_rightFront->SetClosedLoopRampRate(DRIVE_RAMP_TIME);
 }
 
 Drivetrain::~Drivetrain()
