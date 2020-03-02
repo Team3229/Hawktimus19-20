@@ -32,14 +32,17 @@ class Turret
         frc::AnalogInput turretEncID{kTurretEncoderID}; //Analog Input
         const int kTurretMotorID = 10;
 
-        const double kMaxTurretPower = .5;
-        const units::degree_t kMaxRange = 90_deg;
-        const double kEncoderRatio = 73.17;
+        //Turret turn rate limit
+        const double kMAX_TURRET_POWER = .2;            //max turret turn power
+        const double kMAX_TURRET_CORRECT_POWER = .1;    //correct when turret goes beyond max range
+        //Turret Limits
+        const units::degree_t kMAX_RANGE = 90_deg;
+        const double kENCODER_RATIO = 73.17;
+        const double kNOMINAL_TX_ERROR = 1;
+
+        //PID
         const double kP = .05;
         const double kI = 0;
         const double kD = 0;
-
-        const double kNominalTX = 3;
-        double lastOutput = 0;
 };
 #endif

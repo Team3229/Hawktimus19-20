@@ -24,47 +24,36 @@ Shooter::~Shooter()
     delete m_flyWheelPID;
     delete m_feeder;
 }
-/*
-calculate rpm with a distance input
-*/
+
+/**
+ * calculate rpm with a distance input
+ * @param dist, distance units from the target
+ * @return double, calculated rpm the flywheel should be
+ */
 double Shooter::calcRPM(units::inch_t dist)
 {
-    double FWSetRPM = std::clamp(dist.to<double>() * kDistRPMRatio,0.0,5700.0); //** NEO 550 (max 12000), NEO (max 5700)
+    double FWSetRPM = std::clamp(dist.to<double>() * kDIST_RPM_RATIO,0.0,kMAX_FW_RPM);
     debug(FWSetRPMDebug = FWSetRPM);
     return FWSetRPM;
 }
+
+/**
+ * Calculate hood position
+ * @param dist, distance units from the target
+ * @return double, calculated position for hood
+ */ 
 double Shooter::calcHoodPos(units::inch_t dist)
 {
-    double hoodSetPos = dist.to<double>() * kHoodAngleRatio;
+    double hoodSetPos = dist.to<double>() * kHOOD_ANGLE_RATIO;
     debug(hoodSetPosDebug = hoodSetPos);
     return hoodSetPos;
 }
-/**
- * sets the fly wheel rpm 
- * returns true if it is in appropriate rpm
- */ 
-bool Shooter::adjustFWSpeed(double rpm)
-{
-    //adjusting based on rpm
-    double FWSpeed = m_flyWheelFront->GetEncoder().GetVelocity();
-    double FWOutput = m_flyWheelPID->Calculate(FWSpeed,rpm);
-    m_lastOutput = FWOutput;
 
-    debug(FWOutputDebug = FWOutput); 
-    debug(FWSpeedDebug = FWSpeed);
-    
-    m_flyWheelFront->Set(1);
-    if (std::abs(FWSpeed - rpm) > kRPMErrRange)
-    {
-        debugDashNum("FWSpeed correct",0);
-        return false;
-    }
-    debugDashNum("FWSpeed correct",1);
-    return true;
-}
 /**
  * entire shooter mechanism
  * check conditions before feeding in balls
+ * @param dist, distance unit from the target
+ * @return true if it is appropriate to shoot power cells
  */
 bool Shooter::readyFeed(units::inch_t dist)
 {
@@ -73,17 +62,42 @@ bool Shooter::readyFeed(units::inch_t dist)
         return true;
     return false;
 }
+
 /**
- * adjust hood angle based on ty from limelight
- * might need a calcPos() if it isn't linear relationship
+ * sets the fly wheel rpm 
+ * @return true if it is in appropriate rpm
+ */ 
+bool Shooter::adjustFWSpeed(double rpm)
+{
+    //Single NEO, all positive, Double NEO 550, negative for FWSpeed & output
+    double FWSpeed = m_flyWheelFront->GetEncoder().GetVelocity(); //gets current rpm
+    double FWOutput = m_flyWheelPID->Calculate(FWSpeed,rpm); //calculate power needed to set to rpm
+    m_lastOutput = FWOutput; 
+    //debug
+    debug(FWOutputDebug = FWOutput); 
+    debug(FWSpeedDebug = FWSpeed);
+    
+    m_flyWheelFront->Set(FWOutput);
+    if (std::abs(FWSpeed - rpm) > kRPM_ERR_RANGE){
+        debugDashNum("FWSpeed correct",0);
+        return false;
+    }
+    debugDashNum("FWSpeed correct",1);
+    return true;
+}
+
+/**
+ * Adjust hood angle with set position
+ * @param pos, set position
+ * @return true if the hood is in correct position
  */
 bool Shooter::adjustHood(double pos)
 {
-    double correctPos = std::clamp(pos,0.0,0.8);
+    double correctPos = std::clamp(pos,0.0,kMAX_HOOD_POS);
     m_lastHoodPos = correctPos;
     m_hoodServo->SetPosition(correctPos);
 
-    /*if ((std::abs(m_hoodServo->GetPosition() - correctPos) > kHoodError))
+    /*if ((std::abs(m_hoodServo->GetPosition() - correctPos) > kHOOD_ERR_RANGE))
     {
         debugDashNum("Hood correct",0);
         return false;
@@ -91,6 +105,12 @@ bool Shooter::adjustHood(double pos)
     debugDashNum("Hood correct",1);
     return true;
 }
+
+/**
+ * Adjust hood angle incrementally
+ * adding incrementalValue to the current position
+ * @param incrementalValue, value to increase the current position by
+ */ 
 void Shooter::incrementalHood(double incrementalValue)
 {
     // false is down
@@ -105,10 +125,11 @@ void Shooter::maintainState()
     m_flyWheelFront->Set(m_lastOutput);
     m_hoodServo->SetPosition(m_lastHoodPos);
 }
+
 //stop shooter
 void Shooter::stopShooter()
 {
-    m_flyWheelFront->Set(0);
+    m_flyWheelFront->StopMotor();
 }
 
 //feeder, feeding shooter
@@ -122,9 +143,12 @@ void Shooter::reverseFeed()
 }
 void Shooter::stopFeed()
 {
-    m_feeder->Set(0);
+    m_feeder->StopMotor();
 }
 
+/**
+ * Shooter Debugging
+ */ 
 void Shooter::shooterDash()
 {
     debugDashNum("(S) Hood Last Position", m_lastHoodPos);

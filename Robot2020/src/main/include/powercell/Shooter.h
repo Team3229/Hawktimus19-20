@@ -23,23 +23,34 @@ private:
     const int kFrontFWID = 8;   //CAN
     const int kFeederID = 11;
 
+    //Flywheel PID
     frc2::PIDController * m_flyWheelPID;
     const double kP = .1;
     const double kI = 0;
     const double kD = 0;
 
-    const double kRPMErrRange = 200;
-    const double kHoodError = .05;
+    //Appropriate range for max shooter rpm and hood position
+    const double kMAX_HOOD_POS = .8;
+    const double kMAX_FW_RPM = 5500;  //** NEO 550 (max 12000), NEO (max 5500)
 
-    const double kHoodAngleRatio = 1;
-    const double kDistRPMRatio = 1;
+    //Appropriate range for shooter and hood errors
+    const double kRPM_ERR_RANGE = 200;
+    const double kHOOD_ERR_RANGE = .05;
 
+    //Ratio for dist to rpm/position conversion
+    const double kHOOD_ANGLE_RATIO = 1;
+    const double kDIST_RPM_RATIO = 1;
+
+    //Motor powers
     const float FEEDER_FORWARD_POWER = 0.8;
     const float FEEDER_REVERSE_POWER = -0.6;
     const float SHOOTER_POWER = 1.0;
 
-    double m_lastHoodPos = .0, hoodSetPosDebug;
-    double FWOutputDebug, FWSpeedDebug, FWSetRPMDebug, m_lastOutput;
+    //register last Hood Position
+    double m_lastHoodPos = .0;
+    
+    //debugging
+    double FWOutputDebug, FWSpeedDebug, FWSetRPMDebug, m_lastOutput, hoodSetPosDebug;
 public:
     Shooter();
     ~Shooter();

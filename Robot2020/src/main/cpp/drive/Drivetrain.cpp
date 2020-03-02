@@ -18,8 +18,6 @@ Drivetrain::Drivetrain()
   m_rightUpper->RestoreFactoryDefaults();
   m_rightBack->RestoreFactoryDefaults();
   m_rightFront->RestoreFactoryDefaults();
-  m_leftUpper->SetClosedLoopRampRate(1);
-  m_rightUpper->SetClosedLoopRampRate(1);
 
   m_leftBack->Follow(*m_leftUpper);
   m_leftFront->Follow(*m_leftUpper);
@@ -28,6 +26,8 @@ Drivetrain::Drivetrain()
   m_rightFront->Follow(*m_rightUpper);
 
   // Drive power curve
+  m_leftUpper->SetClosedLoopRampRate(DRIVE_RAMP_TIME);
+  m_rightUpper->SetClosedLoopRampRate(DRIVE_RAMP_TIME);
   m_leftFront->SetClosedLoopRampRate(DRIVE_RAMP_TIME);
   m_leftBack->SetClosedLoopRampRate(DRIVE_RAMP_TIME);
   m_rightBack->SetClosedLoopRampRate(DRIVE_RAMP_TIME);

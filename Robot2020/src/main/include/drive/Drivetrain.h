@@ -21,6 +21,7 @@
 
 /**
  * Represents a differential drive style drivetrain.
+ * See http://docs.wpilib.org/en/latest/docs/software/kinematics-and-odometry/index.html
  */
 class Drivetrain {
  public:
@@ -40,7 +41,7 @@ class Drivetrain {
 
   void drivetrainDash();
 
-  static constexpr units::meters_per_second_t kMaxSpeed = 8.0_mps;
+  static constexpr units::meters_per_second_t kMaxSpeed = 8.0_mps;  //max speed it is allowed to calculate
   static constexpr units::radians_per_second_t kMaxAngularSpeed{wpi::math::pi*2};  // 1/2 rotation per second
   
  private:
@@ -65,6 +66,7 @@ class Drivetrain {
   rev::CANSparkMax * m_rightFront; 
   rev::CANSparkMax * m_rightBack;  
   
+  //PID Controllers, only kP should be necessary, lower it reduces accleration
   frc2::PIDController m_leftPIDController{.15, 0.0, 0.0};
   frc2::PIDController m_rightPIDController{.15, 0.0, 0.0};
 

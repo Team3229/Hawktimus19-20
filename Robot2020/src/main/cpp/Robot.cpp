@@ -158,9 +158,9 @@ void Robot::ExecuteControls()
 
   // Run the intake
   if (m_controllerInputs->mani_LeftBumper) {
-    m_intake.forceRunIntake(-.7);
+    m_intake.forceRunIntake();
   } else {
-    m_intake.forceRunIntake(0); 
+    m_intake.stopIntake(); 
   }
 
   // Toggle the climber

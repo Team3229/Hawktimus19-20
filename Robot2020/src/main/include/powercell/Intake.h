@@ -24,7 +24,9 @@ private:
     const int kReverseIntakeID = 3; //was 1
     
     bool intakeExtended = false;
-    /* data */
+    const double INTAKE_POWER_IN = -.7;
+    const double INTAKE_POWER_OUT = .7;
+
 public:
     Intake();
     ~Intake();
@@ -36,7 +38,7 @@ public:
     void runIntake();
     void reverseIntake();
 
-    void forceRunIntake(double power);
+    void forceRunIntake();
     void stopIntake();
 };
 

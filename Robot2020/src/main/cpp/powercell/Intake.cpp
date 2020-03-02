@@ -8,6 +8,7 @@ Intake::Intake(/* args */)
 
     m_intakeSolenoid->ClearAllPCMStickyFaults();
     m_compressor->ClearAllPCMStickyFaults();
+    
     m_intakeMotor->RestoreFactoryDefaults();
 
     m_compressor->SetClosedLoopControl(true);
@@ -21,42 +22,71 @@ Intake::~Intake()
     delete m_intakeSolenoid;
 }
 
+/**
+ * Control Compressor, low pressure -> turn off, high pressure, turn on.
+ * Currently unused
+ */ 
 void Intake::controlComp()
 {
     bool compressorState = m_compressor->GetPressureSwitchValue();
     (!compressorState) ? (m_compressor->SetClosedLoopControl(false))
     : (m_compressor->SetClosedLoopControl(true));
 }
+/**
+ * Pull down intake
+ */ 
 void Intake::extendIntake()
 {
     m_intakeSolenoid->Set(frc::DoubleSolenoid::Value::kForward);
     intakeExtended = true;
     frc::Wait(.5);
 }
+/**
+ * Pull back intake
+ */
 void Intake::retractIntake()
 {
     m_intakeSolenoid->Set(frc::DoubleSolenoid::Value::kReverse);
     intakeExtended = false;
     frc::Wait(.5);
 }
-
+/**
+ * Run intake with check of intake pulled down or not
+ * Currently unused, using forceRunIntake() right now
+ */ 
 void Intake::runIntake()
 {
-    (intakeExtended) ? (m_intakeMotor->Set(.4))
-    :(stopIntake());
+    if (intakeExtended){
+        m_intakeMotor->Set(INTAKE_POWER_IN);
+    }else{
+        stopIntake();
+    }
 }
+/**
+ * Reverse intake, check intake extended or not
+ * Currently unused, no need of reversing intake
+ */ 
 void Intake::reverseIntake()
 {
-    (intakeExtended) ? (m_intakeMotor->Set(-.4))
-    :(stopIntake());
+    if (intakeExtended){
+        m_intakeMotor->Set(INTAKE_POWER_OUT);
+    }else{
+        stopIntake();
+    }
 }
 
-void Intake::forceRunIntake(double power)
+/**
+ * Run intake
+ */ 
+void Intake::forceRunIntake()
 {
-    m_intakeMotor->Set(power);
+    m_intakeMotor->Set(INTAKE_POWER_IN);
 }
+/**
+ * stop intake
+ */ 
 void Intake::stopIntake()
 {
-    m_intakeMotor->Set(0);
+    m_intakeMotor->StopMotor();
 }
 

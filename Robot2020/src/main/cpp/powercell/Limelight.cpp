@@ -19,12 +19,21 @@ Limelight::~Limelight()
     delete m_shooter;
 }
 
+/**
+ * Calculate distance from target
+ * Formulas See https://docs.limelightvision.io/en/latest/cs_estimating_distance.html
+ * @return distance unit from target  
+ */ 
 units::inch_t Limelight::calcDist()
 {
     double angle = table->GetNumber("ty",0.0)+cameraMount.to<double>();
     return heightDiff/std::tan(angle);
 }
-//press button
+
+/**
+ * Auto aim, run & check fly wheel speed
+ * Scoring power cells
+ */ 
 void Limelight::scoreOperation()
 {
     if (m_shooter->adjustFWSpeed(m_shooter->calcRPM(calcDist()))) {
@@ -33,7 +42,12 @@ void Limelight::scoreOperation()
         m_shooter->stopFeed();
     }
 }
-//periodic
+
+/**
+ * ! add function when no target detected
+ * Auto aim, adjust hood and turret
+ * @return true if in position
+ */ 
 bool Limelight::aimOperation()
 {
     if(table->GetNumber("tv",0) == 1)
@@ -51,6 +65,11 @@ bool Limelight::aimOperation()
     return false;
 }
 
+/**
+ * Auto aim, adjust flywheel and hood position based on POV button values
+ * uses preset flywheel speed and hood position, bypass turret check
+ * @param povValue, POV button value
+ */ 
 void Limelight::scoreWithPOV(double povValue)
 {
     if(povValue == 0 || povValue == -1)
@@ -65,6 +84,11 @@ void Limelight::scoreWithPOV(double povValue)
     }
 }
 
+/**
+ * Manual aim, adjust flywheel speed based on POV button values
+ * uses preset flyWheel velocity, bypass turret and hood check
+ * @param povValue, POV button value
+ */ 
 void Limelight::scoreWithPOVManual(double povValue)
 {
     if(povValue == 0 || povValue == -1)
