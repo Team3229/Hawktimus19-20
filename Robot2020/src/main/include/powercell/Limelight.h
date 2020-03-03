@@ -29,7 +29,7 @@ public:
     ~Limelight();
 
     void limelightLED(int mode){table->PutNumber("ledMode",mode);} //0 pipeline setting, 1 force off, 2 force blink, 3 force on
-    void limelightPipeLine(int mode){table->PutNumber("pipeline",mode);}
+    void limelightPipeLine(int mode){table->PutNumber("pipeline",mode);} //0 powerport aim, 1 driver camera
     void limelightCamMode(int mode){table->PutNumber("camMode",mode);}
 
     units::inch_t calcDist();

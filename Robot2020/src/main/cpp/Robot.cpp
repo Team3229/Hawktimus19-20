@@ -11,10 +11,7 @@
 
 #include <frc/smartdashboard/SmartDashboard.h>
 
-void Robot::RobotInit() 
-{
-  frc::SmartDashboard::PutNumber("RPM",0);
-}
+void Robot::RobotInit() {}
 
 void Robot::RobotPeriodic() {}
 

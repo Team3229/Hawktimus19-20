@@ -32,14 +32,17 @@ units::inch_t Limelight::calcDist()
 
 /**
  * Auto aim, run & check fly wheel speed
+ * RPM based on distance and a ratio
  * Scoring power cells
  */ 
 void Limelight::scoreOperation()
 {
-    if (m_shooter->adjustFWSpeed(m_shooter->calcRPM(calcDist()))) {
-        m_shooter->feedShooter();
-    } else {
-        m_shooter->stopFeed();
+    if(table->GetNumber("tv",0) == 1){  //at least a targe exist
+        if (m_shooter->adjustFWSpeed(m_shooter->calcRPM(calcDist()))) {
+            m_shooter->feedShooter();
+        } else {
+            m_shooter->stopFeed();
+        }
     }
 }
 
