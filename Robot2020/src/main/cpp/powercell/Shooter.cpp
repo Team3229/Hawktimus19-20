@@ -2,6 +2,8 @@
 
 Shooter::Shooter()
 {
+    //hood likely removal, change when it is set to be removed (comment out hood functions and move to the end)
+    //in case to be used in the future as a reference (code worked fine but not good enough for mechanical needs)
     m_hoodServo = new frc::Servo(kHoodServoID);
 
     m_flyWheelFront = new rev::CANSparkMax(kFrontFWID,rev::CANSparkMax::MotorType::kBrushless);

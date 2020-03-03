@@ -52,6 +52,7 @@ bool Limelight::aimOperation()
 {
     if(table->GetNumber("tv",0) == 1)
     {
+        //remove adjust hood
         m_shooter->adjustHood(m_shooter->calcHoodPos(calcDist()));
         if(calcDist().to<double>() != 0)
         {
@@ -66,56 +67,93 @@ bool Limelight::aimOperation()
 }
 
 /**
+ * Remove when hood removed
+ * 
  * Auto aim, adjust flywheel and hood position based on POV button values
  * uses preset flywheel speed and hood position, bypass turret check
  * @param povValue, POV button value
  */ 
-void Limelight::scoreWithPOV(double povValue)
+void Limelight::scoreWithPOV(int povValue)
 {
-    if(povValue == 0 || povValue == -1)
+    switch(povValue)
     {
-        (m_shooter->adjustFWSpeed(6000) && m_shooter->adjustHood(.4)) ? (m_shooter->feedShooter())
-        : (m_shooter->stopFeed());
-    }
-    else if(povValue == 90)
-    {
-        (m_shooter->adjustFWSpeed(7000) && m_shooter->adjustHood(.4)) ? (m_shooter->feedShooter())
-        : (m_shooter->stopFeed());
+        case -1:
+            if(m_shooter->adjustFWSpeed(6000) && m_shooter->adjustHood(.4)){
+                m_shooter->feedShooter();
+            }else{
+                m_shooter->stopFeed();
+            }
+            break;
+        case 0:
+            if(m_shooter->adjustFWSpeed(6000) && m_shooter->adjustHood(.4)){
+                m_shooter->feedShooter();
+            }else{
+                m_shooter->stopFeed();
+            }
+            break;
+        case 90:
+            if(m_shooter->adjustFWSpeed(7000) && m_shooter->adjustHood(.4)){
+                m_shooter->feedShooter();
+            }else{
+                m_shooter->stopFeed();
+            }
+            break;
+        default:
+            scoreOperation();
+            break;
     }
 }
 
 /**
+ * Force a set rpm on shooter
  * Manual aim, adjust flywheel speed based on POV button values
  * uses preset flyWheel velocity, bypass turret and hood check
  * @param povValue, POV button value
  */ 
-void Limelight::scoreWithPOVManual(double povValue)
+void Limelight::scoreWithPOVManual(int povValue)
 {
-    if(povValue == 0 || povValue == -1)
+    switch(povValue)
     {
-        (m_shooter->adjustFWSpeed(4000)) ? (m_shooter->feedShooter())
-        : (m_shooter->stopFeed());
+        //depends what happen to progress on tuning/control
+        //case -1:
+        //    if(m_shooter->adjustFWSpeed(4500)){
+        //        m_shooter->feedShooter();
+        //    }else{
+        //        m_shooter->stopFeed();
+        //    }
+        //    break;
+        case 0:
+            if(m_shooter->adjustFWSpeed(4500)){
+                m_shooter->feedShooter();
+            }else{
+                m_shooter->stopFeed();
+            }
+            break;
+        case 90:    //right trench
+            if(m_shooter->adjustFWSpeed(5000)){
+                m_shooter->feedShooter();
+            }else{
+                m_shooter->stopFeed();
+            }
+            break;
+        case 180:   //back
+            if(m_shooter->adjustFWSpeed(5500)){
+                m_shooter->feedShooter();
+            }else{
+                m_shooter->stopFeed();
+            }
+            break;
+        case 270:   //left side
+            if(m_shooter->adjustFWSpeed(5000)){
+                m_shooter->feedShooter();
+            }else{
+                m_shooter->stopFeed();
+            }
+            break;
+        default:    //others
+            scoreOperation();
+            break;
     }
-    else if(povValue == 90)
-    {
-        (m_shooter->adjustFWSpeed(4500)) ? (m_shooter->feedShooter())
-        : (m_shooter->stopFeed());
-    }
-    else if(povValue == 180)
-    {
-        (m_shooter->adjustFWSpeed(5000)) ? (m_shooter->feedShooter())
-        : (m_shooter->stopFeed());
-    }
-    else if(povValue == 270)
-    {
-        (m_shooter->adjustFWSpeed(5500)) ? (m_shooter->feedShooter())
-        : (m_shooter->stopFeed());
-    }
-    else
-    {
-        (m_shooter->adjustFWSpeed(3500)) ? (m_shooter->feedShooter())
-        : (m_shooter->stopFeed());
-    }   
 }
 void Limelight::limelightDash()
 {
