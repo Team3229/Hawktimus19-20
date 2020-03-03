@@ -26,7 +26,7 @@ Limelight::~Limelight()
  */ 
 units::inch_t Limelight::calcDist()
 {
-    double angle = table->GetNumber("ty",0.0)+cameraMount.to<double>();
+    double angle = -(table->GetNumber("ty",0.0))+cameraMount.to<double>();
     return heightDiff/std::tan(angle);
 }
 
@@ -55,16 +55,20 @@ bool Limelight::aimOperation()
 {
     if(table->GetNumber("tv",0) == 1)
     {
+        m_turret->canReverse = true; //double check, enable reverse again once target found
+        turretNoTargetPos = m_turret->GetAngle(); //sets last registered turret angle before finding target
         //remove adjust hood
         //m_shooter->adjustHood(m_shooter->calcHoodPos(calcDist()));
         if(calcDist().to<double>() != 0)
         {
-            if(m_turret->VisionTurn(table->GetNumber("tx",0.0)) 
+            if(m_turret->VisionTurn(-table->GetNumber("tx",0.0)) 
                 /*&& m_shooter->adjustHood(m_shooter->calcHoodPos(calcDist()))*/)
             {
                 return true;
             }
         }
+    }else{
+        m_turret->findTarget(turretNoTargetPos);
     }
     return false;
 }
