@@ -35,7 +35,6 @@ public:
     units::inch_t calcDist();
     void scoreOperation();
     bool aimOperation();
-    void scoreWithPOV(int povValue);
     void scoreWithPOVManual(int povValue);
     double getTX() {return table->GetNumber("tx",0.0);}
     double getTY() {return table->GetNumber("ty",0.0);}

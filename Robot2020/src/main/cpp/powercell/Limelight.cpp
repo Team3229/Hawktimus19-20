@@ -56,55 +56,17 @@ bool Limelight::aimOperation()
     if(table->GetNumber("tv",0) == 1)
     {
         //remove adjust hood
-        m_shooter->adjustHood(m_shooter->calcHoodPos(calcDist()));
+        //m_shooter->adjustHood(m_shooter->calcHoodPos(calcDist()));
         if(calcDist().to<double>() != 0)
         {
-            if(m_turret->VisionTurn(table->GetNumber("tx",0.0)) &&
-                m_shooter->adjustHood(m_shooter->calcHoodPos(calcDist())))
+            if(m_turret->VisionTurn(table->GetNumber("tx",0.0)) 
+                /*&& m_shooter->adjustHood(m_shooter->calcHoodPos(calcDist()))*/)
             {
                 return true;
             }
         }
     }
     return false;
-}
-
-/**
- * Remove when hood removed
- * 
- * Auto aim, adjust flywheel and hood position based on POV button values
- * uses preset flywheel speed and hood position, bypass turret check
- * @param povValue, POV button value
- */ 
-void Limelight::scoreWithPOV(int povValue)
-{
-    switch(povValue)
-    {
-        case -1:
-            if(m_shooter->adjustFWSpeed(6000) && m_shooter->adjustHood(.4)){
-                m_shooter->feedShooter();
-            }else{
-                m_shooter->stopFeed();
-            }
-            break;
-        case 0:
-            if(m_shooter->adjustFWSpeed(6000) && m_shooter->adjustHood(.4)){
-                m_shooter->feedShooter();
-            }else{
-                m_shooter->stopFeed();
-            }
-            break;
-        case 90:
-            if(m_shooter->adjustFWSpeed(7000) && m_shooter->adjustHood(.4)){
-                m_shooter->feedShooter();
-            }else{
-                m_shooter->stopFeed();
-            }
-            break;
-        default:
-            scoreOperation();
-            break;
-    }
 }
 
 /**
@@ -118,6 +80,7 @@ void Limelight::scoreWithPOVManual(int povValue)
     switch(povValue)
     {
         //depends what happen to progress on tuning/control
+        //enable if scoreOperation is not functional
         //case -1:
         //    if(m_shooter->adjustFWSpeed(4500)){
         //        m_shooter->feedShooter();
