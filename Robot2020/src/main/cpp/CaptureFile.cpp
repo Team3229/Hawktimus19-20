@@ -38,10 +38,9 @@ void CaptureFile::Open(std::string name, bool forWrite) {
 
   // Verify file opened, print debug output on status
   if (fileHandle != NULL) {
-    if(isWrite)
-    {
+    if(isWrite) {
       debugCons("Opened file " + str_filePath + " for write.\n")
-    }else{
+    } else {
       debugCons("Opened file " + str_filePath + " for read.\n")
     }
   } else {

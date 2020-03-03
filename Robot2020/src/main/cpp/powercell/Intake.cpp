@@ -1,6 +1,6 @@
 #include "powercell/Intake.h"
 
-Intake::Intake(/* args */)
+Intake::Intake()
 {
     m_compressor = new frc::Compressor{kCompressorPCMID};
     m_intakeSolenoid = new frc::DoubleSolenoid{kForwardIntakeID,kReverseIntakeID};
@@ -29,8 +29,11 @@ Intake::~Intake()
 void Intake::controlComp()
 {
     bool compressorState = m_compressor->GetPressureSwitchValue();
-    (!compressorState) ? (m_compressor->SetClosedLoopControl(false))
-    : (m_compressor->SetClosedLoopControl(true));
+    if (!compressorState) { 
+        m_compressor->SetClosedLoopControl(false);
+    } else {
+        m_compressor->SetClosedLoopControl(true);
+    }
 }
 /**
  * Pull down intake
@@ -56,9 +59,9 @@ void Intake::retractIntake()
  */ 
 void Intake::runIntake()
 {
-    if (intakeExtended){
+    if (intakeExtended) {
         m_intakeMotor->Set(INTAKE_POWER_IN);
-    }else{
+    } else {
         stopIntake();
     }
 }
@@ -68,13 +71,12 @@ void Intake::runIntake()
  */ 
 void Intake::reverseIntake()
 {
-    if (intakeExtended){
+    if (intakeExtended) {
         m_intakeMotor->Set(INTAKE_POWER_OUT);
-    }else{
+    } else {
         stopIntake();
     }
 }
-
 /**
  * Run intake
  */ 

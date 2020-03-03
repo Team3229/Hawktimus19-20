@@ -167,7 +167,6 @@ void Robot::ExecuteControls()
   if (m_controllerInputs->drive_RightBumper) {
     m_climber.ToggleClimb();
   }
-
 }
 
 #ifndef RUNNING_FRC_TESTS

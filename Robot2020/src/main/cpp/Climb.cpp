@@ -16,15 +16,7 @@ void Climb::ToggleClimb() {
   } else {
     m_climber->Set(frc::DoubleSolenoid::Value::kReverse);
   }
-  
-  /*
-  if (m_climbToggle) {
-    m_climber->Set(frc::DoubleSolenoid::Value::kForward);
-    m_climbToggle = false;
-  } else {
-    m_climber->Set(frc::DoubleSolenoid::Value::kReverse);
-    m_climbToggle = true;
-  } */
+
   debugCons("Climber pneumatics toggled.\n");
   frc::Wait(1.0);
 }
