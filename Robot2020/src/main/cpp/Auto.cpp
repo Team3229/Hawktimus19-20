@@ -11,7 +11,8 @@ Auto::Auto(Drivetrain *c, Turret *t, Shooter *s, Limelight *v, Intake *i) {
   autoIntake = i;
 
   // Setup SmartDashboard
-  //frc::ShuffleBoard::PutString(driverStationText, defaultFileName);
+  frc::SmartDashboard::PutString("Auto files:\n", stationFileList);
+  frc::SmartDashboard::PutString(stationText, defaultFileName);
 }
 
 Auto::~Auto() {
@@ -25,8 +26,8 @@ Auto::~Auto() {
 void Auto::SetupPlayback() {
   // Put in Robot::AutonomousInit
   // Get driver station info and setup
-  //inputFileName =
-      //frc::SmartDashboard::GetString(driverStationText, defaultFileName);
+  inputFileName =
+      frc::SmartDashboard::GetString(stationText, defaultFileName);
   debugCons("Reading auto instructions from /home/lvuser/" + inputFileName + ".aut\n");
   std::string filePath = "/home/lvuser/" + inputFileName + ".aut";
   cmdFile.Open(filePath, READ);
@@ -43,8 +44,8 @@ void Auto::ReadFile(cmd * inputs) {
 
 void Auto::SetupRecording() {
   // Put in Robot::TestInit()
-  //inputFileName =
-      //frc::SmartDashboard::GetString(driverStationText, defaultFileName);
+  inputFileName =
+      frc::SmartDashboard::GetString(stationText, defaultFileName);
   debugCons("Writing instructions to /home/lvuser/" + inputFileName + ".aut\n");
   std::string filePath = "/home/lvuser/" + inputFileName + ".aut";
   cmdFile.Open(filePath, WRITE);

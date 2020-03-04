@@ -5,7 +5,7 @@
 #include <iostream>
 #include <string>
 
-#include <frc/smartdashboard/SendableChooser.h>
+#include <frc/smartdashboard/SmartDashboard.h>
 #include <frc/XboxController.h>
 #include <Math.h>
 #include "frc/Timer.h"
@@ -24,8 +24,6 @@ private:
 
   // Pass in our subsystems
   // MAKE SURE TO UPDATE CONSTRUCTOR ARGS AND SUBSYSTEMS FOR THIS YEAR
-
-  // EXAMPLE FROM ROBOT2019
   Drivetrain * autoChassis;
   Limelight * autoVisionSystem;
   Shooter * autoShooter;
@@ -34,9 +32,11 @@ private:
 
   // files stuff
   // Use .aut file extension
+  std::string stationFileList = "crossLineAndShoot.aut\ncrossLine.aut";
   std::string defaultFileName = "defaultAutoPath.aut";
-  std::string driverStationText = "Auto file path: /home/lvuser/";
+  std::string stationText = "Auto file path: /home/lvuser/";
   std::string inputFileName = "crossLineAndShoot"; //other was crossLine
+
   const bool WRITE = true;
   const bool READ = false;
   CaptureFile cmdFile {};
