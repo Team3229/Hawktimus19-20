@@ -2,6 +2,9 @@
 
 Climb::Climb() {
   m_climber = new frc::DoubleSolenoid(FORWARD_ID, REVERSE_ID);
+
+  m_climber->ClearAllPCMStickyFaults();
+  // Start pos
   m_climber->Set(frc::DoubleSolenoid::Value::kReverse);
 }
 

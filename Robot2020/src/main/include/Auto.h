@@ -32,7 +32,7 @@ private:
 
   // files stuff
   // Use .aut file extension
-  std::string stationFileList = "crossLineAndShoot.aut\ncrossLine.aut";
+  std::string stationFileList = "crossLineAndShoot.aut, crossLine.aut";
   std::string defaultFileName = "defaultAutoPath.aut";
   std::string stationText = "Auto file path: /home/lvuser/";
   std::string inputFileName = "crossLineAndShoot"; //other was crossLine

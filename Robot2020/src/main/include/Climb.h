@@ -18,12 +18,8 @@ class Climb {
     // Compressor handled in intake
     frc::DoubleSolenoid * m_climber;
 
-    bool m_climbToggle = true;
-
     const int FORWARD_ID = 0;
     const int REVERSE_ID = 1;
-
-
 };
 
 #endif // CLIMB_H
