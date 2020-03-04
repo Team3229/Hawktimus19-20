@@ -23,7 +23,7 @@ private:
     const units::inch_t mountHeight = 14_in;
     const units::inch_t heightDiff = 8_ft + 2.25_in - mountHeight;
 
-    
+    double turretNoTargetPos; 
 public:
     Limelight(Turret * turyeet, Shooter * yeeter);
     ~Limelight();

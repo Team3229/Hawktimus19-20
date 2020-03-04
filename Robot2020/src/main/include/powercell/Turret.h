@@ -11,7 +11,7 @@
 #include <frc/AnalogInput.h>
 
 #include "Debug.h"
-
+#include "drive/Drivetrain.h" //for gyro
 class Turret
 {
     public:
@@ -21,9 +21,14 @@ class Turret
         bool VisionTurn(double tX);
         void Turn(double setPower);
         double GetAngle();
+        void findTarget(double startPos);
 
         void turretDash();
-    private:        
+
+        bool canReverse;
+    private:
+        Drivetrain * m_drive;
+
         ctre::phoenix::motorcontrol::can::WPI_TalonSRX * m_turretMotor;
         frc2::PIDController * m_turretPID;
         frc::AnalogEncoder * m_turEncoder;
@@ -44,5 +49,8 @@ class Turret
         const double kP = .05;
         const double kI = 0;
         const double kD = 0;
+
+        //Turret find target
+        bool reverseDirection;
 };
 #endif
