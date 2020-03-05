@@ -102,8 +102,12 @@ void Turret::findTarget(double startPos)
             }
         }else{
             Turn(0);
-            debugCons("\nproblem with findTarget()");
+            debugCons("\nproblem with turret in findTarget(), turret: " << turretPos)
+            debugCons("\tstarting pos: " << startPos)
         }
+    }else{
+        //implement chassis turn below, try not to create conflict with control in robot.cpp
+        debugCons("\nproblem with gyro in findTarget(), gyro: " << robotPos)
     }
 }
 /**

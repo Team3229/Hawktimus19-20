@@ -164,6 +164,59 @@ void Robot::ExecuteControls()
   if (m_controllerInputs->drive_RightBumper) {
     m_climber.ToggleClimb();
   }
+
+  //Vision manip control
+  /*
+  if (m_controllerInputs->mani_YButton) { //auto aim controls
+    //turn on limelight vision
+    m_limelight.limelightLED(3);
+    m_limelight.limelightPipeLine(0);
+    //aim
+    bool canShoot = m_limelight.aimOperation();
+    debugDashNum("(R) canShoot",canShoot);
+    //shoot
+    if(m_controllerInputs->mani_RightTriggerAxis) {
+      //use after calcRPM() tuned with scoreWithPOVManual()
+      //if(canShoot) {
+      //  m_limelight.scoreOperation();
+      //}
+      if(m_controllerInputs->mani_RightBumper){ //force reverse feed during shooting
+        m_shooter.reverseFeed();
+      } else {
+        m_limelight.scoreWithPOVManual(m_controllerInputs->mani_POV);
+      }
+    } else { //no shoot
+      m_shooter.stopShooter();
+      m_shooter.stopFeed();
+    }
+  } else { //manual controls
+    //driver camera mode
+    m_limelight.limelightLED(1);
+    m_limelight.limelightPipeLine(1);
+    // Running the shooter
+    if (m_controllerInputs->mani_RightTriggerAxis > .1) {
+      m_shooter.runShooter();
+    } else {
+      m_shooter.stopShooter();
+    }
+   
+    // Aiming the shooter
+    if (std::abs(m_controllerInputs->mani_rightX) > .1) {
+      m_turret.Turn(m_controllerInputs->mani_rightX/5);
+    } else {
+      m_turret.Turn(0);
+    }
+
+    // Control the feeder
+    if (m_controllerInputs->mani_LeftTriggerAxis > .1) {
+      m_shooter.feedShooter();
+    } else if (m_controllerInputs->mani_RightBumper) { 
+      m_shooter.reverseFeed();
+    } else {
+      m_shooter.stopFeed();
+    }
+  }
+  */
 }
 
 #ifndef RUNNING_FRC_TESTS
