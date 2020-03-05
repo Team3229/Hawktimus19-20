@@ -7,8 +7,8 @@ Turret::Turret()
     m_turretMotor = new ctre::phoenix::motorcontrol::can::WPI_TalonSRX(kTurretMotorID);
     m_turretPID = new frc2::PIDController(kP,kI,kD);
     m_turEncoder = new frc::AnalogEncoder(turretEncID);
-    m_turretPID->SetTolerance(.05);
-    debugCons("\nEncoder Reset")    
+    m_turretPID->SetTolerance(kNOMINAL_TX_ERROR);
+    debugCons("\nEncoder Reset")   
     m_turEncoder->Reset();
 
     m_turretMotor->ClearStickyFaults();
@@ -28,13 +28,14 @@ Turret::~Turret()
  */ 
 bool Turret::VisionTurn(double tX)
 {
-    if (std::abs(tX)>kNOMINAL_TX_ERROR){
-        double output = m_turretPID->Calculate(tX,0);
-        Turn(output);
-        return false;
-    }else{
+    //it should output 0 when error is reduced to kNOMINAL_TX_ERROR with the setTolarence
+    double output = m_turretPID->Calculate(tX,0);
+    if(m_turretPID->AtSetpoint()){
         Turn(0);
         return true;
+    }else{
+        Turn(output);
+        return false;
     }
 }
 
@@ -123,4 +124,5 @@ double Turret::GetAngle()
 void Turret::turretDash()
 {
     debugDashNum("(Tur) Turret Encoder",GetAngle());
+    debugDashNum("(Tur) atSetpoint",m_turretPID->AtSetpoint());
 }
