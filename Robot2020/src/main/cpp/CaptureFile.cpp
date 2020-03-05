@@ -29,7 +29,7 @@ void CaptureFile::Open(std::string name, bool forWrite) {
 
   // Setup r/w perms
   isWrite = forWrite;
-  char *perms = "rb";
+  const char *perms = "rb";
   if (isWrite)
     perms = "wb";
 
