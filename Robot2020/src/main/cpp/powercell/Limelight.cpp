@@ -79,7 +79,7 @@ bool Limelight::aimOperation()
  * uses preset flyWheel velocity, bypass turret and hood check
  * @param povValue, POV button value
  */ 
-void Limelight::scoreWithPOVManual(int povValue)
+void Limelight::scoreWithPOVManual(int povValue,int rpm = 0)
 {
     switch(povValue)
     {
@@ -121,7 +121,8 @@ void Limelight::scoreWithPOVManual(int povValue)
             }
             break;
         default:    //others
-            scoreOperation();
+            m_shooter->adjustFWSpeed(rpm); //test code
+            //scoreOperation();
             break;
     }
 }
