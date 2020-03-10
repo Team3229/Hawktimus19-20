@@ -59,7 +59,7 @@ bool Shooter::readyFeed(units::inch_t dist)
  */ 
 bool Shooter::adjustFWSpeed(double rpm)
 {
-    //Single NEO, all positive, Double NEO 550, negative for FWSpeed & output
+    //Single NEO, all positive; Double NEO 550, negative for FWSpeed & output
     double FWSpeed = m_flyWheelFront->GetEncoder().GetVelocity(); //gets current rpm
     double FWOutput = m_flyWheelPID->Calculate(FWSpeed,rpm); //calculate power needed to set to rpm
     m_lastOutput = FWOutput; 

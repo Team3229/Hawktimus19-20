@@ -167,9 +167,9 @@ void Robot::ExecuteControls()
 
   //Vision manip control
   /*
-  rpm = frc::SmartDashboard::GetNumber("RPM",0); //test code
+  auto rpm = frc::SmartDashboard::GetNumber("RPM",0); //test code, tune shooter
 
-  if (m_controllerInputs->mani_YButton) { //auto aim controls
+  if (m_controllerInputs->mani_YButton) { //auto aim controls, manual control disabled when held down
     //turn on limelight vision
     m_limelight.limelightLED(3);
     m_limelight.limelightPipeLine(0);
@@ -185,8 +185,11 @@ void Robot::ExecuteControls()
       if(m_controllerInputs->mani_RightBumper){ //force reverse feed during shooting
         m_shooter.reverseFeed();
       } else {
+        //m_shooter.runShooter(); //if no time to test shooter rpm adjust but vision is working
         m_limelight.scoreWithPOVManual(m_controllerInputs->mani_POV, rpm);
       }
+    } else if (m_controllerInputs->mani_RightBumper) {
+      m_shooter.reverseFeed();
     } else { //no shoot
       m_shooter.stopShooter();
       m_shooter.stopFeed();

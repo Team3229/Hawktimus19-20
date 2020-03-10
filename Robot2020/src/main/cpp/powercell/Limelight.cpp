@@ -61,7 +61,7 @@ bool Limelight::aimOperation()
         //m_shooter->adjustHood(m_shooter->calcHoodPos(calcDist()));
         if(calcDist().to<double>() != 0)
         {
-            if(m_turret->VisionTurn(-table->GetNumber("tx",0.0)) 
+            if(m_turret->VisionTurn(table->GetNumber("tx",0.0)) 
                 /*&& m_shooter->adjustHood(m_shooter->calcHoodPos(calcDist()))*/)
             {
                 return true;
@@ -121,7 +121,7 @@ void Limelight::scoreWithPOVManual(int povValue,int rpm = 0)
             }
             break;
         default:    //others
-            m_shooter->adjustFWSpeed(rpm); //test code
+            m_shooter->adjustFWSpeed(rpm);  //test code
             //scoreOperation();
             break;
     }

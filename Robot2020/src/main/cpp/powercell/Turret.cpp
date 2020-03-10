@@ -29,7 +29,7 @@ Turret::~Turret()
 bool Turret::VisionTurn(double tX)
 {
     //it should output 0 when error is reduced to kNOMINAL_TX_ERROR with the setTolarence
-    double output = m_turretPID->Calculate(tX,0);
+    double output = -m_turretPID->Calculate(tX,0);   //negative output if -tx doesn't work in aimOperation()
     if(m_turretPID->AtSetpoint()){
         Turn(0);
         return true;
