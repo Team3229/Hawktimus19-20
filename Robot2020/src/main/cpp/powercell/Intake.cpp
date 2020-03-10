@@ -2,15 +2,16 @@
 
 Intake::Intake()
 {
-    m_compressor = new frc::Compressor{kCompressorPCMID};
-    m_intakeSolenoid = new frc::DoubleSolenoid{kForwardIntakeID,kReverseIntakeID};
-    m_intakeMotor = new rev::CANSparkMax{kIntakeMotorID,rev::CANSparkMax::MotorType::kBrushless};
-
+    m_compressor = new frc::Compressor(kCompressorPCMID);
+    m_intakeSolenoid = new frc::DoubleSolenoid(kForwardIntakeID,kReverseIntakeID);
+    //m_intakeMotor = new rev::CANSparkMax(kIntakeMotorID,rev::CANSparkMax::MotorType::kBrushless);
+    m_intakeMotor = new ctre::phoenix::motorcontrol::can::WPI_TalonSRX(kIntakeMotorID);
     m_intakeSolenoid->ClearAllPCMStickyFaults();
     m_compressor->ClearAllPCMStickyFaults();
     
-    m_intakeMotor->RestoreFactoryDefaults();
-
+    //m_intakeMotor->RestoreFactoryDefaults();
+    m_intakeMotor->ClearStickyFaults();
+    
     m_compressor->SetClosedLoopControl(true);
 }
 

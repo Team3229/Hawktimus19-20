@@ -8,6 +8,7 @@
 #include <frc/Timer.h>
 
 #include <rev/CANSparkMax.h>
+#include <ctre/phoenix/motorcontrol/can/WPI_TalonSRX.h>
 
 class Intake
 {
@@ -15,7 +16,8 @@ private:
     frc::Compressor * m_compressor;
     frc::DoubleSolenoid * m_intakeSolenoid;
 
-    rev::CANSparkMax * m_intakeMotor;
+    //rev::CANSparkMax * m_intakeMotor;
+    ctre::phoenix::motorcontrol::can::WPI_TalonSRX * m_intakeMotor;
 
     const int kIntakeMotorID = 9;
     
