@@ -109,7 +109,7 @@ void Robot::ExecuteControls()
                   -m_controllerInputs->drive_leftX*m_drive.kMaxAngularSpeed);
   }
   m_drive.UpdateOdometry();
-
+  /*
   // Running the shooter
   if (m_controllerInputs->mani_RightTriggerAxis > .1) {
     m_shooter.runShooter();
@@ -134,6 +134,7 @@ void Robot::ExecuteControls()
   } else {
     m_shooter.stopFeed();
   }
+  */
 
   // Hood control
   /*if (abs(m_controllerInputs->mani_leftY) > kDRIVEDEADBAND) {
@@ -159,14 +160,14 @@ void Robot::ExecuteControls()
   } else {
     m_intake.stopIntake(); 
   }
-
+  
   // Toggle the climber
   if (m_controllerInputs->drive_RightBumper) {
     m_climber.ToggleClimb();
   }
-
+  
   //Vision manip control
-  /*
+  
   auto rpm = frc::SmartDashboard::GetNumber("RPM",0); //test code, tune shooter
 
   if (m_controllerInputs->mani_YButton) { //auto aim controls, manual control disabled when held down
@@ -178,7 +179,7 @@ void Robot::ExecuteControls()
     debugDashNum("(R) canShoot",canShoot);
     //shoot
     if(m_controllerInputs->mani_RightTriggerAxis) {
-      //use after calcRPM() tuned with scoreWithPOVManual()
+      //use after calcRPM() tuned with scoreWithPOVManual() 
       //if(canShoot) {
       //  m_limelight.scoreOperation();
       //}
@@ -221,7 +222,6 @@ void Robot::ExecuteControls()
       m_shooter.stopFeed();
     }
   }
-  */
 }
 
 #ifndef RUNNING_FRC_TESTS
