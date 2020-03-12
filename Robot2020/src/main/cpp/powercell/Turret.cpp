@@ -83,18 +83,18 @@ void Turret::findTarget(double startPos)
         }
         //main check of turning condition
         if(startPos > 55.0 && !reverseDirection){
-            Turn(kMAX_TURRET_POWER); //turn left if turret is > 3
+            Turn(-kMAX_TURRET_POWER); //turn left if turret is > 3
         }else if(startPos < -55.0 && !reverseDirection){
-            Turn(-kMAX_TURRET_POWER); //right right if turret is < 2
+            Turn(kMAX_TURRET_POWER); //right right if turret is < 2
         }else if(turretPos > -59.0 && startPos < 0 && reverseDirection){
-            Turn(kMAX_TURRET_POWER); //turn left if turret is starting within 2,^
+            Turn(-kMAX_TURRET_POWER); //turn left if turret is starting within 2,^
             //no longer reverse since it has completed checking
             if(turretPos < -55.0){  
                 reverseDirection = !reverseDirection;
                 canReverse = false;
             }
         }else if(turretPos < 59.0 && startPos > 0 && reverseDirection){
-            Turn(-kMAX_TURRET_POWER); //turn right if turret is starting within ^,3
+            Turn(kMAX_TURRET_POWER); //turn right if turret is starting within ^,3
             //no longer reverse since it has completed checking
             if(turretPos > 55.0){
                 reverseDirection = !reverseDirection;

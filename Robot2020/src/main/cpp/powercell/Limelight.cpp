@@ -53,6 +53,10 @@ void Limelight::scoreOperation()
  */ 
 bool Limelight::aimOperation()
 {
+    /**
+     * check if there is a target in view
+     * else find target
+     */
     if(table->GetNumber("tv",0) == 1)
     {
         m_turret->canReverse = true; //double check, enable reverse again once target found
