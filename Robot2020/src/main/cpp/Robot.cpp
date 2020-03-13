@@ -104,11 +104,22 @@ void Robot::ExecuteControls()
   if (kDRIVEDEADBAND > std::abs(m_controllerInputs->drive_rightY) && 
       kDRIVEDEADBAND > std::abs(m_controllerInputs->drive_leftX)) {
     m_drive.StopMotor();
+  } else if(m_slowDriveMode){
+    m_drive.Drive(m_controllerInputs->drive_rightY*m_drive.kSlowMaxSpeed,
+                  -m_controllerInputs->drive_leftX*m_drive.kMaxAngularSpeed);
   } else {
     m_drive.Drive(m_controllerInputs->drive_rightY*m_drive.kMaxSpeed,
                   -m_controllerInputs->drive_leftX*m_drive.kMaxAngularSpeed);
   }
   m_drive.UpdateOdometry();
+  //slow mode - 4mps (affects acceleration and fine control)
+  if(m_controllerInputs->drive_AButton){
+    m_slowDriveMode = true;
+  }
+  //fast mode - 8 mps (affects acceleration and fine control)
+  if(m_controllerInputs->drive_BButton){
+    m_slowDriveMode = false;
+  }
   /*
   // Running the shooter
   if (m_controllerInputs->mani_RightTriggerAxis > .1) {

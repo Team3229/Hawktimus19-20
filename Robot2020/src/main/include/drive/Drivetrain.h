@@ -43,7 +43,7 @@ class Drivetrain {
 
   static constexpr units::meters_per_second_t kMaxSpeed = 8.0_mps;  //max speed it is allowed to calculate
   static constexpr units::radians_per_second_t kMaxAngularSpeed{wpi::math::pi*2};  // 1/2 rotation per second
-  
+  static constexpr units::meters_per_second_t kSlowMaxSpeed = 4.0_mps;
  private:
   static constexpr units::meter_t kTrackWidth = 27_in; //distance between left wheels to the right wheels
   static constexpr double kWheelRadius = units::meter_t(6_in/2).to<double>();  // 6 inch diameter

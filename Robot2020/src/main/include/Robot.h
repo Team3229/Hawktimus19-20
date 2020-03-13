@@ -54,4 +54,6 @@ class Robot : public frc::TimedRobot {
   double m_x1,m_y1;
   const int kDRIVEDEADBAND = .15; 
   const float HOOD_INCRIMENT = 0.05;
+
+  bool m_slowDriveMode = false;
 };
